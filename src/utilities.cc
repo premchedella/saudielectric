@@ -1,4 +1,14 @@
-#include "utilities.h"
+﻿#include "utilities.h"
+
+#include <QtCore\QStringList>
+#include <QtCore\QString>
+#include <QtCore\QDate>
+
+#include "common_types.h"
+
+Utilities::VatTypes Utilities::vat_type_ = Utilities::VatTypes::WITH;
+Utilities::InputFileTypes Utilities::file_type_ = 
+    Utilities::InputFileTypes::KAU1_MAIN;
 
 QString Utilities::ConvertEnglish(QString arabic)
 {
@@ -29,7 +39,9 @@ QString Utilities::ConvertEnglish(QString arabic)
     else if (*data == 1641)
       val = val + "9";
     else if (*data == 47)
-      val = val + "/";
+      val = val + "/"; 
+    else if (*data == 46)
+      val = val + ".";
     ++data;
   }
 
@@ -41,4 +53,206 @@ QString Utilities::ToFloat(QString arabic)
   QString val = arabic;
   val.insert((arabic.size() - 2), ".");
   return val;
+}
+
+QString Utilities::ToDate(QString mmddyyy)
+{
+  QString ddmmyyyy = "";
+  QChar sep = '/';
+  int index = mmddyyy.indexOf(sep);
+
+  QStringList words = mmddyyy.split('/');
+  if (words.size() == 3)
+  {
+    int day = 0;
+    int month = 0;
+    int year = 0;
+
+    //Year
+    if (words.at(0).size() == 4)
+    {
+      year = words.at(0).toInt();
+      month = words.at(1).toInt();
+      day = words.at(2).toInt();
+    }
+
+    if (year == 0)
+    {
+      year = words.at(2).toInt();
+      day = words.at(0).toInt();
+      month = words.at(1).toInt();
+    }
+    
+    if (month > 0 && month < 13)
+    {
+      day = day;
+      month = month;
+    } else
+    {
+      int temp = day;
+      day = month;
+      month = temp;
+    }
+
+    ddmmyyyy = QString::number(day).trimmed() + "/" + 
+        QString::number(month).trimmed() + "/" +
+        QString::number(year).trimmed();
+  }
+
+  return ddmmyyyy;
+}
+
+QString Utilities::ToDate(QString mmddyyy, QChar sep)
+{
+  QString ddmmyyyy = "";
+  QStringList words = mmddyyy.split(sep);
+  if (words.size() == 3)
+  {
+    int day = words.at(0).toInt();
+    int month = words.at(1).toInt();
+    int year = words.at(2).toInt();
+
+    ddmmyyyy = QString::number(day).trimmed() + "/" +
+      QString::number(month).trimmed() + "/" +
+      QString::number(year).trimmed();
+  }
+
+  return ddmmyyyy;
+}
+
+QString Utilities::ToDot(QString value)
+{
+  QString val = value;
+  val.insert((value.size() - 4), ".");
+  return val;
+}
+
+QString Utilities::ToGregorian(QString arabic)
+{
+#if 0
+//https://www.quora.com/How-can-we-convert-Hijri-dates-to-Gregorian-and-vice-versa-What-is-the-algorithm
+
+  QString date = "";
+  QStringList words = arabic.split('/');
+
+  if (words.size() == 3)
+  {
+    float day = words.at(0).toFloat();
+    float month = words.at(1).toFloat();
+    float year = words.at(2).toFloat();
+
+    float hijiri_years = (year - 1) + ((month - 1) / 12) + ((day - 1) / 354.3);
+    float greogrian_elapsed_years = hijiri_years * 354.3 / 365.24;
+    float start_greogrian = 622.54 + greogrian_elapsed_years;
+ 
+    QString s_year = QString::number(floor(start_greogrian));
+    month = start_greogrian - floor(start_greogrian);
+    month *= 11.9908;
+    QString s_month = QString::number(floor(month));    
+    day = (month - floor(month)) * 30.4398;
+    QString s_day = QString::number(floor(day));
+    date = s_day + "/" + s_month + "/" + s_year;
+  }
+  return date;
+#endif
+
+https://gist.github.com/seyyah/ebe7c309d9a9a2baf4739b6c1faf4e21
+
+  QString date = "";
+  QStringList words = arabic.split('/');
+
+  if (words.size() == 3)
+  {
+    int day = words.at(0).toInt();
+    int month = words.at(1).toInt();
+    int year = words.at(2).toInt();
+
+    int julian_day = (((11 * year + 3) / 30) + 354 * year) +
+      (+30 * month - ((month - 1) / 2)) + (day + 1948440 - 385);
+    int d = 0;
+    int m = 0;
+    int y = 0;
+    if (julian_day > 2299160) {
+      int l = julian_day + 68569;
+      int n = (4 * l) / 146097;
+      l = l - ((146097 * n + 3) / 4);
+      int i = (4000 * (l + 1)) / 1461001;
+      l = l - ((1461 * i) / 4) + 31;
+      int j = ((80 * l) / 2447);
+      d = l - ((2447 * j) / 80);
+      l = (j / 11);
+      m = j + 2 - 12 * l;
+      y = 100 * (n - 49) + i + l;
+    } else {
+      int j = julian_day + 1402;
+      int k = ((j - 1) / 1461);
+      int l = j - 1461 * k;
+      int n = ((l - 1) / 365) - (l / 1461);
+      int i = l - 365 * n + 30;
+      j = ((80 * i) / 2447);
+      d = i - ((2447 * j) / 80);
+      i = (j / 11);
+      m = j + 2 - 12 * i;
+      y = 4 * k + n + i - 4716;
+    }
+    
+    date = QString::number(d) + "/" + QString::number(m) + "/" 
+        + QString::number(y);
+  }
+
+  return date;
+}
+
+QString Utilities::ToType(QString arabic)
+{
+  QString type = "";
+  
+  QString industrial = QStringLiteral(TYPE_AR_INDUSTRIAL_1);
+  QString residential = QStringLiteral(TYPE_AR_RESIDENTIAL_1);
+  QString commercial = QStringLiteral(TYPE_AR_COMMERCIAL_1);
+  QString medical = QStringLiteral(TYPE_AR_MEDICAL_1);
+  QString charity = QStringLiteral(TYPE_AR_CHARITY_1);
+  QString educational = QStringLiteral(TYPE_AR_EDUCATIONAL_1);
+
+  if (arabic == industrial)
+  {
+    type = QStringLiteral(TYPE_ENG_INDUSTRIAL);
+  } else if (arabic == residential)
+  {
+    type = QStringLiteral(TYPE_ENG_RESIDENTIAL);
+  } else if (arabic == commercial)
+  {
+    type = QStringLiteral(TYPE_ENG_COMMERCIAL);
+  } else if (arabic == medical)
+  {
+    type = QStringLiteral(TYPE_ENG_MEDICAL);
+  } else if (arabic == charity)
+  {
+    type = QStringLiteral(TYPE_ENG_CHARITY);
+  } else if (arabic == educational)
+  {
+    type = QStringLiteral(TYPE_ENG_EDUCATIONAL);
+  }
+   
+  return type;
+}
+
+void Utilities::SetVatType(Utilities::VatTypes type)
+{
+  vat_type_ = type;
+}
+
+Utilities::VatTypes Utilities::GetVatType()
+{
+  return vat_type_;
+}
+
+void Utilities::SetFileType(Utilities::InputFileTypes type)
+{
+  file_type_ = type;
+}
+
+Utilities::InputFileTypes Utilities::GetFileType()
+{
+  return file_type_;
 }

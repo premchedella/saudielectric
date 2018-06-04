@@ -251,6 +251,7 @@ bool DbManager::IsInSubTable(const QString& name, qulonglong number)
 bool DbManager::InsertSubData(const QString& name, AccountDetails acc_details)
 {
   bool retval = false;
+#if 0
   if (db_open_)
   {
     QSqlQuery query;
@@ -279,6 +280,7 @@ bool DbManager::InsertSubData(const QString& name, AccountDetails acc_details)
     QString query_str = insert_str + val_str;
     retval = query.exec(query_str);
   }
+#endif
   return retval;
 }
 
@@ -287,6 +289,7 @@ std::vector<AccountDetails> DbManager::RetrieveSubData(const QString& name,
 {
   std::vector<AccountDetails> sub_details;
 
+#if 0
   if (db_open_)
   {
     QString search_str = "SELECT * FROM " + name + " ";
@@ -324,10 +327,11 @@ std::vector<AccountDetails> DbManager::RetrieveSubData(const QString& name,
       sub_acc_details.total_cost_ = query.value(17).toFloat();
       
       sub_details.push_back(sub_acc_details);
+
                   
     }
   }
-
+#endif
   return sub_details;
 }
 

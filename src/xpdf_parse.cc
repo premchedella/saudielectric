@@ -716,6 +716,8 @@ Block XPdfParse::RemoveSingleValueZero(Block data_in)
   
     if (words.size() == 1)
     {
+      /*int value = Utilities::ConvertEnglish(words.at(0)).toInt();
+      if (value == 0)*/
       continue;
     }
     data_out.push_back(words);
@@ -834,9 +836,25 @@ Blocks XPdfParse::GetBlocks(Block data_in)
       pblock->push_back(words);
     }    
   }
-  
+
+  // For the last block, extra data, remove the same.
   if (pblock->size() > 0)
-    pblocks.push_back(pblock);
+  {
+    start = QStringLiteral(LAST_BLOCK_WORD);
+    for (unsigned int counter = 0; counter < pblock->size(); counter++)
+    {
+      QStringList words = pblock->at(counter);
+      if (words.at(0) == start)
+      {
+        for (unsigned int index = pblock->size(); index > counter; index--)
+        {
+          pblock->pop_back();
+        }
+        pblocks.push_back(pblock);
+        break;
+      }
+    }     
+  }
 
   data_blocks_.clear();
 

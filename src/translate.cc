@@ -2,6 +2,7 @@
 
 #include <QtCore\QString>
 #include <QtWidgets\QApplication>
+#include <QtCore\QElapsedTimer>
 
 
 #include "xpdf_parse.h"
@@ -12,14 +13,165 @@
 #include "account_details.h"
 #include "industrial_data.h"
 
+#include "utilities.h"
+#include "ui\csv_write.h"
+
 int main(int argc, char *argv[])
 {
-#if 1
+#if 1  
   QApplication a(argc, argv);
-  ArabicTranslate w;
-  w.show();
-  return a.exec();
-#else
+
+  if (argc > 1)
+  {
+    bool is_process = true;
+    int file_type = 0;
+    int month = 0;
+    int year = 0;
+    QString in_file = "";
+    QString out_file = "";
+
+    if (argc == 6)
+    {
+      if (QString(argv[1]).size() > 0)
+      {
+        file_type = QString(argv[1]).toInt();
+        if ((file_type >=0) && (file_type <=2)) 
+        {
+        } else
+        {
+          std::cout << "File Type value between 0 to 2." << std::endl;
+          is_process = false;
+        }
+      } else
+      {
+        is_process = false;
+      }
+
+      if (QString(argv[2]).size() > 0)
+      {
+        month = QString(argv[2]).toInt();
+        if ((month >= 0) && (month <= 11))
+        {
+        } else
+        {
+          std::cout << "Month value between 0 to 11." << std::endl;
+          is_process = false;
+        }
+      } else
+      {
+        is_process = false;
+      }
+
+      if (QString(argv[3]).size() > 0)
+      {
+        year = QString(argv[3]).toInt();
+      } else
+      {
+        is_process = false;
+      }
+
+      if (QString(argv[4]).size() > 0)
+      {
+        in_file = QString(argv[4]);
+      } else
+      {
+        is_process = false;
+      }
+
+      if (QString(argv[5]).size() > 0)
+      {
+        out_file = QString(argv[5]);
+      } else
+      {
+        is_process = false;
+      }
+
+      QString ext = in_file.right(3);
+      ext = ext.toLower();
+
+      if (ext != "pdf")
+      {
+        std::cout << "Input file name extension is not PDF" << 
+            in_file.toStdString() << std::endl;
+        is_process = false;
+      }
+
+      ext = out_file.right(3);
+      ext = ext.toLower();
+
+      if (ext != "csv")
+      {
+        std::cout << "Output file name extension is not csv" <<
+          out_file.toStdString() << std::endl;
+        is_process = false;
+      }
+
+      
+    } else
+    {
+      is_process = false;
+    }
+
+    if (is_process)
+    {
+      if (year < 2018)
+      {
+        Utilities::SetVatType(Utilities::VatTypes::WITH_OUT);
+      } else if ((year == 2018) && ((month + 1) == 1))
+      {
+        Utilities::SetVatType(Utilities::VatTypes::PARTIAL);
+      } else {
+        Utilities::SetVatType(Utilities::VatTypes::WITH);
+      }
+            
+      if (file_type == 0)
+      {
+        Utilities::SetFileType(Utilities::InputFileTypes::KAU1_MAIN);
+      } else if (file_type == 1)
+      {
+        Utilities::SetFileType(Utilities::InputFileTypes::KAU1_BRANCH);
+      } else if (file_type == 2)
+      {
+        Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
+      }
+
+      QElapsedTimer exec_timer;
+      exec_timer.start();
+      XPdfParse xpdf_parse(in_file);
+      xpdf_parse.Parse();
+      Blocks data = xpdf_parse.GetBlocks();      
+
+      ParseData parse_data;
+      parse_data.FormData(data);
+      quint64 time_spent = exec_timer.elapsed();
+      std::cout << "Time Spent for convertion and Parsing = " << time_spent <<
+        " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+      std::vector<unsigned int> types = ParseData::GetTypes();
+      std::cout << "No. of Types in the input file = " << types.size()
+        << std::endl;
+      
+      exec_timer.start();
+      CsvWrite csv_write(out_file);
+      csv_write.Write(types.size());
+      time_spent = exec_timer.elapsed();
+      std::cout << "Time Spent for Writing data in CSV file = " << time_spent <<
+        " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+    } else
+    {
+      std::cout << "Not a valid parameters."  << std::endl;      
+    }
+    return 0;    
+  } else
+  {
+    ArabicTranslate w;
+    w.show();
+    return a.exec();
+  }
+  
+#else  
+  QString arabic = "25/10/1438"; //"4/11/1436";
+  QString date = Utilities::ToGregorian(arabic);
+#if 0
   QApplication a(argc, argv);
 
   std::cout << "Tranlate." << std::endl;
@@ -192,7 +344,7 @@ int main(int argc, char *argv[])
     //delete data;
     std::cout << "English Value = " << val.toStdString() << std::endl;
   }
-
+#endif
   return 0;
 #endif
 }
@@ -214,5 +366,7 @@ int main(int argc, char *argv[])
 4 E:\KAUST1\projects\misc\excel_arabic\test\x_pdf\input\residential.pdf
 
 E:\KAUST1\projects\misc\excel_arabic\test\x_pdf\output\residential.xls
+  4 E:\KAUST1\projects\misc\excel_arabic\test\x_pdf\input\industry_1.pdf
 
 #endif
+  

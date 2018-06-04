@@ -39,19 +39,19 @@ void IndustrialData::FormData(Blocks data)
     eng_data = Utilities::ConvertEnglish(line_data.at(7));    
     acc_details.subscription_num_ = eng_data.toULongLong();
     eng_data = Utilities::ConvertEnglish(line_data.at(5));
-    acc_details.active_pow_cons_ = eng_data.toULongLong();
+    //acc_details.active_pow_cons_ = eng_data.toULongLong();
        
     eng_data = Utilities::ConvertEnglish(line_data.at(6));
     eng_data = Utilities::ToFloat(eng_data);
-    acc_details.active_pow_cons_cost_ = eng_data.toFloat();
+    //acc_details.active_pow_cons_cost_ = eng_data.toFloat();
 
     line_data = data_block.at(4);
     eng_data = Utilities::ConvertEnglish(line_data.at(6));
-    acc_details.reactive_pow_cons_ = eng_data.toULongLong();
+    //acc_details.reactive_pow_cons_ = eng_data.toULongLong();
           
     eng_data = Utilities::ConvertEnglish(line_data.at(7));
     eng_data = Utilities::ToFloat(eng_data);
-    acc_details.reactive_pow_cons_cost_ = eng_data.toFloat();        
+    //acc_details.reactive_pow_cons_cost_ = eng_data.toFloat();        
 
     line_data = data_block.at(7);
     eng_data = Utilities::ConvertEnglish(line_data.at(1));
