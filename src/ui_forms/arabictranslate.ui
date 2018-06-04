@@ -30,7 +30,7 @@
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>390</y>
+       <y>490</y>
        <width>91</width>
        <height>30</height>
       </rect>
@@ -43,7 +43,7 @@
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>470</y>
+       <y>570</y>
        <width>91</width>
        <height>30</height>
       </rect>
@@ -56,7 +56,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>40</y>
+       <y>150</y>
        <width>61</width>
        <height>19</height>
       </rect>
@@ -69,7 +69,7 @@
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>40</y>
+       <y>150</y>
        <width>96</width>
        <height>25</height>
       </rect>
@@ -79,7 +79,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
+       <y>220</y>
        <width>361</width>
        <height>241</height>
       </rect>
@@ -124,6 +124,211 @@
       </property>
      </widget>
     </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>61</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Month</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="month_box">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>30</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>January</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>February</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>March</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>April</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>May</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>June</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>July</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>August</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>September</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>October</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>November</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>December</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>30</y>
+       <width>51</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Year</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="year_box">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>30</y>
+       <width>81</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>4</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>2014</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2015</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2016</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2017</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2018</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2019</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2020</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2021</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2022</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2023</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>New Item</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>51</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="file_type">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>80</y>
+       <width>181</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>KAU1_Main</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>KAU2_Main</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>KAU1_Branch</string>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QWidget" name="data_view" native="true">
     <property name="geometry">
@@ -151,7 +356,8 @@
     </property>
     <addaction name="file_open"/>
     <addaction name="separator"/>
-    <addaction name="file_save"/>
+    <addaction name="file_save_excel"/>
+    <addaction name="file_save_csv"/>
     <addaction name="separator"/>
     <addaction name="file_exit"/>
    </widget>
@@ -189,7 +395,7 @@
     <string>Open</string>
    </property>
   </action>
-  <action name="file_save">
+  <action name="file_save_excel">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -197,10 +403,15 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string>Save as Excel</string>
    </property>
    <property name="visible">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="file_save_csv">
+   <property name="text">
+    <string>Save As Csv</string>
    </property>
   </action>
  </widget>
