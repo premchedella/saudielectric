@@ -25,7 +25,8 @@ class ArabicTranslate : public QMainWindow
 
  public slots:
   void FileOpen();
-  void FileSave();
+  void FileSaveExcel();
+  void FileSaveCsv();
   void FileExit();
 
   void TypesIndexChanged(int index);
@@ -62,6 +63,7 @@ class ArabicTranslate : public QMainWindow
   bool is_file_save_; 
   int types_current_index_;
   DbManager* db_mgr_;  
+  unsigned int block_length_;
 };
 
 #endif // MVESFM_H

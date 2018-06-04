@@ -82,7 +82,7 @@ void ExcelWrite::Write(int type)
     QString range = "Range(A" + QString::number(index + 2) + ", Z"
         + QString::number(index + 2) + ")";
     QAxObject* range1 = sheet->querySubObject(range.toStdString().c_str());
-    
+    /*
     row_values << QString::number(acc_details.subscription_num_);
     row_values << QString::number(acc_details.type_);
     row_values << QString::number(acc_details.account_num_);
@@ -94,6 +94,9 @@ void ExcelWrite::Write(int type)
     row_values << QString::number(acc_details.reading_days_);
     row_values << QString::number(acc_details.prev_reading_);
     row_values << QString::number(acc_details.curr_reading_);
+
+    */
+    /*
     row_values << QString::number(acc_details.active_pow_cons_);
     row_values << QString::number(acc_details.reactive_pow_cons_);
     row_values << QString::number(acc_details.allowed_cons_);
@@ -107,6 +110,7 @@ void ExcelWrite::Write(int type)
     row_values << QString::number(acc_details.electrometer_fee_, 'f', 2);
     row_values << QString::number(acc_details.total_cons_cost_, 'f', 2);
     row_values << QString::number(acc_details.total_cost_, 'f', 2);
+*/
     row_values << acc_details.name_;
     row_values << acc_details.address_;    
     var_row_data = QVariant(row_values);        

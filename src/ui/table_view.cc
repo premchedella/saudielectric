@@ -58,12 +58,12 @@ void TableView::SetType(unsigned int type, bool is_all)
     if (is_all_)  //All the type blocks
     {
       QTableWidgetItem* item = new QTableWidgetItem();
-      item->setText(QString::number(acc_details.type_));
+      item->setText(acc_details.type_);
       data_table_->setItem(counter, 0, item);
     }
 
     QTableWidgetItem* item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.subscription_num_));
+    item->setText(acc_details.subscription_num_);
     if (is_all_)
     {
       data_table_->setItem(counter, 1, item);
@@ -81,6 +81,7 @@ void TableView::SetType(unsigned int type, bool is_all)
 
 void TableView::UpdateSubGroup(std::vector<AccountDetails> data)
 {
+  /*
   QStringList header;
    
   header << "Subscription\nNumber";
@@ -107,6 +108,7 @@ void TableView::UpdateSubGroup(std::vector<AccountDetails> data)
   AccountDetails acc_details = data.at(0);
 
   QTableWidgetItem* item = new QTableWidgetItem();
+  
   item->setText(QString::number(acc_details.subscription_num_));
   data_table_->setItem(0, 0, item);
 
@@ -213,27 +215,33 @@ void TableView::UpdateSubGroup(std::vector<AccountDetails> data)
     sub_table_->setItem(counter, 6, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.active_pow_cons_));
     sub_table_->setItem(counter, 7, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
     sub_table_->setItem(counter, 8, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.reactive_pow_cons_));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.reactive_pow_cons_));
     sub_table_->setItem(counter, 9, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.reactive_pow_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.reactive_pow_cons_cost_, 'f', 2));
     sub_table_->setItem(counter, 10, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.allowed_cons_));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.allowed_cons_));
     sub_table_->setItem(counter, 11, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.factor_, 'f', 2));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.factor_, 'f', 2));
     sub_table_->setItem(counter, 12, item);
 
     item = new QTableWidgetItem();
@@ -249,7 +257,8 @@ void TableView::UpdateSubGroup(std::vector<AccountDetails> data)
     sub_table_->setItem(counter, 15, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.total_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
+    //item->setText(QString::number(acc_details.total_cons_cost_, 'f', 2));
     sub_table_->setItem(counter, 16, item);
 
     item = new QTableWidgetItem();
@@ -262,6 +271,7 @@ void TableView::UpdateSubGroup(std::vector<AccountDetails> data)
   
   table_view_type_ = TABLE_VIEW_SUB;
   this->update();
+  */
 }
 
 void TableView::paintEvent(QPaintEvent *event)

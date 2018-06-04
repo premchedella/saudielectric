@@ -22,6 +22,8 @@
 #include "../parse_data.h"
 
 #include "excel_write.h"
+#include "csv_write.h"
+#include "../utilities.h"
 
 ArabicTranslate::ArabicTranslate(QWidget *parent)
   : QMainWindow(parent)
@@ -50,6 +52,31 @@ void ArabicTranslate::FileOpen()
   std::cout << "File Name = " << pdf_file_name.toStdString()
     << std::endl;
 
+  unsigned int year = ui_.year_box->currentText().toInt();
+  unsigned int month = ui_.month_box->currentIndex();
+
+  if (year < 2018)
+  {
+    Utilities::SetVatType(Utilities::VatTypes::WITH_OUT);
+  } else if ((year == 2018) && ((month + 1) == 1))
+  {
+    Utilities::SetVatType(Utilities::VatTypes::PARTIAL);
+  } else {
+    Utilities::SetVatType(Utilities::VatTypes::WITH);
+  } 
+
+  unsigned int file_type = ui_.file_type->currentIndex();
+  if (file_type == 0)
+  { 
+    Utilities::SetFileType(Utilities::InputFileTypes::KAU1_MAIN);
+  } else if (file_type == 1)
+  {
+    Utilities::SetFileType(Utilities::InputFileTypes::KAU1_BRANCH);
+  } else if (file_type == 2)
+  {
+    Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
+  }
+
   if (pdf_file_name.size() > 0)
   {
     QElapsedTimer exec_timer;
@@ -57,16 +84,18 @@ void ArabicTranslate::FileOpen()
     XPdfParse xpdf_parse(pdf_file_name);
     xpdf_parse.Parse();    
     Blocks data = xpdf_parse.GetBlocks();
-    quint64 time_spent = exec_timer.elapsed();
-    std::cout << "Time Spent for convertion and Parsing = " << time_spent <<
-      " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
-
+    block_length_ = xpdf_parse.GetBlockLength();
+    
     ParseData parse_data;
     parse_data.FormData(data);
     std::vector<unsigned int> types = ParseData::GetTypes();
     std::cout << "No. of Types in the input file = " << types.size()
       << std::endl;
-    
+
+    quint64 time_spent = exec_timer.elapsed();
+    std::cout << "Time Spent for convertion and Parsing = " << time_spent <<
+      " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+
     if (types.size() > 0)
     {
       /* Get the current types if any. If there are then remove first. */
@@ -95,9 +124,9 @@ void ArabicTranslate::FileOpen()
   this->update();
 }
 
-void ArabicTranslate::FileSave()
+void ArabicTranslate::FileSaveExcel()
 {
-  std::cout << "File Save Triggered." << std::endl;
+  std::cout << "File Save as Excel Triggered." << std::endl;
   QString current_dir = QDir::currentPath();
   QString file_name = QFileDialog::getSaveFileName(this,
       tr("Save Excel File"),
@@ -113,6 +142,29 @@ void ArabicTranslate::FileSave()
     excel_write.Write(types_current_index_);
     quint64 time_spent = exec_timer.elapsed();
     std::cout << "Time Spent for Writing data in Excel = " << time_spent <<
+      " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+  }
+  this->update();
+}
+
+void ArabicTranslate::FileSaveCsv()
+{
+  std::cout << "File Save as CSV Triggered." << std::endl;
+  QString current_dir = QDir::currentPath();
+  QString file_name = QFileDialog::getSaveFileName(this,
+    tr("Save CSV File"),
+    current_dir,
+    tr("CSV Files (*.csv)"));
+  std::cout << "File Name = " << file_name.toStdString() << std::endl;
+
+  if (file_name.size() > 0)
+  {
+    QElapsedTimer exec_timer;
+    exec_timer.start();
+    CsvWrite csv_write(file_name);
+    csv_write.Write(types_current_index_);
+    quint64 time_spent = exec_timer.elapsed();
+    std::cout << "Time Spent for Writing data in CSV file = " << time_spent <<
       " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
   }
   this->update();
@@ -164,6 +216,7 @@ void ArabicTranslate::TypesIndexChanged(int index)
 void ArabicTranslate::DbAdd()
 {
   std::cout << "DB Add is pressed." << std::endl;
+#if 0
   QElapsedTimer exec_timer;
   exec_timer.start();
   bool is_db_open = db_mgr_->IsDbOpen();
@@ -217,12 +270,15 @@ void ArabicTranslate::DbAdd()
   quint64 time_spent = exec_timer.elapsed();
   std::cout << "Time Spent for storing data in DB = " << time_spent <<
     " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+#endif
+  std::cout << "Not implemented, re-look further." << std::endl;
   std::cout << "Add DB function completed." << std::endl;
 }
 
 void ArabicTranslate::DbRetrieve()
 {
   std::cout << "Retrieve Data is pressed." << std::endl;
+#if 0
   QString line_data = ui_.search_num->text();
   qulonglong sub_num = line_data.toULongLong();
   std::cout << "Subscription Number = " << sub_num << std::endl;
@@ -278,6 +334,8 @@ void ArabicTranslate::DbRetrieve()
   }
   std::cout << "End of DB Retrieval Function." << std::endl;
   this->update();
+#endif
+  std::cout << "Not implemented, re-look further." << std::endl;
 }
 
 void ArabicTranslate::Pdf()
@@ -298,7 +356,7 @@ void ArabicTranslate::Pdf()
     exec_timer.start();
     XPdfParse xpdf_parse(pdf_file_name);
     xpdf_parse.Parse();
-    unsigned int block_length = xpdf_parse.GetBlockLength();
+    block_length_ = xpdf_parse.GetBlockLength();
     Blocks data = xpdf_parse.GetBlocks();
     quint64 time_spent = exec_timer.elapsed();
     std::cout << "Time Spent for convertion and Parsing = " << time_spent <<
@@ -356,7 +414,10 @@ void ArabicTranslate::View()
 
 void ArabicTranslate::paintEvent(QPaintEvent *event)
 {
-  ui_.file_save->setEnabled(is_file_save_);  
+  //ui_.file_save_excel->setEnabled(is_file_save_);
+  ui_.file_save_excel->setEnabled(false);
+  ui_.file_save_csv->setEnabled(is_file_save_);
+  //ui_.file_save_csv->setEnabled(true);
 }
 
 void ArabicTranslate::resizeEvent(QResizeEvent* event)
@@ -368,6 +429,8 @@ void ArabicTranslate::resizeEvent(QResizeEvent* event)
 
 void ArabicTranslate::Init()
 {
+  block_length_ = 0;
+
   //Get the current directory
   QString cur_dir = QDir::toNativeSeparators(QDir::currentPath());
   std::cout << "Current Directory is " << cur_dir.toStdString() << std::endl;
@@ -381,7 +444,6 @@ void ArabicTranslate::Init()
     style_sheet_file.close();
   }
   
-
   //database
   // Check whether database directory exists, if not create.
 
@@ -438,10 +500,10 @@ void ArabicTranslate::InitUi()
   message_box_->setVisible(false);
   message_box_->setStandardButtons(0);
 
-  /*ui_.data_base_operations->setVisible(false);
+  ui_.data_base_operations->setVisible(false);
   ui_.db_add->setVisible(false);
   ui_.search_num->setVisible(false);
-  ui_.db_retrieve->setVisible(false);*/
+  ui_.db_retrieve->setVisible(false);
 
   is_file_save_ = false;
 }
@@ -449,7 +511,8 @@ void ArabicTranslate::InitUi()
 void ArabicTranslate::ConnectSignals()
 {
   connect(ui_.file_open, SIGNAL(triggered()), this, SLOT(FileOpen()));
-  connect(ui_.file_save, SIGNAL(triggered()), this, SLOT(FileSave()));
+  connect(ui_.file_save_excel, SIGNAL(triggered()), this, SLOT(FileSaveExcel()));
+  connect(ui_.file_save_csv, SIGNAL(triggered()), this, SLOT(FileSaveCsv()));
   connect(ui_.file_exit, SIGNAL(triggered()), this, SLOT(FileExit()));
   connect(ui_.combo_box_types, SIGNAL(currentIndexChanged(int)), this,
       SLOT(TypesIndexChanged(int)));
@@ -505,6 +568,7 @@ void ArabicTranslate::InitDataTable()
 
 void ArabicTranslate::UpdateInduDataTable(Blocks data_in)
 {  
+#if 0
   data_table_->setColumnCount(10);
   QStringList header;
   header << "Subscription \n Number";
@@ -540,19 +604,23 @@ void ArabicTranslate::UpdateInduDataTable(Blocks data_in)
     data_table_->setItem(counter, 1, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_));
+    //item->setText(QString::number(acc_details.active_pow_cons_));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 2, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
+    //item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 3, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.reactive_pow_cons_));
+    //item->setText(QString::number(acc_details.reactive_pow_cons_));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 4, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.reactive_pow_cons_cost_, 'f', 2));
+    //item->setText(QString::number(acc_details.reactive_pow_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 5, item);
 
     item = new QTableWidgetItem();
@@ -575,10 +643,12 @@ void ArabicTranslate::UpdateInduDataTable(Blocks data_in)
   data_table_->setVisible(true);
   data_table_->update();
   this->update();
+#endif
 }
 
 void ArabicTranslate::UpdateResiDataTable(Blocks data_in)
 {
+#if 0
   ResidentialData resi_data;
   resi_data.FormData(data_in);
   std::vector<AccountDetails> acc_data = resi_data.GetDataInfo();
@@ -617,11 +687,13 @@ void ArabicTranslate::UpdateResiDataTable(Blocks data_in)
     data_table_->setItem(counter, 1, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_));
+    //item->setText(QString::number(acc_details.active_pow_cons_));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 2, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
+    //item->setText(QString::number(acc_details.active_pow_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 3, item);
 
     item = new QTableWidgetItem();
@@ -629,7 +701,8 @@ void ArabicTranslate::UpdateResiDataTable(Blocks data_in)
     data_table_->setItem(counter, 4, item);
 
     item = new QTableWidgetItem();
-    item->setText(QString::number(acc_details.total_cons_cost_, 'f', 2));
+    //item->setText(QString::number(acc_details.total_cons_cost_, 'f', 2));
+    item->setText(QString::number(0));
     data_table_->setItem(counter, 5, item);
 
     item = new QTableWidgetItem();
@@ -657,6 +730,7 @@ void ArabicTranslate::UpdateResiDataTable(Blocks data_in)
   data_table_->setVisible(true);
   data_table_->update();
   this->update();
+#endif
 }
 
 
