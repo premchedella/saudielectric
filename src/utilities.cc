@@ -14,10 +14,10 @@ QString Utilities::ConvertEnglish(QString arabic)
 {
   QChar *data = arabic.data();
   QString val = "";
+  bool is_negative = false;
+
   while (!data->isNull())
   {
-    QChar ind = *data;
-
     if (*data == 1632)
       val = val + "0";
     else if (*data == 1633)
@@ -42,7 +42,15 @@ QString Utilities::ConvertEnglish(QString arabic)
       val = val + "/"; 
     else if (*data == 46)
       val = val + ".";
+    else if (*data == 45)
+      is_negative = true;
+
     ++data;
+  }
+
+  if (is_negative)
+  {
+    val = "-" + val;
   }
 
   return val;

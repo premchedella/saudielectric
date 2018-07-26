@@ -104,9 +104,7 @@ int main(int argc, char *argv[])
         std::cout << "Output file name extension is not csv" <<
           out_file.toStdString() << std::endl;
         is_process = false;
-      }
-
-      
+      }      
     } else
     {
       is_process = false;
@@ -368,5 +366,8 @@ int main(int argc, char *argv[])
 E:\KAUST1\projects\misc\excel_arabic\test\x_pdf\output\residential.xls
   4 E:\KAUST1\projects\misc\excel_arabic\test\x_pdf\input\industry_1.pdf
 
+Debug
+
+  2 0 2018 E:\KAUST1\projects\misc\excel_arabic\test\par_vat\2018_vat_2.pdf E : \KAUST1\projects\misc\excel_arabic\test\par_vat\kau2_main_jan_2018_4june2018.csv
 #endif
   
