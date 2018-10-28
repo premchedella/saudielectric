@@ -23,6 +23,7 @@ class XPdfParse : public QObject
   void GeneratePdftoExcel(const QString file_name);
   unsigned int GetBlockLength();
   Blocks GetBlocks();
+  unsigned int GetTotalInvoices();
 
  private:
   
@@ -54,6 +55,7 @@ class XPdfParse : public QObject
   QString in_file_name_;
   unsigned int block_length_;
   Blocks data_blocks_;
+  unsigned int total_invoices_;
 };
 
 #endif //XPDF_PARSE_H_

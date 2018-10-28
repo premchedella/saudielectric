@@ -133,6 +133,8 @@ int main(int argc, char *argv[])
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
 
+
+      std::cout << "Application = " << VERSION << std::endl;
       QElapsedTimer exec_timer;
       exec_timer.start();
       XPdfParse xpdf_parse(in_file);

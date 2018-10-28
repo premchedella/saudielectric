@@ -8,11 +8,15 @@
 typedef std::vector<QStringList> Block;
 typedef std::vector<Block> Blocks;
 
+#define VERSION "1.0.2"
+
 #define START_BLOCK_INDEX 0
 #define END_BLOCK_INDEX 14
 #define START_BLOCK_WORD "ﺭﻗﻢ"
 #define END_BLOCK_WORD "ﺍﻟﻘﺪﺭﺓ‪:‬‬"
 #define LAST_BLOCK_WORD "ﻣﺠﻤﻮﻉ"
+
+#define START_ANOTHER_BLOCK_WORD "ﻛﻤﻴﺔ"
 
 #define INDUSTRIAL_BLOCK_LENGTH 36
 #define RESIDENTIAL_BLOCK_LENGTH 9
@@ -73,6 +77,10 @@ const std::vector<int> type_1_non_vat_small_2 = {10, 11, 9, 9, 11, 10, 2, 3 };
 #define TYPE_ENG_MEDICAL "Medical"
 #define TYPE_ENG_CHARITY "Charity"
 #define TYPE_ENG_EDUCATIONAL "Educational"
+
+
+#define TOTAL_INNOVICES_1 "عدد الفواتير"
+#define TOTAL_INNOVICES "\uFE8D\uFEDF\uFED4\uFEEE\uFE8D\uFE97\uFEF4\uFEAE"
 
 #endif //COMMON_TYPES_H_
 

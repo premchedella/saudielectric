@@ -36,6 +36,7 @@ void ParseData::FormData(Blocks data)
     QStringList line_data = data_block.at(2);
     eng_data = line_data.at(1);
     int position = eng_data.indexOf("_");
+        
     eng_data = eng_data.mid(position + 1, eng_data.size());
     eng_data = Utilities::ConvertEnglish(eng_data);
     type = eng_data.toUInt();   
@@ -47,12 +48,7 @@ void ParseData::FormData(Blocks data)
     {
       types_.push_back(type);
     }
-
-    if (index == 2109)
-    {
-      std::cout << "Temp" << std::endl;
-    }
-    
+          
     switch (type)
     {
       case 1:
@@ -66,7 +62,7 @@ void ParseData::FormData(Blocks data)
         break;
       default:
         std::cout << "Not a valid Type = " << type << std::endl;
-    }     
+    }    
   }
 }
 

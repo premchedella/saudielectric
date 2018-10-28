@@ -25,7 +25,7 @@ XPdfParse::~XPdfParse()
 void XPdfParse::Parse()
 {
   PreDirCheck();
-
+  total_invoices_ = 0;
   QString cur_dir = QDir::currentPath();
   QString base_dir = cur_dir + QDir::separator() + "..";
   QString temp_dir = base_dir + QDir::separator() + "temp";
@@ -190,6 +190,11 @@ unsigned int XPdfParse::GetBlockLength()
 Blocks XPdfParse::GetBlocks()
 {
   return data_blocks_;
+}
+
+unsigned int XPdfParse::GetTotalInvoices()
+{
+  return total_invoices_;
 }
 
 void XPdfParse::GenerateBlocks(const QString file_name)
@@ -688,6 +693,7 @@ QStringList XPdfParse::RemoveHeaderFooter(QStringList data_in)
 Block XPdfParse::ConvertData(QStringList data_in)
 {
   Block data_out;
+    
   for (unsigned int counter = 0; counter < data_in.size(); counter++)
   {
     QString line = data_in.at(counter);
@@ -697,7 +703,7 @@ Block XPdfParse::ConvertData(QStringList data_in)
     remove_char = 8236; // End Double Quote
     line.remove(remove_char, Qt::CaseInsensitive);
     remove_char = 8234; // Another Double Quote
-    line.remove(remove_char, Qt::CaseInsensitive);
+    line.remove(remove_char, Qt::CaseInsensitive);   
 
     QStringList words = line.split(" ", QString::SkipEmptyParts);
 
@@ -796,23 +802,8 @@ Block XPdfParse::RemoveIndustryHardles(Block data_in)
 
 Blocks XPdfParse::GetBlocks(Block data_in)
 { 
-  /*data_blocks_.clear();
-    
-  for (int counter = 0; counter < data_in.size();)
-  {
-    Block block;
-    for (int index = 0; index < block_length_; index++)
-    {
-      block.push_back(data_in.at(counter + index));
-    }
-    data_blocks_.push_back(block);
-    counter = counter + block_length_;
-    if ((counter + block_length_) > data_in.size())
-      break;
-  }
-  return data_blocks_;*/
-
-  QString start = QStringLiteral(START_BLOCK_WORD);  
+  QString start = QStringLiteral(START_BLOCK_WORD);
+  QString another_start = QStringLiteral(START_ANOTHER_BLOCK_WORD);
 
   PBlocks pblocks;
   Block* pblock = new Block();
@@ -832,15 +823,19 @@ Blocks XPdfParse::GetBlocks(Block data_in)
           pblocks.push_back(pblock);        
         }
         pblock = new Block();
-      }
+      } 
+
       pblock->push_back(words);
     }    
   }
+
+  QString total = QStringLiteral(TOTAL_INNOVICES);
 
   // For the last block, extra data, remove the same.
   if (pblock->size() > 0)
   {
     start = QStringLiteral(LAST_BLOCK_WORD);
+    
     for (unsigned int counter = 0; counter < pblock->size(); counter++)
     {
       QStringList words = pblock->at(counter);
@@ -848,12 +843,20 @@ Blocks XPdfParse::GetBlocks(Block data_in)
       {
         for (unsigned int index = pblock->size(); index > counter; index--)
         {
+          QStringList total_count = pblock->at(index - 1);
+          if (total_count.contains(total))
+          {
+            //Total count
+            total_invoices_ = 
+                Utilities::ConvertEnglish(total_count.at(0)).toInt();
+            std::cout << "Total Count = " << total_invoices_ << std::endl;
+          }
           pblock->pop_back();
         }
         pblocks.push_back(pblock);
         break;
       }
-    }     
+    }         
   }
 
   data_blocks_.clear();
