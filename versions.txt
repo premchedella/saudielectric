@@ -1,0 +1,6 @@
+Version 1.1
+===========
+- Added a new column Reason in the excel sheet.
+   - Whenever any column data such as Invoice Number, Account Number, Subscrption Number did not find, then the Parsing column indicates Partial.  The Reason column indicates which column does not exists in the input pdf file
+- If the field does not exists in the input file, then the corresponding value is empty and Parsing column is Partial.  
+- If any of the line in the invoice does not exist then the Parsing column is Partial and Reason column indicates Line number that does not exist.
