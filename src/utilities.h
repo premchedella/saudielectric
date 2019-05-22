@@ -1,10 +1,11 @@
 #ifndef UTILITIES_H_
 #define UTILITIES_H_
 
-
 #include <iostream>
 
 #include <QtCore\QString>
+
+#include "common_types.h"
 
 class Utilities
 {
@@ -34,6 +35,7 @@ class Utilities
   static VatTypes GetVatType();
   static void SetFileType(InputFileTypes type);
   static InputFileTypes GetFileType();
+  static Line Convert(QStringList data);
 
  private:
   static VatTypes vat_type_;

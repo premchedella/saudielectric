@@ -4,3 +4,9 @@ Version 1.1
    - Whenever any column data such as Invoice Number, Account Number, Subscrption Number did not find, then the Parsing column indicates Partial.  The Reason column indicates which column does not exists in the input pdf file
 - If the field does not exists in the input file, then the corresponding value is empty and Parsing column is Partial.  
 - If any of the line in the invoice does not exist then the Parsing column is Partial and Reason column indicates Line number that does not exist.
+
+Version 1.2
+===========
+- Removed extra line (KAU2 Main) in Dec 2018, Jan 2019, Feb 2019  etc. invoices.
+- The block or table start is compared with two words ( ‫ﻋﺎﻣﻞ‬   ‫ﺳﻌﺔ‬ ) instead of a sigle word (ﺳﻌﺔ‬) since in some of table entries are started with ﺳﻌﺔ‬, therefore the parser is considered table start, which is not case.
+   - Removed that extra line which starts with ﺳﻌﺔ‬ in the table entries.

@@ -7,8 +7,9 @@
 
 typedef std::vector<QStringList> Block;
 typedef std::vector<Block> Blocks;
+typedef std::vector<QString> Line;
 
-#define VERSION "1.0.2"
+#define VERSION "1.2"
 
 #define START_BLOCK_INDEX 0
 #define END_BLOCK_INDEX 14
@@ -17,6 +18,7 @@ typedef std::vector<Block> Blocks;
 #define LAST_BLOCK_WORD "ﻣﺠﻤﻮﻉ"
 
 #define START_ANOTHER_BLOCK_WORD "ﻛﻤﻴﺔ"
+#define START_BLOCK_WORD_TWO "ﺍﻟﻔﺌﺔ\\"
 
 #define INDUSTRIAL_BLOCK_LENGTH 36
 #define RESIDENTIAL_BLOCK_LENGTH 9

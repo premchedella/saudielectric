@@ -59,7 +59,8 @@ class AccountDetails
   QString reactive_prev_reading_; // Previous Reading of reactive Power
   QString reactive_curr_reading_; // Current Reading of reactive Power  
 
-  QString parsing_;
+  QString parsing_;   //Parsing is "Complete" or "Partial"
+  QString reason_;    // Reason for not Complete.
 
   unsigned int block_length_;       // Block Length, table length
 };

@@ -51,6 +51,7 @@ AccountDetails::AccountDetails()
   reactive_curr_reading_ = "";
 
   parsing_ = "";
+  reason_ = "";
   
   block_length_ = 0;
 }

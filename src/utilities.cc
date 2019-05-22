@@ -264,3 +264,16 @@ Utilities::InputFileTypes Utilities::GetFileType()
 {
   return file_type_;
 }
+
+
+Line Utilities::Convert(QStringList data)
+{
+  Line line_data;
+
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    line_data.push_back(data.at(index));
+  }
+
+  return line_data;
+}
