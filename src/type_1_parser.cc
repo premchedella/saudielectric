@@ -130,13 +130,14 @@ void Type1Parser::VatParseSmall(Block data_in, AccountDetails* acc_details)
   {
     line_data = data_in.at(line_no);
     /* Some of the files contains extra line which is not intended.
-     Remove that line. */
-    QString start = QStringLiteral(START_BLOCK_WORD);
+     Remove that line.  Moved this to xpdf_parse.cc file.*/
+
+    /*QString start = QStringLiteral(START_BLOCK_WORD);
     if (start == line_data.at(0))
     {
       line_no++;
       line_data = data_in.at(line_no);
-    }
+    }*/
     ParseLine::Line6(line_data, acc_details);    
   } catch (...)
   {

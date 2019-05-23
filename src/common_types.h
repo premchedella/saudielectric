@@ -72,6 +72,10 @@ const std::vector<int> type_1_non_vat_small_2 = {10, 11, 9, 9, 11, 10, 2, 3 };
 #define TYPE_AR_CHARITY_1 "\uFEA7\uFEF4\uFEAE\uFEF1"
 #define TYPE_AR_EDUCATIONAL "تعليمي"
 #define TYPE_AR_EDUCATIONAL_1 "\uFE97\uFECC\uFEE0\uFEF4\uFEE4\uFEF2"
+#define TYPE_AR_GOVERNMENTAL "حكومي"
+#define TYPE_AR_GOVERNMENTAL_1 "\uFEA3\uFEDC\uFEEE\uFEE3\uFEF2"
+
+
 
 #define TYPE_ENG_INDUSTRIAL "Industrial"
 #define TYPE_ENG_RESIDENTIAL "Residential"
@@ -79,6 +83,7 @@ const std::vector<int> type_1_non_vat_small_2 = {10, 11, 9, 9, 11, 10, 2, 3 };
 #define TYPE_ENG_MEDICAL "Medical"
 #define TYPE_ENG_CHARITY "Charity"
 #define TYPE_ENG_EDUCATIONAL "Educational"
+#define TYPE_ENG_GOVERNMENTAL "Governmental"
 
 
 #define TOTAL_INNOVICES_1 "عدد الفواتير"

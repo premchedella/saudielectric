@@ -221,6 +221,7 @@ QString Utilities::ToType(QString arabic)
   QString medical = QStringLiteral(TYPE_AR_MEDICAL_1);
   QString charity = QStringLiteral(TYPE_AR_CHARITY_1);
   QString educational = QStringLiteral(TYPE_AR_EDUCATIONAL_1);
+  QString govenmental = QStringLiteral(TYPE_AR_GOVERNMENTAL_1);
 
   if (arabic == industrial)
   {
@@ -240,7 +241,14 @@ QString Utilities::ToType(QString arabic)
   } else if (arabic == educational)
   {
     type = QStringLiteral(TYPE_ENG_EDUCATIONAL);
+  } else if (arabic == govenmental)
+  {
+    type = QStringLiteral(TYPE_ENG_GOVERNMENTAL);
+  } else
+  {
+    std::cout << "Not a suitable Sub Type."   << std::endl;
   }
+
    
   return type;
 }

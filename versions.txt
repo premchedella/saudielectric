@@ -10,3 +10,4 @@ Version 1.2
 - Removed extra line (KAU2 Main) in Dec 2018, Jan 2019, Feb 2019  etc. invoices.
 - The block or table start is compared with two words ( ‫ﻋﺎﻣﻞ‬   ‫ﺳﻌﺔ‬ ) instead of a sigle word (ﺳﻌﺔ‬) since in some of table entries are started with ﺳﻌﺔ‬, therefore the parser is considered table start, which is not case.
    - Removed that extra line which starts with ﺳﻌﺔ‬ in the table entries.
+- Added new Sub Type "Governmental" added.

@@ -261,8 +261,12 @@ Blocks XPdfParse::GetBlocks(Block data_in)
           pblocks.push_back(pblock);        
         }
         pblock = new Block();
-      } 
-
+      } else if (word_one == start) 
+      {
+        /* Some of the files contains extra line which is not intended.
+        Remove that line.  */
+        continue;
+      }
       pblock->push_back(words);
     }    
   }

@@ -27,7 +27,7 @@ void ParseData::FormData(Blocks data)
   types_.clear();
    
   for (unsigned int index = 0; index < data.size(); index++)  
-  {     
+  { 
     QString eng_data;
     unsigned int type;
     Block data_block = data.at(index);
