@@ -1,21 +1,20 @@
 ﻿#include <iostream>
 
 #include <QtCore\QString>
-#include <QtWidgets\QApplication>
+#include <QtCore\QCoreApplication>
 #include <QtCore\QElapsedTimer>
 
 #include "xpdf_parse.h"
-#include "ui\arabic_translate.h"
 #include "common_types.h"
 #include "account_details.h"
 
 #include "utilities.h"
-#include "ui\csv_write.h"
+#include "csv_write.h"
 #include "parse_data.h"
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
+  QCoreApplication core_app(argc, argv);
 
   if (argc > 1)
   {
@@ -156,12 +155,11 @@ int main(int argc, char *argv[])
     {
       std::cout << "Not a valid parameters."  << std::endl;      
     }
-    return 0;    
+    core_app.exit();
   } else
   {
-    ArabicTranslate w;
-    w.show();
-    return a.exec();
+	  std::cout << "Not a valid parameters." << std::endl;
+    core_app.exit();
   }
 }
 
