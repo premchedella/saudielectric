@@ -3,6 +3,7 @@
 #include <QtCore\QString>
 #include <QtCore\QCoreApplication>
 #include <QtCore\QElapsedTimer>
+#include <QtCore\QFileInfo>
 
 #include "xpdf_parse.h"
 #include "common_types.h"
@@ -99,7 +100,17 @@ int main(int argc, char *argv[])
         std::cout << "Output file name extension is not csv" <<
           out_file.toStdString() << std::endl;
         is_process = false;
-      }      
+      }  
+
+      //Check whether input file exists or not
+      bool is_in_file_exists = QFileInfo::exists(in_file);
+      if (!is_in_file_exists)
+      {
+        std::cout << "The Input file does not exists. " <<
+            in_file.toStdString() << std::endl;
+        is_process = false;
+      }
+
     } else
     {
       is_process = false;
@@ -127,8 +138,7 @@ int main(int argc, char *argv[])
       {
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
-
-
+      
       std::cout << "Application = " << VERSION << std::endl;
       QElapsedTimer exec_timer;
       exec_timer.start();
