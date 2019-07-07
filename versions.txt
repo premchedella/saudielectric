@@ -11,3 +11,11 @@ Version 1.2
 - The block or table start is compared with two words ( ‫ﻋﺎﻣﻞ‬   ‫ﺳﻌﺔ‬ ) instead of a sigle word (ﺳﻌﺔ‬) since in some of table entries are started with ﺳﻌﺔ‬, therefore the parser is considered table start, which is not case.
    - Removed that extra line which starts with ﺳﻌﺔ‬ in the table entries.
 - Added new Sub Type "Governmental" added.
+
+Version 1.2.1
+=============
+- Added support for input file validation.  If the input file does not exist then application returns.
+- Added document folder.
+- Removed GUI application support in the code.
+- Made few changes in the code to make comptabile with Visual Studio 2017.
+- Tested code with Visual Stuio 2017 and Qt 5.12.3
