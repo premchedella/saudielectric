@@ -248,8 +248,7 @@ QString Utilities::ToType(QString arabic)
   {
     std::cout << "Not a suitable Sub Type."   << std::endl;
   }
-
-   
+     
   return type;
 }
 
