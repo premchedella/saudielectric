@@ -139,7 +139,8 @@ int main(int argc, char *argv[])
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
       
-      std::cout << "Application = " << VERSION << std::endl;
+      std::cout << "\n" << std::endl;
+      std::cout << "Application Version = " << VERSION << std::endl;
       QElapsedTimer exec_timer;
       exec_timer.start();
       XPdfParse xpdf_parse(in_file);
@@ -149,18 +150,22 @@ int main(int argc, char *argv[])
       ParseData parse_data;
       parse_data.FormData(data);
       quint64 time_spent = exec_timer.elapsed();
-      std::cout << "Time Spent for convertion and Parsing = " << time_spent <<
-        " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+      std::cout << "Time Spent for PDF convertion and Parsing: " <<
+          time_spent <<  " milli seconds, " << (time_spent * 0.001) <<
+          "seconds. \n" << std::endl;
+
       std::vector<unsigned int> types = ParseData::GetTypes();
+#if DEBUG     
       std::cout << "No. of Types in the input file = " << types.size()
         << std::endl;
-      
+#endif      
       exec_timer.start();
       CsvWrite csv_write(out_file);
       csv_write.Write(types.size());
       time_spent = exec_timer.elapsed();
-      std::cout << "Time Spent for Writing data in CSV file = " << time_spent <<
-        " milli seconds, seconds = " << (time_spent * 0.001) << std::endl;
+      std::cout << "Time Spent for Writing data in CSV file: " << time_spent <<
+          " milli seconds, " << (time_spent * 0.001) << "seconds. \n" <<
+          std::endl;
     } else
     {
       std::cout << "Not a valid parameters."  << std::endl;      

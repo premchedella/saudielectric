@@ -82,6 +82,7 @@ void CsvWrite::WriteResidential(int type)
     stream << row_data << "\n";
 
     QString value;
+    unsigned int no_parsing_full = 0;
 
     for (unsigned int index = 0; index < data.size(); index++)
     {
@@ -145,12 +146,23 @@ void CsvWrite::WriteResidential(int type)
       row_data += value; // W     
 
       stream << row_data << "\n";
+
+      if (acc_details.parsing_ == "Completed")
+      {
+        no_parsing_full++;
+      }
     }
     csv_file.close();
+
+    std::cout << "Total Number Records = " << data.size() << std::endl;
+    std::cout << "Total Number of Full Records = " << no_parsing_full <<
+        std::endl;
+    std::wcout << "Total Number of Partial Records = " <<
+        (data.size() - no_parsing_full) << std::endl;
   }
 
   std::cout << "Saved the data in the " << file_name_.toStdString() << "."
-    << std::endl;
+    << std::endl << std::endl;
 }
 
 void CsvWrite::WriteIndustrial(int type)
@@ -214,6 +226,8 @@ void CsvWrite::WriteIndustrial(int type)
     stream << row_data << "\n";
 
     QString value;
+    unsigned int no_parsing_full = 0;
+
     for (unsigned int index = 0; index < data.size(); index++)
     {
       AccountDetails acc_details = data.at(index);
@@ -289,11 +303,21 @@ void CsvWrite::WriteIndustrial(int type)
       row_data += value; // AE
              
       stream << row_data << "\n";
+
+      if (acc_details.parsing_ == "Completed")
+      {
+        no_parsing_full++;
+      }
     }
 
     csv_file.close();
+    std::cout << "Total Number Records = " << data.size() << std::endl;
+    std::cout << "Total Number of Full Records = " << no_parsing_full <<
+      std::endl;
+    std::wcout << "Total Number of Partial Records = " <<
+      (data.size() - no_parsing_full) << std::endl;
   }
   
   std::cout << "Saved the data in the " << file_name_.toStdString() << "."
-    << std::endl;
+    << std::endl << std::endl;
 }

@@ -34,23 +34,34 @@ void XPdfParse::Parse()
 
   PdftoText(pdf_to_file);
   QStringList txt_data = ReadTextFile(pdf_to_file);
+
+#if DEBUG
   std::cout << "Size of text data, initial  = " << txt_data.size()
       << std::endl;
+#endif
 
   txt_data = RemoveWhiteSpaces(txt_data);
+
+#if DEBUG
   std::cout << "Size of text data, after white space removal = "
       << txt_data.size() << std::endl;
+#endif
 
   txt_data = RemoveHeaderFooter(txt_data);
+
+#if DEBUG
   std::cout << "Size of text data, after header and footer removal = "
       << txt_data.size() << std::endl;
-  
-  Block entire_data = ConvertData(txt_data);
+#endif
 
+  Block entire_data = ConvertData(txt_data);
   entire_data = RemoveSingleValueZero(entire_data);
+
+#if DEBUG
   std::cout << "Size of text data, after Single 0 value removal = "
         << entire_data.size() << std::endl;
-  
+#endif
+
   Blocks blocks = GetBlocks(entire_data);
 }
 
@@ -125,7 +136,10 @@ void XPdfParse::PdftoText(QString out_file)
   arguments.push_back(in_file_name_);
   arguments.push_back(out_file);
 
+#if DEBUG
   PrintCommands(exe_name, arguments);
+#endif
+
   QProcess  process;
   int retval = process.execute(exe_name, arguments);
   if (retval != 0)
@@ -134,7 +148,9 @@ void XPdfParse::PdftoText(QString out_file)
       retval <<  std::endl;
   }  else
   {
+#if DEBUG
     std::cout << "Generated the PDF to Text file." << std::endl;
+#endif
   }  
 }
 
@@ -145,7 +161,9 @@ QStringList XPdfParse::ReadTextFile(QString file_name)
   QFile inpu_file(file_name);
   if (inpu_file.open(QIODevice::ReadOnly | QIODevice::Text))
   {
-    std::cout << "Able to open the file for reading." << std::endl;
+#if DEBUG
+    std::cout << "Able to open the text file for reading." << std::endl;
+#endif
     QTextStream in(&inpu_file);
     in.setCodec("UTF-8"); // change the file codec to UTF-8.
    
@@ -155,6 +173,9 @@ QStringList XPdfParse::ReadTextFile(QString file_name)
       data_out.push_back(line);      
     }
     inpu_file.close();
+  } else
+  {
+    std::cout << "Not able to open the parsing text for reading." << std::endl;
   }
 
   return data_out;
@@ -290,8 +311,8 @@ Blocks XPdfParse::GetBlocks(Block data_in)
             //Total count
             total_invoices_ = 
                 Utilities::ConvertEnglish(total_count.at(0)).toInt();
-            std::cout << "Total Count from PDF = " << total_invoices_ <<
-                std::endl;
+            std::cout << "Total Records from PDF = " << total_invoices_ <<
+                 "\n" << std::endl;
           }
           pblock->pop_back();
         }

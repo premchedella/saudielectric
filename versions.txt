@@ -17,5 +17,7 @@ Version 1.2.1
 - Added support for input file validation.  If the input file does not exist then application returns.
 - Added document folder.
 - Removed GUI application support in the code.
-- Made few changes in the code to make comptabile with Visual Studio 2017.
-- Tested code with Visual Stuio 2017 and Qt 5.12.3
+- Removed as many as un-necessary standard out statement, which are not necessary.
+- Added DEBUG constant for certain standard out statements.
+- Made few changes in the code to make compatible  with Visual Studio 2017.
+- Tested code with Visual Studio 2017 and Qt 5.12.3

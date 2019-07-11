@@ -44,8 +44,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 2;";
-    std::cout << "Line 2 is not available." << std::endl;
+    acc_details->reason_ += "No Line 2;";    
   }
 
   //Line No.3
@@ -57,8 +56,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 3;";
-    std::cout << "Line 3 is not available." << std::endl;
+    acc_details->reason_ += "No Line 3;";    
   }
 
   //Line 4
@@ -70,8 +68,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 4;";
-    std::cout << "Line 4 is not available." << std::endl;
+    acc_details->reason_ += "No Line 4;";    
   }
 
   //Line 5
@@ -83,8 +80,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 5;";
-    std::cout << "Line 5 is not available." << std::endl;
+    acc_details->reason_ += "No Line 5;";    
   }
 
   //Line 6
@@ -96,8 +92,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";
-    std::cout << "Line 6 is not available." << std::endl;
+    acc_details->reason_ += "No Line 6;";    
   }
 
   //Line 7
@@ -109,8 +104,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";
-    std::cout << "Line 7 is not available." << std::endl;
+    acc_details->reason_ += "No Line 7;";    
   }
 
   //Line 8
@@ -122,8 +116,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 8;";
-    std::cout << "Line 8 is not available." << std::endl;
+    acc_details->reason_ += "No Line 8;";    
   }
 
   //Line 9  
@@ -135,8 +128,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 9;";
-    std::cout << "Line 9 is not available." << std::endl;
+    acc_details->reason_ += "No Line 9;";    
   }
 
   //Line 11
@@ -148,8 +140,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {    
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 11;";
-    std::cout << "Line 11 is not available." << std::endl;
+    acc_details->reason_ += "No Line 11;";    
   }
 
   //Line 15
@@ -161,8 +152,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 15;";
-    std::cout << "Line 15 is not available." << std::endl;
+    acc_details->reason_ += "No Line 15;";    
   }
 
   //Line 35
@@ -175,8 +165,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Last Line 2;";
-    std::cout << "Last 2 Line is not available." << std::endl;
+    acc_details->reason_ += "No Last Line 2;";    
   }
   
   acc_details->block_length_ = data_in.size();  
@@ -198,8 +187,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 2;";
-    std::cout << "Line 2 is not available." << std::endl;
+    acc_details->reason_ += "No Line 2;";    
   }
 
   //Line No.3
@@ -211,8 +199,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 3;";
-    std::cout << "Line 3 is not available." << std::endl;
+    acc_details->reason_ += "No Line 3;";    
   }
 
   //Line 4
@@ -224,8 +211,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 4;";
-    std::cout << "Line 4 is not available." << std::endl;
+    acc_details->reason_ += "No Line 4;";    
   }
 
   //Line 5
@@ -237,8 +223,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 5;";
-    std::cout << "Line 5 is not available." << std::endl;
+    acc_details->reason_ += "No Line 5;";    
   }
 
   //Line 6
@@ -250,8 +235,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";
-    std::cout << "Line 6 is not available." << std::endl;
+    acc_details->reason_ += "No Line 6;";    
   }
 
   //Line 7
@@ -263,8 +247,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";
-    std::cout << "Line 7 is not available." << std::endl;
+    acc_details->reason_ += "No Line 7;";    
   }
 
   //Line 8
@@ -301,8 +284,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Total Amount Line 15;";
-    std::cout << "Total Amount is not available." << std::endl;
+    acc_details->reason_ += "Total Amount Line 15;";    
   }
 
   //Line 11
@@ -314,8 +296,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 11;";
-    std::cout << "Line 11 is not available." << std::endl;
+    acc_details->reason_ += "No Line 11;";    
   }
 
   //Line 15
@@ -327,8 +308,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 15;";
-    std::cout << "Line 15 is not available." << std::endl;
+    acc_details->reason_ += "No Line 15;";    
   }
 
   //New Current Reading, Position 6  
@@ -340,8 +320,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 16;";
-    std::cout << "Line 16 is not available." << std::endl;
+    acc_details->reason_ += "No Line 16;";    
   }
   
   //Line 35
@@ -353,8 +332,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Last Line 2;";
-    std::cout << "Last Line 2 is not available." << std::endl;
+    acc_details->reason_ += "No Last Line 2;";    
   }   
   
   acc_details->block_length_ = data_in.size();  
@@ -374,8 +352,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 2;";
-    std::cout << "Line 2 is not available." << std::endl;
+    acc_details->reason_ += "No Line 2;";    
   }
 
   //Line No.3
@@ -387,8 +364,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 3;";
-    std::cout << "Line 3 is not available." << std::endl;
+    acc_details->reason_ += "No Line 3;";    
   }
 
   //Line 4
@@ -400,8 +376,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 4;";
-    std::cout << "Line 4 is not available." << std::endl;
+    acc_details->reason_ += "No Line 4;";    
   } 
 
   //Line 5
@@ -413,8 +388,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 5;";
-    std::cout << "Line 5 is not available." << std::endl;
+    acc_details->reason_ += "No Line 5;";    
   }
 
   //Line 6
@@ -426,8 +400,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";
-    std::cout << "Line 6 is not available." << std::endl;
+    acc_details->reason_ += "No Line 6;";    
   }
 
   //Line 7
@@ -439,8 +412,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";
-    std::cout << "Line 7 is not available." << std::endl;
+    acc_details->reason_ += "No Line 7;";    
   }
 
   //Line 8
@@ -452,8 +424,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   }  catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";
-    std::cout << "Line 7 is not available." << std::endl;
+    acc_details->reason_ += "No Line 7;";    
   }
 
   //Line 10
@@ -465,8 +436,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 10;";
-    std::cout << "Line 10 is not available." << std::endl;
+    acc_details->reason_ += "No Line 10;";    
   }
 
   //Line 14
@@ -478,8 +448,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 14;";
-    std::cout << "Line 14 is not available." << std::endl;
+    acc_details->reason_ += "No Line 14;";    
   }
 
   //Line 35
@@ -491,8 +460,7 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Last Line 2;";
-    std::cout << "Last Line 2 is not available." << std::endl;
+    acc_details->reason_ += "No Last Line 2;";    
   }    
   
   acc_details->block_length_ = data_in.size();  

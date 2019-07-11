@@ -47,6 +47,8 @@ typedef std::vector<QString> Line;
 #define TOTAL_INNOVICES_1 u"عدد الفواتير"
 #define TOTAL_INNOVICES u"\uFE8D\uFEDF\uFED4\uFEEE\uFE8D\uFE97\uFEF4\uFEAE"
 
+//Debug Purpose
+#define DEBUG 0
 
 #endif //COMMON_TYPES_H_
 

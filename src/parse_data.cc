@@ -22,7 +22,10 @@ ParseData::~ParseData()
 
 void ParseData::FormData(Blocks data)
 {
-  std::cout << "Number of Residential Blocks = " << data.size() << std::endl;
+#if DEBUG  
+  std::cout << "Total Number of Blocks = " << data.size() << std::endl;
+#endif
+
   account_details_.clear();
   types_.clear();
    
@@ -65,8 +68,7 @@ void ParseData::FormData(Blocks data)
       case 12:
         ParseType12(data_block, &acc_details);
         break;
-      default:
-        std::cout << "Not a valid Type = " << type << std::endl;
+      default:        
         acc_details.parsing_ = "Partial";
         acc_details.reason_ = "Type is not avaialble.";
       }

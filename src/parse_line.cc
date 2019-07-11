@@ -18,14 +18,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Electro Meter Number;";
-      std::cout << "Electrometer Number, not valid." << std::endl;
+      acc_details->reason_ += "No Electro Meter Number;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Electro Meter Number;";
-    std::cout << "Electrometer Number is not available." << std::endl;
+    acc_details->reason_ += "Not Electro Meter Number;";    
   }
 
   //Type, Position = 1
@@ -41,14 +39,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Type;";
-      std::cout << "Type, not valid." << std::endl;
+      acc_details->reason_ += "No Type;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";    
-    acc_details->reason_ += "Not Type;";
-    std::cout << "Type is not available." << std::endl;
+    acc_details->reason_ += "Not Type;";    
   }
 
   //SubType, Position = 1
@@ -64,14 +60,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Sub-Type;";
-      std::cout << "Sub Type, not valid." << std::endl;
+      acc_details->reason_ += "No Sub-Type;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial"; 
-    acc_details->reason_ += "Not Sub-Type;";
-    std::cout << "Sub Type is not available." << std::endl;
+    acc_details->reason_ += "Not Sub-Type;";    
   }
 
   //Meter Reading To, Position 2, data is Date and written in string
@@ -100,14 +94,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Meter Reading To;";
-      std::cout << "Meter Reading To, not valid." << std::endl;
+      acc_details->reason_ += "Not Meter Reading To;";      
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial"; 
-    acc_details->reason_ += "No Meter Reading To;";
-    std::cout << "Meter Reading To is not available." << std::endl;
+    acc_details->reason_ += "No Meter Reading To;";    
   }
 
   //Meter Reading From, Position 3, data is Date and written in string
@@ -136,14 +128,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Meter Reading From;";
-      std::cout << "Meter Reading From, not valid." << std::endl;
+      acc_details->reason_ += "Not Meter Reading From;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Meter Reading From;";
-    std::cout << "Meter Reading From is not available." << std::endl;
+    acc_details->reason_ += "No Meter Reading From;";    
   }
 
   //Factor, Position 4
@@ -157,14 +147,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Factor;";
-      std::cout << "Power Factor, not valid." << std::endl;
+      acc_details->reason_ += "Not Power Factor;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Power Factor;";
-    std::cout << "Factor is not available." << std::endl;
+    acc_details->reason_ += "No Power Factor;";    
   }
 
   //Capacity, Position 5
@@ -178,14 +166,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Capacity;";
-      std::cout << "Capacity, not valid." << std::endl;
+      acc_details->reason_ += "Not Capacity;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Capacity;";
-    std::cout << "Capacity is not available." << std::endl;
+    acc_details->reason_ += "No Capacity;";    
   }
 
   //Account Number, Position 6 or 8
@@ -202,14 +188,12 @@ void ParseLine::Line2(QStringList data_line, AccountDetails* acc_details)
     if (acc_details->account_num_.size() == 0)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Account Number;";
-      std::cout << "Account Number, not valid." << std::endl;
+      acc_details->reason_ += "No Account Number;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Account Number;";
-    std::cout << "Account Number is not available." << std::endl;
+    acc_details->reason_ += "Not Account Number;";    
   }
 }
 
@@ -227,14 +211,12 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Number of days;";
-      std::cout << "Number of days, not valid." << std::endl;
+      acc_details->reason_ += "No Number of days;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Number of Days;";
-    std::cout << "Number of Days is not available." << std::endl;
+    acc_details->reason_ += "Not Number of Days;";    
   }
 
   //Current Reading, Position 1 
@@ -248,14 +230,12 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Current Reading;";
-      std::cout << "Current Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Current Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Current Reading;";
-    std::cout << "Current Reading is not available." << std::endl;
+    acc_details->reason_ += "Not Current Reading;";    
   }
 
   //Previous Reading, Position 2 
@@ -269,14 +249,12 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Previous Reading;";
-      std::cout << "Previous Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Previous Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Previous Reading;";
-    std::cout << "Previous Reading is not available." << std::endl;
+    acc_details->reason_ += "Not Previous Reading;";    
   }
 
   //Power Consumption, Position 5
@@ -290,14 +268,12 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Power Consumption;";
-      std::cout << "Power Consumption, not valid." << std::endl;      
+      acc_details->reason_ += "No Power Consumption;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Power Consumption;";
-    std::cout << "Power Consumption is not available." << std::endl;
+    acc_details->reason_ += "Not Power Consumption;";    
   }
 
   //Power Consumption Cost, postion 6
@@ -311,15 +287,13 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Power Consumption Cost;";
-      std::cout << "Power Consumption Cost, not valid." << std::endl;
+      acc_details->reason_ += "No Power Consumption Cost;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Power Consumption Cost;";
-    std::cout << "Power Consumption Cost is not available." << std::endl;
+    acc_details->reason_ += "Not Power Consumption Cost;";    
   }
 
   //Subscription Number, Postion 7
@@ -333,15 +307,13 @@ void ParseLine::Line3(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Subscription Number;";
-      std::cout << "Subscription Number, not valid." << std::endl;      
+      acc_details->reason_ += "No Subscription Number;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Subscription Number;";
-    std::cout << "Subscription Number is not available." << std::endl;
+    acc_details->reason_ += "Not Subscription Number;";    
   }
 }
 
@@ -375,15 +347,13 @@ void ParseLine::Line4(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Invoice Date;";
-      std::cout << "Invoice Date, not valid." << std::endl;
+      acc_details->reason_ += "No Invoice Date;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Invoice Date;";
-    std::cout << "Invoice Date is not available." << std::endl;
+    acc_details->reason_ += "Not Invoice Date;";    
   }
 
   //Electrometer Fee, Postion 5
@@ -397,15 +367,13 @@ void ParseLine::Line4(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Electro Meter Fee;";
-      std::cout << "Electrometer Fee, not valid." << std::endl;
+      acc_details->reason_ += "No Electro Meter Fee;";      
     }    
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Electro Meter Fee;";
-    std::cout << "Electrometer Fee is not available." << std::endl;
+    acc_details->reason_ += "Not Electro Meter Fee;";    
   }
 }
 
@@ -424,15 +392,13 @@ void ParseLine::Line4Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Current Reading;";
-      std::cout << "Other Current Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Other Current Reading;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Current Reading;";
-    std::cout << "Other Current Reading is not available." << std::endl;
+    acc_details->reason_ += "Not Other Current Reading;";    
   }
   
   //Other Previous Reading, Position 1 
@@ -446,15 +412,13 @@ void ParseLine::Line4Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Previous Reading;";
-      std::cout << "Other Previous Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Other Previous Reading;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Previous Reading;";
-    std::cout << "Other Previous Reading is not available." << std::endl;
+    acc_details->reason_ += "Not Other Previous Reading;";    
   }
 
   //Reactive Power Consumption, Position 6
@@ -468,14 +432,12 @@ void ParseLine::Line4Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Power Consumption;";
-      std::cout << "Other Power Consumption, not valid." << std::endl;
+      acc_details->reason_ += "No Other Power Consumption;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Power Consumption;";
-    std::cout << "Other Power Consumption is not available." << std::endl;
+    acc_details->reason_ += "Not Other Power Consumption;";    
   }
 
   //Reactive Power Consumption Cost, Position 7
@@ -489,15 +451,13 @@ void ParseLine::Line4Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Power Consumption cost;";
-      std::cout << "Other Power Consumption Cost, not valid." << std::endl;
+      acc_details->reason_ += "No Other Power Consumption cost;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Power Consumption cost;";
-    std::cout << "Other Power Consumption Cost is not available." << std::endl;
+    acc_details->reason_ += "Not Other Power Consumption cost;";    
   }
 }
 
@@ -516,15 +476,13 @@ void ParseLine::Line5(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Invoice Number;";
-      std::cout << "Invoice Number, not valid." << std::endl;
+      acc_details->reason_ += "No Invoice Number;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Invoice Number;";
-    std::cout << "Invoice Number is not available." << std::endl;
+    acc_details->reason_ += "Not Invoice Number;";    
   }
 
   //Total Power Consumption Cost, position 5
@@ -538,14 +496,12 @@ void ParseLine::Line5(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Power Consumption Cost;";
-      std::cout << "Total Power Consumption Cost, not valid." << std::endl;
+      acc_details->reason_ += "No Total Power Consumption Cost;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Power Consumption Cost;";
-    std::cout << "Total Power Consumption cost is not available." << std::endl;
+    acc_details->reason_ += "Not Total Power Consumption Cost;";    
   }
 }
 
@@ -564,14 +520,12 @@ void ParseLine::Line6(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement;";
-      std::cout << "Settlement, not valid." << std::endl;
+      acc_details->reason_ += "No Settlement;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Settlement;";
-    std::cout << "Settlement is not available." << std::endl;
+    acc_details->reason_ += "Not Settlement;";    
   }
 }
 
@@ -604,15 +558,13 @@ void ParseLine::Line7(QStringList data_line, AccountDetails* acc_details)
     if (acc_details->vat_.size() == 0)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No VAT;";
-      std::cout << "VAT, not valid." << std::endl;
+      acc_details->reason_ += "No VAT;";      
     }
         
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not VAT;";
-    std::cout << "VAT is not available." << std::endl;
+    acc_details->reason_ += "Not VAT;";    
   }
 }
 
@@ -631,14 +583,12 @@ void ParseLine::Line8(QStringList data_line, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Cost;";
-      std::cout << "Total Cost, not valid." << std::endl;
+      acc_details->reason_ += "No Total Cost;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Cost;";
-    std::cout << "Total Cost is not available." << std::endl;
+    acc_details->reason_ += "Not Total Cost;";    
   }
 }
 
@@ -657,15 +607,13 @@ void ParseLine::Line11(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Reactive Consumption;";
-      std::cout << "Total Reactive Consumption, not valid." << std::endl;
+      acc_details->reason_ += "No Total Reactive Consumption;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Reactive Consumption;";
-    std::cout << "Total Reactive Consumption is not available." << std::endl;
+    acc_details->reason_ += "Not Total Reactive Consumption;";    
   }
     
   //Allowed Consumption, Position 5
@@ -679,15 +627,13 @@ void ParseLine::Line11(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Allowed Consumption;";
-      std::cout << "Allowed Consumption, not valid." << std::endl;
+      acc_details->reason_ += "No Allowed Consumption;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Allowed Consumption;";
-    std::cout << "Allowed Consumption is not available." << std::endl;
+    acc_details->reason_ += "Not Allowed Consumption;";    
   }
 
   //Power factor, Postion 12
@@ -701,14 +647,12 @@ void ParseLine::Line11(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Power Factor;";
-      std::cout << "Power Factor, not valid." << std::endl;
+      acc_details->reason_ += "No Power Factor;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Power Factor;";
-    std::cout << "Power Factor is not available." << std::endl;
+    acc_details->reason_ += "Not Power Factor;";    
   }
 }
 
@@ -727,14 +671,12 @@ void ParseLine::Line15(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Sub Previous Reading;";
-      std::cout << "Sub Prev Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Sub Previous Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Sub Previous Reading;";
-    std::cout << "Sub Prev Reading is not avaialble." << std::endl;
+    acc_details->reason_ += "Not Sub Previous Reading;";    
   }
 
   //Sub Current Reading, Position 5
@@ -748,14 +690,12 @@ void ParseLine::Line15(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Sub Current Reading;";
-      std::cout << "Sub Current Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Sub Current Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Sub Current Reading;";
-    std::cout << "Sub Current Reading is not avaialble." << std::endl;
+    acc_details->reason_ += "Not Sub Current Reading;";    
   }
 }
 
@@ -774,15 +714,13 @@ void ParseLine::Line15ParVat(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Sub Previous Reading;";
-      std::cout << "Sub Prev Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Sub Previous Reading;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Sub Previous Reading;";
-    std::cout << "Sub Prev Reading is not avaialble." << std::endl;
   }
 }
 
@@ -801,15 +739,13 @@ void ParseLine::Line16ParVat(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Sub Current Reading;";
-      std::cout << "Sub Current Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Sub Current Reading;";      
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Sub Current Reading;";
-    std::cout << "Sub Current Reading is not avaialble." << std::endl;
+    acc_details->reason_ += "Not Sub Current Reading;";    
   }
 }
 
@@ -827,14 +763,12 @@ void ParseLine::LineLast2(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Reactive Power Consumption;";
-      std::cout << "Total Reactive Power Consumtpion, not valid." << std::endl;
+      acc_details->reason_ += "No Total Reactive Power Consumption;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Reactive Power Consumption;";
-    std::cout << "Total Reactive Power Consumtpion not available." << std::endl;
+    acc_details->reason_ += "Not Total Reactive Power Consumption;";    
   }
 
   //Multiplication Factor for Reactive Power, Position 2
@@ -848,14 +782,12 @@ void ParseLine::LineLast2(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Factor for Reactive Power;";
-      std::cout << "Factor for Reactive Power, not valid." << std::endl;
+      acc_details->reason_ += "No Factor for Reactive Power;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Factor for Reactive Power;";
-    std::cout << "Factor for Reactive Power not available." << std::endl;
+    acc_details->reason_ += "Not Factor for Reactive Power;";    
   }
 
   //Previous Reactive Power Meter Reading, Position 4
@@ -869,14 +801,12 @@ void ParseLine::LineLast2(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Previous Meter Reading;";
-      std::cout << "Reacive Previous Meter Reading, not valid." << std::endl;
+      acc_details->reason_ += "No Reactive Previous Meter Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Previous Meter Reading;";
-    std::cout << "Reacive Previous Meter Reading not available." << std::endl;
+    acc_details->reason_ += "Not Reactive Previous Meter Reading;";    
   }
 
   //Current Reactive Power Meter Reading, Position 6
@@ -890,13 +820,11 @@ void ParseLine::LineLast2(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Current Meter Reading;";
-      std::cout << "Reacive Current Meter Reading not available." << std::endl;
+      acc_details->reason_ += "No Reactive Current Meter Reading;";      
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Current Meter Reading;";
-    std::cout << "Reacive Current Meter Reading not available." << std::endl;
+    acc_details->reason_ += "Not Reactive Current Meter Reading;";    
   }
 }
