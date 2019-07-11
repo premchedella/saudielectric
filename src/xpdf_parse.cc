@@ -240,8 +240,7 @@ Blocks XPdfParse::GetBlocks(Block data_in)
 { 
   QString start = QStringLiteral(START_BLOCK_WORD);
   QString start_two = QStringLiteral(START_BLOCK_WORD_TWO);
-  QString another_start = QStringLiteral(START_ANOTHER_BLOCK_WORD);
-
+  
   std::vector<Block*> pblocks;
   Block* pblock = new Block();
 

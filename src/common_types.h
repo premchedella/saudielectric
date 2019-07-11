@@ -17,7 +17,6 @@ typedef std::vector<QString> Line;
 #define END_BLOCK_WORD u"ﺍﻟﻘﺪﺭﺓ‪:‬‬"
 #define LAST_BLOCK_WORD u"ﻣﺠﻤﻮﻉ"
 
-#define START_ANOTHER_BLOCK_WORD u"ﻛﻤﻴﺔ"
 #define START_BLOCK_WORD_TWO u"ﺍﻟﻔﺌﺔ\\"
 
 #define INDUSTRIAL_BLOCK_LENGTH 36
