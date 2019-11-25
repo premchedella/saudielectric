@@ -10,6 +10,8 @@ Utilities::VatTypes Utilities::vat_type_ = Utilities::VatTypes::WITH;
 Utilities::InputFileTypes Utilities::file_type_ = 
     Utilities::InputFileTypes::KAU1_MAIN;
 
+bool Utilities::is_other_fees_= false;
+
 QString Utilities::ConvertEnglish(QString arabic)
 {
   QChar *data = arabic.data();
@@ -283,4 +285,24 @@ Line Utilities::Convert(QStringList data)
   }
 
   return line_data;
+}
+
+bool Utilities::IsOtherFees(QStringList data)
+{
+  bool is_other_fees = false;
+  QString other_fees = data.at(0) + " " + data.at(1);
+  QString other_fees_constant = QStringLiteral(OTHER_FEES);
+
+  if (other_fees == other_fees_constant)
+  {
+    is_other_fees = true;
+    is_other_fees_ = true;
+  }
+
+  return is_other_fees;
+}
+
+bool Utilities::IsOtherFees()
+{
+  return is_other_fees_;
 }

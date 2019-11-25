@@ -19,6 +19,10 @@ typedef std::vector<QString> Line;
 #define LAST_BLOCK_WORD u"ﻣﺠﻤﻮﻉ"
 #define START_BLOCK_WORD_TWO u"ﺍﻟﻔﺌﺔ\\"
 
+
+#define OTHER_FEES u"ﺭﺳﻮﻡ ﺃﺧﺮﻯ"
+
+
 //Types
 #define TYPE_AR_INDUSTRIAL u"صناعي"
 #define TYPE_AR_INDUSTRIAL_1 u"\uFEBB\uFEE8\uFE8E\uFECB\uFEF2"

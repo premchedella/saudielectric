@@ -36,10 +36,13 @@ class Utilities
   static void SetFileType(InputFileTypes type);
   static InputFileTypes GetFileType();
   static Line Convert(QStringList data);
-
+  static bool IsOtherFees(QStringList data);
+  static bool IsOtherFees();
+  
  private:
   static VatTypes vat_type_;
   static InputFileTypes file_type_;
+  static bool is_other_fees_;
 };
 
 #endif //UTILITIES_H_
