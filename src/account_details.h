@@ -60,9 +60,7 @@ class AccountDetails
   QString reactive_curr_reading_; // Current Reading of reactive Power  
 
   QString parsing_;   //Parsing is "Complete" or "Partial"
-  QString reason_;    // Reason for not Complete.
-
-  unsigned int block_length_;       // Block Length, table length
+  QString reason_;    // Reason for not Complete.  
 };
 
 #endif //ACCOUNT_DETAILS_H_

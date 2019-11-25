@@ -163,9 +163,7 @@ void Type1Parser::VatParseSmall(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 8;";    
-  } 
- 
-  acc_details->block_length_ = data_in.size();
+  }   
 }
 
 void Type1Parser::VatParseLarge(Block data_in, AccountDetails* acc_details)
@@ -305,9 +303,7 @@ void Type1Parser::VatParseLarge(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }    
-  
-  acc_details->block_length_ = data_in.size();
+  }      
 }
 
 void Type1Parser::ParVatParseSmall(Block data_in, AccountDetails* acc_details)
@@ -411,9 +407,7 @@ void Type1Parser::ParVatParseSmall(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line Total Amount;";    
-  }   
-  
-  acc_details->block_length_ = data_in.size();
+  }     
 }
 
 void Type1Parser::ParVatParseLarge(Block data_in, AccountDetails* acc_details)
@@ -576,9 +570,7 @@ void Type1Parser::ParVatParseLarge(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }
-    
-  acc_details->block_length_ = data_in.size();
+  }  
 }
 
 void Type1Parser::NonVatParseSmall(Block data_in, AccountDetails* acc_details)
@@ -656,9 +648,7 @@ void Type1Parser::NonVatParseSmall(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 7;";    
-  }
-
-  acc_details->block_length_ = data_in.size();
+  }  
 }
 
 void Type1Parser::NonVatParseLarge(Block data_in, AccountDetails* acc_details)
@@ -785,7 +775,5 @@ void Type1Parser::NonVatParseLarge(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }
-  
-  acc_details->block_length_ = data_in.size();
+  }  
 }

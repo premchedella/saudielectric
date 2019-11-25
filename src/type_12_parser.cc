@@ -166,9 +166,8 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }
+  }  
   
-  acc_details->block_length_ = data_in.size();  
 }
 
 void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
@@ -333,9 +332,7 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }   
-  
-  acc_details->block_length_ = data_in.size();  
+  }     
 }
 
 void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
@@ -461,8 +458,6 @@ void Type12Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last Line 2;";    
-  }    
-  
-  acc_details->block_length_ = data_in.size();  
+  }      
 }
 

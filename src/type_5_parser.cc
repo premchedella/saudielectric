@@ -118,9 +118,7 @@ void Type5Parser::VatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 8;";    
-  }  
-  
-  acc_details->block_length_ = data_in.size();     
+  }    
 }
 
 void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
@@ -225,9 +223,7 @@ void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line Total Amount;";    
-  }    
-  
-  acc_details->block_length_ = data_in.size();  
+  }      
 }
 
 void Type5Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
@@ -307,7 +303,6 @@ void Type5Parser::NonVatParse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 7;";    
-  }
-  acc_details->block_length_ = data_in.size();  
+  }  
 }
 
