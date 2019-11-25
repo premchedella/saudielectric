@@ -36,6 +36,8 @@ class AccountDetails
   QString invoice_num_;          // Invoice Number
   QString total_power_cons_cost_;     // Total Power Conmption cost
 
+  QString other_fees_;    // Other fees
+
   QString settlement_;                // Settlement
 
   QString vat_;                       // VAT

@@ -27,6 +27,7 @@ AccountDetails::AccountDetails()
   invoice_num_ = "";
   total_power_cons_cost_ = "";     
 
+  other_fees_ = "";
   settlement_ = "";                
 
   vat_ = "";                       
