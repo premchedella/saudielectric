@@ -12,16 +12,13 @@ typedef std::vector<QString> Line;
 #define VERSION "1.2.1"
 
 #define START_BLOCK_INDEX 0
-#define END_BLOCK_INDEX 14
 
 #define START_BLOCK_WORD u"ﺭﻗﻢ"
 #define END_BLOCK_WORD u"ﺍﻟﻘﺪﺭﺓ‪:‬‬"
 #define LAST_BLOCK_WORD u"ﻣﺠﻤﻮﻉ"
 #define START_BLOCK_WORD_TWO u"ﺍﻟﻔﺌﺔ\\"
 
-
 #define OTHER_FEES u"ﺭﺳﻮﻡ ﺃﺧﺮﻯ"
-
 
 //Types
 #define TYPE_AR_INDUSTRIAL u"صناعي"
