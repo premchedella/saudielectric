@@ -84,8 +84,26 @@ void Type5Parser::VatParse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 5;";    
   }
 
-  //Line 6
+  //Line Other Fees
   line_no++;
+  try
+  {
+    line_data = data_in.at(line_no);
+    bool is_other_fees = Utilities::IsOtherFees(line_data);
+    if (is_other_fees)
+    {
+      ParseLine::OtherFees(line_data, acc_details);
+      line_no++;
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Other Fees Line;";
+  }
+
+  //Line Settlement
+  
   try
   {
     line_data = data_in.at(line_no);
@@ -93,7 +111,7 @@ void Type5Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";    
+    acc_details->reason_ += "No Settlement Line;";    
   }
 
   //Line 7
@@ -105,7 +123,7 @@ void Type5Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";    
+    acc_details->reason_ += "No VAT Line;";    
   }
 
   //Line 8 
@@ -117,7 +135,7 @@ void Type5Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 8;";    
+    acc_details->reason_ += "No Total Amount Line;";    
   }    
 }
 
@@ -175,7 +193,7 @@ void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 5;";    
   }
 
-  //Line 6
+  //Line Settlement
   line_no++;
   try
   {
@@ -184,10 +202,10 @@ void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";    
+    acc_details->reason_ += "No Settlement Line;";    
   }
 
-  //Line 7
+  //Line VAT
   line_no++;
   try
   {
@@ -213,7 +231,7 @@ void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
     
   }
   
-  //Line 8   
+  //Line Total Amount  
 
   try
   {
@@ -222,7 +240,7 @@ void Type5Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line Total Amount;";    
+    acc_details->reason_ += "No Total Amount Line;";    
   }      
 }
 
