@@ -22,6 +22,7 @@ class ParseLine
   static void Line15ParVat(QStringList data, AccountDetails* acc_details);
   static void Line16ParVat(QStringList data, AccountDetails* acc_details);
   static void LineLast2(QStringList data, AccountDetails* acc_details);
+  static void OtherFees(QStringList data, AccountDetails* acc_details);
 };
 
 #endif //PARSE_LINE_H_

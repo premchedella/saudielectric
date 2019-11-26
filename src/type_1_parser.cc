@@ -120,25 +120,34 @@ void Type1Parser::VatParseSmall(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 5;";    
   }
 
-  //Line 6
+  //Line Other Fees
   line_no++;
+  
+  try
+  {      
+    line_data = data_in.at(line_no);
+    bool is_other_fees = Utilities::IsOtherFees(line_data);
+    if (is_other_fees)
+    {
+      ParseLine::OtherFees(line_data, acc_details);
+      line_no++;
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Other Fees Line;";
+  }
+  
+  //Line 6
   try 
   {
-    line_data = data_in.at(line_no);
-    /* Some of the files contains extra line which is not intended.
-     Remove that line.  Moved this to xpdf_parse.cc file.*/
-
-    /*QString start = QStringLiteral(START_BLOCK_WORD);
-    if (start == line_data.at(0))
-    {
-      line_no++;
-      line_data = data_in.at(line_no);
-    }*/
+    line_data = data_in.at(line_no);    
     ParseLine::Line6(line_data, acc_details);    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 6;";    
+    acc_details->reason_ += "No Settlement Line;";    
   }
 
   //Line 7
@@ -150,7 +159,7 @@ void Type1Parser::VatParseSmall(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";    
+    acc_details->reason_ += "No VAT Line;";    
   }
 
   //Line 8 
@@ -162,7 +171,7 @@ void Type1Parser::VatParseSmall(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 8;";    
+    acc_details->reason_ += "No Total Line;";    
   }   
 }
 

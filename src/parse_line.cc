@@ -828,3 +828,28 @@ void ParseLine::LineLast2(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reactive Current Meter Reading;";    
   }
 }
+
+void ParseLine::OtherFees(QStringList data_line, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data_line);
+
+  //Other Fees, postion 2
+  try
+  {
+    QString token = line_data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+    if (value.size() > 0)
+    {
+      acc_details->other_fees_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Other Fees;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Other Fees;";
+  }
+}
