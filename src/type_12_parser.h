@@ -18,5 +18,7 @@ class Type12Parser
   void VatParse(Block data_in, AccountDetails* acc_details);
   void ParVatParse(Block data_in, AccountDetails* acc_details);
   void NonVatParse(Block data_in, AccountDetails* acc_details); 
+  void VatSmallParse(Block data_in, AccountDetails* acc_details);
+  void VatLargeParse(Block data_in, AccountDetails* acc_details);
 };
 #endif // TYPE_12_PARSER_H_
