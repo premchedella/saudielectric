@@ -95,8 +95,27 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 6;";    
   }
 
-  //Line 7
+  // Line Other Fees
   line_no++;
+
+  try
+  {
+    line_data = data_in.at(line_no);
+    bool is_other_fees = Utilities::IsOtherFees(line_data);
+    if (is_other_fees)
+    {
+      ParseLine::OtherFees(line_data, acc_details);
+      line_no++;
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Other Fees Line;";
+  }
+
+  //Line -- Settlement
+  
   try
   {
     line_data = data_in.at(line_no);
@@ -104,7 +123,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";    
+    acc_details->reason_ += "No Settlement Line;";    
   }
 
   //Line 8
@@ -116,7 +135,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 8;";    
+    acc_details->reason_ += "No VAT Line;";    
   }
 
   //Line 9  
@@ -128,7 +147,7 @@ void Type12Parser::VatParse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 9;";    
+    acc_details->reason_ += "No Total Line;";    
   }
 
   //Line 11

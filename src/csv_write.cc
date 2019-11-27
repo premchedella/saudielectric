@@ -217,6 +217,12 @@ void CsvWrite::WriteIndustrial(int type)
     row_data += "\"Reactive\nPower\nCost\","; // O
     row_data += "\"Meter\nService\",";  // P    
     row_data += "\"Duration\nCost\","; // Q   
+
+    if (Utilities::IsOtherFees())
+    {
+      row_data += "\"Other\nFees\","; // R
+    }
+
     row_data += "Settlement,";  // R 
     if ((vat_type == Utilities::VatTypes::WITH) ||
       (vat_type == Utilities::VatTypes::PARTIAL))
@@ -282,6 +288,13 @@ void CsvWrite::WriteIndustrial(int type)
       row_data += value + ","; // P      
       value = acc_details.total_power_cons_cost_;
       row_data += value + ","; // Q
+
+      if (Utilities::IsOtherFees())
+      {
+        value = acc_details.other_fees_;
+        row_data += value + ","; // R
+      }
+
       value = acc_details.settlement_;
       row_data += value + ","; // R
       if ((vat_type == Utilities::VatTypes::WITH) ||
