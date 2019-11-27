@@ -49,7 +49,6 @@ void Type12Parser::ParVatParse(Block data_in, AccountDetails* acc_details)
   QStringList line_data;
   QString token;
   
-
   // Line Number 0 and 1 contains header and there is no use.
   // Line Number is 2
   unsigned int line_no = 2;
