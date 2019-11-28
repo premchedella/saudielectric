@@ -69,12 +69,6 @@ void CsvWrite::WriteResidential(int type)
     row_data += "\"Power\nCost\","; // P   
     row_data += "\"Meter\nService\",";  // Q     
     row_data += "\"Duration\nCost\","; // R   
-
-    if (Utilities::IsOtherFees())
-    {
-      row_data += "\"Other\nFees\","; // R
-    }
-
     row_data += "Settlement,";  // S  
     if ((vat_type == Utilities::VatTypes::WITH) ||
       (vat_type == Utilities::VatTypes::PARTIAL))
@@ -83,7 +77,11 @@ void CsvWrite::WriteResidential(int type)
     }
     row_data += "\"Total\nCost\","; // U
     row_data += "Conversion,"; // V
-    row_data += "Reason"; // W
+    row_data += "Reason,"; // W
+    if (Utilities::IsOtherFees())
+    {
+      row_data += "\"Other\nFees\""; // X
+    }
     
     stream << row_data << "\n";
 
@@ -134,13 +132,6 @@ void CsvWrite::WriteResidential(int type)
       row_data += value + ","; // Q      
       value = acc_details.total_power_cons_cost_;
       row_data += value + ","; // R
-
-      if (Utilities::IsOtherFees())
-      {
-        value = acc_details.other_fees_;
-        row_data += value + ","; // R
-      }
-
       value = acc_details.settlement_;
       row_data +=  value + ","; // S
 
@@ -156,7 +147,13 @@ void CsvWrite::WriteResidential(int type)
       value = acc_details.parsing_;
       row_data += value + ","; // V     
       value = acc_details.reason_;
-      row_data += value; // W     
+      row_data += value + ","; // W
+
+      if (Utilities::IsOtherFees())
+      {
+        value = acc_details.other_fees_;
+        row_data += value; // X
+      }
 
       stream << row_data << "\n";
 
@@ -217,12 +214,6 @@ void CsvWrite::WriteIndustrial(int type)
     row_data += "\"Reactive\nPower\nCost\","; // O
     row_data += "\"Meter\nService\",";  // P    
     row_data += "\"Duration\nCost\","; // Q   
-
-    if (Utilities::IsOtherFees())
-    {
-      row_data += "\"Other\nFees\","; // R
-    }
-
     row_data += "Settlement,";  // R 
     if ((vat_type == Utilities::VatTypes::WITH) ||
       (vat_type == Utilities::VatTypes::PARTIAL))
@@ -240,7 +231,11 @@ void CsvWrite::WriteIndustrial(int type)
     row_data += "\"Reactive\nPower\nPrevious\nReading\","; // AB
     row_data += "\"Reactive\nPower\nCurrent\nReading\","; // AC   
     row_data += "Conversion,"; // AD
-    row_data += "Reason"; // AE
+    row_data += "Reason,"; // AE
+    if (Utilities::IsOtherFees())
+    {
+      row_data += "\"Other\nFees\""; // AF
+    }
 
     stream << row_data << "\n";
 
@@ -288,13 +283,6 @@ void CsvWrite::WriteIndustrial(int type)
       row_data += value + ","; // P      
       value = acc_details.total_power_cons_cost_;
       row_data += value + ","; // Q
-
-      if (Utilities::IsOtherFees())
-      {
-        value = acc_details.other_fees_;
-        row_data += value + ","; // R
-      }
-
       value = acc_details.settlement_;
       row_data += value + ","; // R
       if ((vat_type == Utilities::VatTypes::WITH) ||
@@ -326,7 +314,12 @@ void CsvWrite::WriteIndustrial(int type)
       value = acc_details.parsing_;
       row_data += value + "," ; // AD
       value = acc_details.reason_;
-      row_data += value; // AE
+      row_data += value + ","; // AE
+      if (Utilities::IsOtherFees())
+      {
+        value = acc_details.other_fees_;
+        row_data += value; // AF
+      }
              
       stream << row_data << "\n";
 
