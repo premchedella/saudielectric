@@ -138,8 +138,7 @@ int main(int argc, char *argv[])
       {
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
-      
-      std::cout << "\n" << std::endl;
+          
       std::cout << "Application Version = " << VERSION << std::endl;
       QElapsedTimer exec_timer;
       exec_timer.start();
