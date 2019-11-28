@@ -21,3 +21,8 @@ Version 1.2.1
 - Added DEBUG constant for certain standard out statements.
 - Made few changes in the code to make compatible  with Visual Studio 2017.
 - Tested code with Visual Studio 2017 and Qt 5.12.3
+
+Version 1.3:
+============
+- Added support for "Other Fees" entry.  A new row is added in the input tables.
+- Added support for small table entries if the type is 12.
