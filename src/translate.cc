@@ -138,6 +138,14 @@ int main(int argc, char *argv[])
       {
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
+
+      // If the year is >= 2020 and month is >= 07 then set the Parser type 1
+      // since the invoices format changes.  
+
+      if (((year == 2020) && (month >= 07)) || (year >= 2021)) 
+      {
+        Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_1);
+      }
           
       std::cout << "Application Version = " << VERSION << std::endl;
       QElapsedTimer exec_timer;
