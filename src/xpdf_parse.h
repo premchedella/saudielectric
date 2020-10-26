@@ -29,6 +29,7 @@ class XPdfParse : public QObject
   Block ConvertData(QStringList data_in);
   Block RemoveSingleValueZero(Block data_in);  
   Blocks GetBlocks(Block data_in);
+  Blocks GetBlocksParser1(Block data_in);
 
   QString in_file_name_;  
   Blocks data_blocks_;

@@ -62,7 +62,14 @@ void XPdfParse::Parse()
         << entire_data.size() << std::endl;
 #endif
 
-  Blocks blocks = GetBlocks(entire_data);
+  Utilities::ParserTypes parser_type = Utilities::GetParserType();
+  if (parser_type == Utilities::ParserTypes::PARSER_TYPE_0)
+  {
+    Blocks blocks = GetBlocks(entire_data);
+  } else
+  {
+    Blocks blocks = GetBlocksParser1(entire_data);
+  }
 }
 
 Blocks XPdfParse::GetBlocks()
@@ -320,6 +327,79 @@ Blocks XPdfParse::GetBlocks(Block data_in)
         break;
       }
     }         
+  }
+
+  data_blocks_.clear();
+
+  for (unsigned int counter = 0; counter < pblocks.size(); counter++)
+  {
+    Block* pblock = pblocks.at(counter);
+    Block block;
+    for (unsigned int index = 0; index < pblock->size(); index++)
+    {
+      block.push_back(pblock->at(index));
+    }
+    data_blocks_.push_back(block);
+  }
+
+  return data_blocks_;
+}
+
+Blocks XPdfParse::GetBlocksParser1(Block data_in)
+{
+  QString start_1 = QStringLiteral(PARSER_1_START_BLOCK_WORD_1);
+  QString start_2 = QStringLiteral(PARSER_1_START_BLOCK_WORD_2);
+  std::vector<Block*> pblocks;
+  Block* pblock = new Block();
+
+  for (int counter = 0; counter < data_in.size(); counter++)
+  {
+    QStringList words = data_in.at(counter);
+    QString last_word = words.at(words.size() - 1);
+    QString prev_last_word = words.at(words.size() - 2);
+
+    if ((last_word == start_1) && (prev_last_word == start_2)) // Block starts
+    {
+      if (pblock->size() > 0)
+      {
+        pblocks.push_back(pblock);
+      }
+      pblock = new Block();
+    }
+    pblock->push_back(words);
+  }
+
+  QString total = QStringLiteral(TOTAL_INNOVICES);
+
+  // For the last block, extra data, remove the same.
+  if (pblock->size() > 0)
+  {
+    QString last_block_word = QStringLiteral(LAST_BLOCK_WORD);
+
+    for (unsigned int counter = 0; counter < pblock->size(); counter++)
+    {
+      QStringList words = pblock->at(counter);
+      if (words.at(0) == last_block_word)
+      {
+        for (unsigned int index = pblock->size(); index > counter; index--)
+        {
+          QStringList total_count = pblock->at(index - 1);
+          if (total_count.contains(total))
+          {
+            //Total count
+            total_invoices_ =
+                Utilities::ConvertEnglish(total_count.at(2)).toInt();
+            std::string total_amount = 
+                Utilities::ConvertEnglish(total_count.at(5)).toStdString();
+            std::cout << "Total Accounts = " << total_invoices_ << ", "
+              << "Amount = " << total_amount << std::endl;
+          }
+          pblock->pop_back();
+        }
+        pblocks.push_back(pblock);
+        break;
+      }
+    }
   }
 
   data_blocks_.clear();
