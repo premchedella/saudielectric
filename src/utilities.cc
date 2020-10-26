@@ -11,6 +11,8 @@ Utilities::InputFileTypes Utilities::file_type_ =
     Utilities::InputFileTypes::KAU1_MAIN;
 
 bool Utilities::is_other_fees_= false;
+Utilities::ParserTypes Utilities::parser_type_ = 
+    Utilities::ParserTypes::PARSER_TYPE_0;
 
 QString Utilities::ConvertEnglish(QString arabic)
 {
@@ -306,3 +308,14 @@ bool Utilities::IsOtherFees()
 {
   return is_other_fees_;
 }
+
+void Utilities::SetParserType(ParserTypes parser_type)
+{
+  parser_type_ = parser_type;
+}
+
+Utilities::ParserTypes Utilities::GetParserType()
+{
+  return parser_type_;
+}
+

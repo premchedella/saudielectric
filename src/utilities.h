@@ -24,6 +24,12 @@ class Utilities
     KAU2_MAIN
   };
 
+  enum ParserTypes
+  {
+    PARSER_TYPE_0 = 0, 
+    PARSER_TYPE_1
+  };
+
   static QString ConvertEnglish(QString arabic);  
   static QString ToFloat(QString arabic);
   static QString ToDate(QString mmddyyy); 
@@ -38,11 +44,14 @@ class Utilities
   static Line Convert(QStringList data);
   static bool IsOtherFees(QStringList data);
   static bool IsOtherFees();
+  static void SetParserType(ParserTypes parser_type);
+  static ParserTypes GetParserType();  
   
  private:
   static VatTypes vat_type_;
   static InputFileTypes file_type_;
   static bool is_other_fees_;
+  static ParserTypes parser_type_;
 };
 
 #endif //UTILITIES_H_
