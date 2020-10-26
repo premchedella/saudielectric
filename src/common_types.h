@@ -18,6 +18,11 @@ typedef std::vector<QString> Line;
 #define LAST_BLOCK_WORD u"ﻣﺠﻤﻮﻉ"
 #define START_BLOCK_WORD_TWO u"ﺍﻟﻔﺌﺔ\\"
 
+//Parser 1
+#define PARSER_1_START_BLOCK_WORD u"ﺭﻗﻢ ﺍﻟﺤﺴﺎﺏ"
+#define PARSER_1_START_BLOCK_WORD_1 u"ﺍﻟﺤﺴﺎﺏ"
+#define PARSER_1_START_BLOCK_WORD_2 u"ﺭﻗﻢ"
+
 
 #define TYPE_12_SMALL_BLOCK_LENGTH 9
 
