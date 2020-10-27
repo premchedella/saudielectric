@@ -23,6 +23,8 @@ typedef std::vector<QString> Line;
 #define PARSER_1_START_BLOCK_WORD_1 u"ﺍﻟﺤﺴﺎﺏ"
 #define PARSER_1_START_BLOCK_WORD_2 u"ﺭﻗﻢ"
 
+#define PARSER_1_SMALLER_LENGTH 23
+
 
 #define TYPE_12_SMALL_BLOCK_LENGTH 9
 
