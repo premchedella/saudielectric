@@ -415,5 +415,12 @@ Blocks XPdfParse::GetBlocksParser1(Block data_in)
     data_blocks_.push_back(block);
   }
 
+  //Delete the memory for pblocks
+
+  for (unsigned int counter = 0; counter < pblocks.size(); counter++)
+  {
+    delete pblocks[counter];
+  }
+
   return data_blocks_;
 }
