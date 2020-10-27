@@ -18,6 +18,9 @@ class ParseData
   static std::vector<AccountDetails> GetDataInfo(unsigned int type);
 
  private:
+  void ParserType0(Blocks data);
+  void ParserType1(Blocks data);
+
   void ParseType1(Block data_in, AccountDetails* acc_details);
   void ParseType12(Block data_in, AccountDetails* acc_details);
   void ParseType5(Block data_in, AccountDetails* acc_details);

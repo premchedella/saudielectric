@@ -6,6 +6,7 @@
 #include "type_1_parser.h"
 #include "type_5_parser.h"
 #include "type_12_parser.h"
+#include "parser_1_small.h"
 
 std::vector<AccountDetails> ParseData::account_details_;
 std::vector<unsigned int> ParseData::types_;
@@ -28,9 +29,50 @@ void ParseData::FormData(Blocks data)
 
   account_details_.clear();
   types_.clear();
-   
-  for (unsigned int index = 0; index < data.size(); index++)  
-  { 
+
+  Utilities::ParserTypes parser_type = Utilities::GetParserType();
+  if (parser_type == Utilities::ParserTypes::PARSER_TYPE_0)
+  {
+    ParserType0(data);
+  } else
+  {
+    ParserType1(data);
+  }  
+}
+
+std::vector<unsigned int> ParseData::GetTypes()
+{
+  return types_;
+}
+
+std::vector<AccountDetails> ParseData::GetDataInfo()
+{
+  return account_details_;
+}
+
+std::vector<AccountDetails> ParseData::GetDataInfo(unsigned int type)
+{
+  std::vector<AccountDetails> retval;
+  std::vector<unsigned int>::iterator it;
+  it = std::find(types_.begin(), types_.end(), type);
+  if (it != types_.end())
+  {    
+    for (unsigned int index = 0; index < account_details_.size(); index++)
+    {
+      AccountDetails acc_details = account_details_.at(index);
+      if (acc_details.type_.toInt() == type)
+      {        
+        retval.push_back(acc_details);
+      }
+    }    
+  }
+  return retval;
+}
+
+void ParseData::ParserType0(Blocks data)
+{
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
     QString eng_data;
     unsigned int type;
     Block data_block = data.at(index);
@@ -68,46 +110,41 @@ void ParseData::FormData(Blocks data)
       case 12:
         ParseType12(data_block, &acc_details);
         break;
-      default:        
+      default:
         acc_details.parsing_ = "Partial";
         acc_details.reason_ = "Type is not avaialble.";
       }
       account_details_.push_back(acc_details);
-    } catch (...)
+    }
+    catch (...)
     {
       acc_details.parsing_ = "Partial";
       acc_details.reason_ = "Type is not avaialble.";
-    }        
+    }
   }
 }
 
-std::vector<unsigned int> ParseData::GetTypes()
+void ParseData::ParserType1(Blocks data)
 {
-  return types_;
-}
-
-std::vector<AccountDetails> ParseData::GetDataInfo()
-{
-  return account_details_;
-}
-
-std::vector<AccountDetails> ParseData::GetDataInfo(unsigned int type)
-{
-  std::vector<AccountDetails> retval;
-  std::vector<unsigned int>::iterator it;
-  it = std::find(types_.begin(), types_.end(), type);
-  if (it != types_.end())
+  for (unsigned int index = 0; index < data.size(); index++)
   {    
-    for (unsigned int index = 0; index < account_details_.size(); index++)
+    Block data_block = data.at(index);
+
+    AccountDetails acc_details;
+    acc_details.parsing_ = "Completed";
+
+    if (data_block.size() <= PARSER_1_SMALLER_LENGTH)
     {
-      AccountDetails acc_details = account_details_.at(index);
-      if (acc_details.type_.toInt() == type)
-      {        
-        retval.push_back(acc_details);
-      }
-    }    
+      // Parse Small
+      Parser1Small parser_1_small;
+      parser_1_small.Parse(data_block, &acc_details);
+    } else
+    {
+      // Parse Large
+    }
+    
+    account_details_.push_back(acc_details);    
   }
-  return retval;
 }
 
 void ParseData::ParseType1(Block data_in, AccountDetails* acc_details)
