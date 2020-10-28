@@ -15,4 +15,10 @@ class Parser1Lines
   static void Line7(QStringList data, AccountDetails* acc_details);
   static void Line8(QStringList data, AccountDetails* acc_details);
   static void Line9(QStringList data, AccountDetails* acc_details);
+  static void Line10(QStringList data, AccountDetails* acc_details);
+  static void Line10_1(QStringList data, AccountDetails* acc_details);
+  static void Line11(QStringList data, AccountDetails* acc_details);
+  static void Line12(QStringList data, AccountDetails* acc_details);
+  static void Line13(QStringList data, AccountDetails* acc_details);
+  static void Line14(QStringList data, AccountDetails* acc_details);
 };
