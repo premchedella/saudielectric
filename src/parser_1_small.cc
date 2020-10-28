@@ -145,11 +145,18 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 11
-  std::cout << "Parse Line 11:: ";
+  std::cout << "Parse Line 11:: ";  
   try
   {
     line_data = data_in.at(line_no);
-    Parser1Lines::Line11(line_data, acc_details);
+    if (data_in.size() == 20)
+    {
+      Parser1Lines::Line11_1(line_data, acc_details);
+    }
+    else
+    {
+      Parser1Lines::Line11(line_data, acc_details);
+    }
   }
   catch (...)
   {

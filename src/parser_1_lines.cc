@@ -514,6 +514,45 @@ void Parser1Lines::Line11(QStringList data, AccountDetails* acc_details)
   }
 }
 
+void Parser1Lines::Line11_1(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  // Adjustments, Position 0 
+
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "New Field, Adjustments: " <<
+      value.toStdString() << ", ";
+    /*if (value.size() > 0)
+    {
+      acc_details->power_consumption_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Power Consumption;";
+    }*/
+  }
+  catch (...)
+  {
+    /*acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Power Consumption;";*/
+  }
+
+  try
+  {
+    QString token = line_data.at(4);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Other Fees: " <<
+        value.toStdString() << std::endl;
+  }
+  catch (...)
+  {
+
+  }
+}
+
 void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
