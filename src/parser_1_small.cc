@@ -126,7 +126,8 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 10;";
   }
 
-  if ((data_in.size() == 21) || (data_in.size() == 23))
+  if ((data_in.size() == 15) || (data_in.size() == 21) || 
+      (data_in.size() == 22) || (data_in.size() == 23))
   {  
     line_no++;
     //Line No. 10 Extra
@@ -149,7 +150,8 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    if ((data_in.size() == 21) || (data_in.size() == 23))
+    if ((data_in.size() == 15) || (data_in.size() == 21) || 
+        (data_in.size() == 22) || (data_in.size() == 23))
     {
       Parser1Lines::Line11(line_data, acc_details);
     }
