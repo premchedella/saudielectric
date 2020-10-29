@@ -68,11 +68,18 @@ void Parser1Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // TODO: Need to get the name of the field -- Site Number
-  // Data, position 6
+  // Data, position 6 or 7 
   try
   {
     QString token = line_data.at(6);
     QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() == 0)
+    {
+      token = line_data.at(7);
+      value = Utilities::ConvertEnglish(token);
+    }
+
     std::cout << "New Field, Site Number: " <<
       value.toStdString() << std::endl;
   } catch (...)
