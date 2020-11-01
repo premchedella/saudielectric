@@ -1,4 +1,4 @@
-#include "parser_1_lines.h"
+﻿#include "parser_1_lines.h"
 
 #include "utilities.h"
 
@@ -640,4 +640,22 @@ void Parser1Lines::Line14(QStringList data, AccountDetails* acc_details)
     /*acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Power Consumption;";*/
   }
+}
+
+bool Parser1Lines::Is15VatExtra(QStringList data)
+{
+  bool is_flag = false;
+  Line line_data = Utilities::Convert(data);
+
+  QString extra_1 = QStringLiteral(u")(%");
+  QString extra_2 = QStringLiteral(u"١٥");
+  if (line_data.size() >=10 )
+  {
+    if ((line_data[10] == extra_1) && (line_data[11] == extra_2))
+    {
+      is_flag = true;
+    }
+  }  
+
+  return is_flag;
 }
