@@ -22,7 +22,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   // Line Number is 1
   int line_no = 0;
-  std::cout << "Parse Line 1:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -35,7 +35,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 2
   line_no++;
-  std::cout << "Parse Line 2:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -48,7 +48,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 3
   line_no++;
-  std::cout << "Parse Line 3:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -61,7 +61,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 4
   line_no++;
-  std::cout << "Parse Line 4:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -75,7 +75,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
   // Line 5 and 6 contains some table header
   //Line No. 7
   line_no = 6;
-  std::cout << "Parse Line 7:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -88,7 +88,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
   
   //Line No. 8
   line_no++;
-  std::cout << "Parse Line 8:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -101,7 +101,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 9
   line_no++;
-  std::cout << "Parse Line 9:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -115,7 +115,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 10
   line_no++;
-  std::cout << "Parse Line 10:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -129,6 +129,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   // Line No.11 Extra VAT 15%
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -148,13 +149,12 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 10;";
   }
   
-  
-
   try
   {
     if (is_15_vat_extra)
     {
       line_no++;
+      std::cout << "Parse Line " << line_no + 1 << ":: ";
       line_data = data_in.at(line_no);
       Parser1Lines::Line11(line_data, acc_details);
     } else
@@ -213,7 +213,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 12
-  std::cout << "Parse Line 12:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -227,7 +227,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 13
-  std::cout << "Parse Line 13:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
@@ -241,7 +241,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 14
-  std::cout << "Parse Line 14:: ";
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
     line_data = data_in.at(line_no);
