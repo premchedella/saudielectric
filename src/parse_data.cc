@@ -7,6 +7,7 @@
 #include "type_5_parser.h"
 #include "type_12_parser.h"
 #include "parser_1_small.h"
+#include "parser_1_big.h"
 
 std::vector<AccountDetails> ParseData::account_details_;
 std::vector<unsigned int> ParseData::types_;
@@ -126,9 +127,24 @@ void ParseData::ParserType0(Blocks data)
 
 void ParseData::ParserType1(Blocks data)
 {
+  //std::vector<unsigned int> block_lengths;
+
   for (unsigned int index = 0; index < data.size(); index++)
   {    
     Block data_block = data.at(index);
+
+
+    /*std::vector<unsigned int>::iterator it;
+
+    it = std::find(block_lengths.begin(), block_lengths.end(), data_block.size());
+    if (it == block_lengths.end())
+    {
+      block_lengths.push_back(data_block.size());
+    } else
+    {
+      continue;
+    }
+    */
 
     AccountDetails acc_details;
     acc_details.parsing_ = "Completed";
@@ -141,6 +157,8 @@ void ParseData::ParserType1(Blocks data)
     } else
     {
       // Parse Large
+      Parser1Big parser_1_big;
+      parser_1_big.Parse(data_block, &acc_details);
     }
     
     account_details_.push_back(acc_details);    
