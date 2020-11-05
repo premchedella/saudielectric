@@ -119,5 +119,17 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 9;";
   }
 
-  
+  //Line No. 10
+  line_no++;
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
+  try
+  {
+    line_data = data_in.at(line_no);
+    Parser1Lines::Line9(line_data, acc_details);
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Line 10;";
+  }
 }
