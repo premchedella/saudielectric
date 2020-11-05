@@ -642,6 +642,50 @@ void Parser1Lines::Line14(QStringList data, AccountDetails* acc_details)
   }
 }
 
+void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  //Passive Power Consumption, Position 0
+  
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Passive Consumption = " << value.toStdString() << ", ";
+    
+  }
+  catch (...)
+  {
+    
+  }
+
+  //Current Reading, Position 1 
+  try
+  {
+    QString token = line_data.at(1);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Current = " << value.toStdString() << ", ";
+    
+  }
+  catch (...)
+  {
+    
+  }
+
+  //Previous Reading, Position 2 
+  try
+  {
+    QString token = line_data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Previous = " << value.toStdString() << std::endl;
+    
+  }
+  catch (...)
+  {
+    
+  } 
+}
+
 bool Parser1Lines::Is15VatExtra(QStringList data)
 {
   bool is_flag = false;
