@@ -210,7 +210,7 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser1Lines::Line13(line_data, acc_details);
+    Parser1Lines::Line13Big(line_data, acc_details);
   }
   catch (...)
   {
