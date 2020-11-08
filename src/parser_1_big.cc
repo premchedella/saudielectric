@@ -181,7 +181,7 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     } else
     {
       line_data = data_in.at(line_no);
-      Parser1Lines::Line11_2(line_data, acc_details);
+      Parser1Lines::Line11Big(line_data, acc_details);
     }
   }
   catch (...)
@@ -196,7 +196,7 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser1Lines::Line12(line_data, acc_details);
+    Parser1Lines::Line12Big(line_data, acc_details);
   }
   catch (...)
   {
