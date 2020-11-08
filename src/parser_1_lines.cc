@@ -567,7 +567,7 @@ void Parser1Lines::Line11_1(QStringList data, AccountDetails* acc_details)
   }
 }
 
-void Parser1Lines::Line11_2(QStringList data, AccountDetails* acc_details)
+void Parser1Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Adjustments, Position 0 
@@ -630,6 +630,35 @@ void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Power Consumption;";*/
   }
 }
+
+void Parser1Lines::Line12Big(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "New Field, Amount Not Taxable: " <<
+      value.toStdString() << ", ";    
+  }
+  catch (...)
+  {
+    
+  }
+
+  try
+  {
+    QString token = line_data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Other Fees: " <<
+      value.toStdString() << std::endl;
+  }
+  catch (...)
+  {
+
+  }
+}
+
 
 void Parser1Lines::Line13(QStringList data, AccountDetails* acc_details)
 {
