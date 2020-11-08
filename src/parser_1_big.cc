@@ -181,7 +181,7 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     } else
     {
       line_data = data_in.at(line_no);
-      Parser1Lines::Line11_1(line_data, acc_details);
+      Parser1Lines::Line11_2(line_data, acc_details);
     }
   }
   catch (...)
@@ -202,5 +202,33 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 13;";
+  }
+
+  line_no++;
+  //Line No. 14
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
+  try
+  {
+    line_data = data_in.at(line_no);
+    Parser1Lines::Line13(line_data, acc_details);
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Line 12;";
+  }
+
+  line_no++;
+  //Line No. 15
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
+  try
+  {
+    line_data = data_in.at(line_no);
+    Parser1Lines::Line14(line_data, acc_details);
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Line 12;";
   }
 }
