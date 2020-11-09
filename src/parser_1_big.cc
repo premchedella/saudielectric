@@ -260,4 +260,18 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 20;";
   }
 
+  line_no = data_in.size() - 2;
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
+
+  try
+  {
+    line_data = data_in.at(line_no);
+    Parser1Lines::LineLast(line_data, acc_details);
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Last to previous Line;";
+  }
+
 }
