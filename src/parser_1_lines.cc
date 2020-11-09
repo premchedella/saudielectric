@@ -816,6 +816,36 @@ void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
   }
 }
 
+void Parser1Lines::Line20(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  //Previous Reading, Position 4
+
+  try
+  {
+    QString token = line_data.at(4);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Previous Reading = " << value.toStdString() << ", ";
+  }
+  catch (...)
+  {
+
+  }
+
+  //Current Reading, Position 6
+
+  try
+  {
+    QString token = line_data.at(6);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Current Reading = " << value.toStdString() << std::endl;
+  }
+  catch (...)
+  {
+
+  }
+}
+
 bool Parser1Lines::Is15VatExtra(QStringList data)
 {
   bool is_flag = false;
