@@ -27,6 +27,7 @@ class Parser1Lines
   static void Line14(QStringList data, AccountDetails* acc_details);
 
   static void Line9Big(QStringList data, AccountDetails* acc_details);
+  static void Line16(QStringList data, AccountDetails* acc_details);
 
 
   static bool Is15VatExtra(QStringList data);

@@ -771,6 +771,51 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   } 
 }
 
+void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  //Total Reactive Power Consumption, Position 0
+
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Total Reactive Power Consumption = " << 
+        value.toStdString() << ", ";
+  }
+  catch (...)
+  {
+
+  }
+
+  //Allowed Reactive Power Consumption, Position 5
+
+  try
+  {
+    QString token = line_data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Allowed Reactive Power Consumption = " <<
+      value.toStdString() << ", ";
+  }
+  catch (...)
+  {
+
+  }
+
+  //Power Factor, Position 12
+
+  try
+  {
+    QString token = line_data.at(12);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "Power Factor = " << value.toStdString() << std::endl;
+  }
+  catch (...)
+  {
+
+  }
+}
+
 bool Parser1Lines::Is15VatExtra(QStringList data)
 {
   bool is_flag = false;
