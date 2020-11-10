@@ -771,6 +771,48 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   } 
 }
 
+void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+  // Position 0 - 15% Taxable Amount
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "New Field, 15% Taxable Amount: " <<
+      value.toStdString() << ", ";
+  }
+  catch (...)
+  {
+
+  }
+
+  // Position 6 - 15% VAT
+  try
+  {
+    QString token = line_data.at(6);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "New Field, 15% VAT: " << value.toStdString() << ", ";
+  }
+  catch (...)
+  {
+
+  }
+
+  try
+  {
+    QString token = line_data.at(12);
+    QString value = Utilities::ConvertEnglish(token);
+    std::cout << "New Field, Passive Energy Value: " <<  
+        value.toStdString() << std::endl;
+  } 
+  catch (...)
+  {
+
+  }
+
+}
+
 void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
