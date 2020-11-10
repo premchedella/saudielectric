@@ -161,7 +161,7 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
     if (is_15_vat_extra)
     {
-      Parser1Lines::Line10_1(line_data, acc_details);
+      Parser1Lines::Line10Big15(line_data, acc_details);
     }
   }
   catch (...)
