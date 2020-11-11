@@ -61,6 +61,12 @@ class AccountDetails
   QString reactive_prev_reading_; // Previous Reading of reactive Power
   QString reactive_curr_reading_; // Current Reading of reactive Power  
 
+  QString power_cost_5_;  //Power Cost for VAT 5%
+  QString power_cost_15_; //Power Cost for VAT 15%  
+  QString vat_15_;       // 15% VAT 
+  QString taxable_amount_;       // Taxable Amount 
+  QString non_taxable_amount_;       // Non-Taxable Amount 
+
   QString parsing_;   //Parsing is "Complete" or "Partial"
   QString reason_;    // Reason for not Complete.  
 };
