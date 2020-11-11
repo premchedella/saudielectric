@@ -97,8 +97,8 @@ void Parser1Lines::Line4(QStringList data, AccountDetails* acc_details)
   try
   {
     QString token = line_data.at(0);
-    token = Utilities::ConvertEnglish(token);
-    QString date = Utilities::ToDate(token).trimmed();    
+    token = Utilities::ConvertEnglish(token);   
+    QString date = Utilities::ToDateMonth(token.trimmed());
 
     if (date.size() > 0)
     {
@@ -198,8 +198,9 @@ void Parser1Lines::Line7(QStringList data, AccountDetails* acc_details)
   try
   {
     QString token = line_data.at(0);
-    token = Utilities::ConvertEnglish(token);
-    QString date = Utilities::ToDate(token).trimmed();    
+    token = Utilities::ConvertEnglish(token);    
+    QString date = Utilities::ToDateMonth(token.trimmed());
+
     if (date.size() > 0)
     {
       acc_details->reading_to_ = date;
@@ -219,7 +220,8 @@ void Parser1Lines::Line7(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(1);
     token = Utilities::ConvertEnglish(token);
-    QString date = Utilities::ToDate(token).trimmed();
+    QString date = Utilities::ToDateMonth(token.trimmed());
+
     if (date.size() > 0)
     {
       acc_details->reading_from_ = date;
