@@ -46,12 +46,14 @@ class Utilities
   static bool IsOtherFees();
   static void SetParserType(ParserTypes parser_type);
   static ParserTypes GetParserType();  
+  static QString ToDateMonth(QString mmddyyyy);
   
  private:
   static VatTypes vat_type_;
   static InputFileTypes file_type_;
   static bool is_other_fees_;
   static ParserTypes parser_type_;
+  static QStringList months;
 };
 
 #endif //UTILITIES_H_

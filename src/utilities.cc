@@ -14,6 +14,9 @@ bool Utilities::is_other_fees_= false;
 Utilities::ParserTypes Utilities::parser_type_ = 
     Utilities::ParserTypes::PARSER_TYPE_0;
 
+QStringList Utilities::months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+
 QString Utilities::ConvertEnglish(QString arabic)
 {
   QChar *data = arabic.data();
@@ -319,3 +322,12 @@ Utilities::ParserTypes Utilities::GetParserType()
   return parser_type_;
 }
 
+QString Utilities::ToDateMonth(QString mmddyyyy)
+{
+  QString date = ToDate(mmddyyyy);
+  QStringList date_parts = date.split("/");
+  QString date_new = date_parts[0] + "/" + months.at(date_parts[1].toInt() - 1) +
+      "/" + date_parts[2];
+
+  return date_new;  
+}
