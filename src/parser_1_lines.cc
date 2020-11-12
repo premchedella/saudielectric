@@ -7,13 +7,25 @@
 void Parser1Lines::Line1(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Account Number, Position 5 or 6 
+  // Account Number, Position 1 or 4 or 5 or 6 
   
   try
   {
-    QString token = line_data.at(5);
+    QString token = line_data.at(1);
     QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() == 0)
+    {
+      token = line_data.at(4);
+      value = Utilities::ConvertEnglish(token);
+    }
     
+    if (value.size() == 0)
+    {
+      token = line_data.at(5);
+      value = Utilities::ConvertEnglish(token);
+    }
+
     if (value.size() == 0)
     {
       token = line_data.at(6);
@@ -442,7 +454,7 @@ void Parser1Lines::Line9(QStringList data, AccountDetails* acc_details)
     
     if (value.size() > 0)
     {
-      acc_details->total_power_cons_cost_ = value;
+      acc_details->power_consumption_cost_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
