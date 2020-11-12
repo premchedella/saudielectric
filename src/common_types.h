@@ -62,6 +62,8 @@ typedef std::vector<QString> Line;
 //Debug Purpose
 #define DEBUG 0
 
+#define PRINT_FIELD_VALUE 0
+
 #endif //COMMON_TYPES_H_
 
 
