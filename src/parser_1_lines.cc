@@ -7,11 +7,11 @@
 void Parser1Lines::Line1(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Account Number, Position 6 
-  // Some places the Account Number is at Position 1
+  // Account Number, Position 5 or 6 
+  
   try
   {
-    QString token = line_data.at(1);
+    QString token = line_data.at(5);
     QString value = Utilities::ConvertEnglish(token);
     
     if (value.size() == 0)
