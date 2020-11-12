@@ -463,15 +463,15 @@ void CsvWrite::Parser1Small()
       value = acc_details.reason_;
       row_data += value + ","; // W      
       value = acc_details.other_fees_;
-      row_data += value; // X
+      row_data += value + ","; // X
       value = acc_details.power_cost_5_;
-      row_data += value; // Y
+      row_data += value + ","; // Y
       value = acc_details.power_cost_15_;
-      row_data += value; // Z
+      row_data += value + ","; // Z
       value = acc_details.vat_15_;
-      row_data += value; // AA
+      row_data += value + ","; // AA
       value = acc_details.taxable_amount_;
-      row_data += value; // AB
+      row_data += value + ","; // AB
       value = acc_details.non_taxable_amount_;
       row_data += value; // AC
 
