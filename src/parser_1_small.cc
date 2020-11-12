@@ -221,7 +221,9 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 13
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -235,7 +237,9 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 14
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
