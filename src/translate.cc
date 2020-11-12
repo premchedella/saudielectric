@@ -168,7 +168,14 @@ int main(int argc, char *argv[])
 #endif      
       exec_timer.start();
       CsvWrite csv_write(out_file);
-      csv_write.Write(types.size());
+      Utilities::ParserTypes parser_type = Utilities::GetParserType();
+      if (parser_type == Utilities::ParserTypes::PARSER_TYPE_1)
+      {
+        csv_write.Write();
+      } else
+      {
+        csv_write.Write(types.size());
+      }
       time_spent = exec_timer.elapsed();
       std::cout << "Time Spent for Writing data in CSV file: " << time_spent <<
           " milli seconds, " << (time_spent * 0.001) << "seconds. \n" <<
