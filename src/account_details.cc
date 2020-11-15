@@ -51,11 +51,11 @@ AccountDetails::AccountDetails()
   reactive_prev_reading_ = "";
   reactive_curr_reading_ = "";
 
-  power_cost_5_ = "";
-  power_cost_15_ = "";
-  vat_15_ = "";
-  taxable_amount_ = "";
-  non_taxable_amount_ = "";
+  power_cost_5_ = "0.0";
+  power_cost_15_ = "0.0";
+  vat_15_ = "0.0";
+  taxable_amount_ = "0.0";
+  non_taxable_amount_ = "0.0";
 
   parsing_ = "";
   reason_ = "";  
