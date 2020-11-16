@@ -195,8 +195,28 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
-    line_data = data_in.at(line_no);
-    Parser1Lines::Line12Big(line_data, acc_details);
+    if (is_15_vat_extra)
+    {           
+      line_data = data_in.at(line_no);
+      Parser1Lines::Line11(line_data, acc_details);
+    } 
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Settlement Line;";
+  }
+
+  line_no++;
+  //Line No. 14
+  std::cout << "Parse Line " << line_no + 1 << ":: ";
+  try
+  {
+    if (is_15_vat_extra)
+    {
+      line_data = data_in.at(line_no);
+      Parser1Lines::Line13(line_data, acc_details);
+    }
   }
   catch (...)
   {
@@ -204,27 +224,17 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 13;";
   }
 
+  
   line_no++;
   //Line No. 14
   std::cout << "Parse Line " << line_no + 1 << ":: ";
   try
   {
-    line_data = data_in.at(line_no);
-    Parser1Lines::Line13Big(line_data, acc_details);
-  }
-  catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 12;";
-  }
-
-  line_no++;
-  //Line No. 14
-  std::cout << "Parse Line " << line_no + 1 << ":: ";
-  try
-  {
-    line_data = data_in.at(line_no);
-    Parser1Lines::Line14(line_data, acc_details);
+    if (is_15_vat_extra)
+    {
+      line_data = data_in.at(line_no);
+      Parser1Lines::Line14(line_data, acc_details);
+    }
   }
   catch (...)
   {

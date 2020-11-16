@@ -887,6 +887,8 @@ void Parser1Lines::Line13(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line13Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
+
+
   try
   {
     QString token = line_data.at(0);
