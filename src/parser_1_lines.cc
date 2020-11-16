@@ -927,7 +927,7 @@ void Parser1Lines::Line14(QStringList data, AccountDetails* acc_details)
 
 #if PRINT_FIELD_VALUE
   std::cout << "Total Cost: " <<
-    value.toStdString() << std::endl;
+    acc_details->total_cost_.toStdString() << std::endl;
 #endif
 }
 
@@ -978,30 +978,55 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - 15% Taxable Amount
+
+  // Position 0 - Power Cost (15%)
   try
   {
     QString token = line_data.at(0);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "New Field, 15% Taxable Amount: " <<
-      value.toStdString() << ", ";
+
+    if (value.size() > 0)
+    {
+      acc_details->power_cost_15_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Powr Cost(15%);";
+    }
   }
   catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Powr Cost(15%);";
   }
 
-  // Position 6 - 15% VAT
+  // Position 6 - VAT (15%)
   try
   {
     QString token = line_data.at(6);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "New Field, 15% VAT: " << value.toStdString() << ", ";
+
+    if (value.size() > 0)
+    {
+      acc_details->vat_15_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No VAT(15%);";
+    }
   }
   catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not VAT(15%);";
   }
+  
+#if PRINT_FIELD_VALUE
+  std::cout << "Power Cost(15%): " <<
+    acc_details->power_cost_15_.toStdString() << ", ";
+  std::cout << "VAT(15%): " <<
+    acc_details->vat_15_.toStdString() << ", ";  
+#endif
 
   try
   {
@@ -1014,7 +1039,6 @@ void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
   {
 
   }
-
 }
 
 void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
