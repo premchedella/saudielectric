@@ -218,19 +218,30 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
-  try
+  if (is_15_vat_extra)
   {
-    if (is_15_vat_extra)
-    {           
+    try
+    {              
       line_data = data_in.at(line_no);
       Parser1Lines::Line11(line_data, acc_details);
-    } 
-  }
-  catch (...)
+    } catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Settlement Line;";
+    }
+  } else
   {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Settlement Line;";
+    try
+    {
+      line_data = data_in.at(line_no);
+      Parser1Lines::Line12Big(line_data, acc_details);
+    } catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Settlement Line;";
+    }
   }
+  
 
   line_no++;
   //Line No. 14
