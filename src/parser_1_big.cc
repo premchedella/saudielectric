@@ -15,14 +15,18 @@ Parser1Big::~Parser1Big()
 
 void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 {
+#if PRINT_FIELD_VALUE
   std::cout << "Block Size = " << data_in.size() << std::endl;
+#endif
 
   QStringList line_data; 
   bool is_15_vat_extra = false;
   
   // Line Number is 1
   int line_no = 0;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -36,7 +40,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   // Line Number is 2
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -50,7 +56,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 3
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -62,10 +70,11 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 3;";
   }
   
-
   //Line No. 4
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -80,7 +89,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   // Line 5 and 6 contains some table header
   //Line No. 7
   line_no = 6;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -94,7 +105,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 8
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -108,7 +121,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 9
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -122,7 +137,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 10
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -136,7 +153,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 11
   line_no++;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -150,7 +169,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   // Line No.12 Extra VAT 15%
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -175,7 +196,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     if (is_15_vat_extra)
     {
       line_no++;
+#if PRINT_FIELD_VALUE
       std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
       line_data = data_in.at(line_no);
       Parser1Lines::Line11Big15(line_data, acc_details);
     } else
@@ -192,7 +215,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 13
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     if (is_15_vat_extra)
@@ -209,7 +234,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 
   line_no++;
   //Line No. 14
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     if (is_15_vat_extra)
@@ -227,7 +254,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   
   line_no++;
   //Line No. 14
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
   try
   {
     if (is_15_vat_extra)
@@ -249,7 +278,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   {
     line_no = 16;
   }
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
 
   try
   {
@@ -270,8 +301,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     line_no = 20;
   }
   
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
-
+#endif
   try
   {
     line_data = data_in.at(line_no);
@@ -284,7 +316,9 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
   }
 
   line_no = data_in.size() - 2;
+#if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
 
   try
   {
