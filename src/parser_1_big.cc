@@ -262,7 +262,14 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 16;";
   }
 
-  line_no = 20;
+  if (is_15_vat_extra)
+  {
+    line_no = 27;
+  } else
+  {
+    line_no = 20;
+  }
+  
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 
   try
@@ -289,5 +296,4 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Last to previous Line;";
   }
-
 }
