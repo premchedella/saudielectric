@@ -242,7 +242,13 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 12;";
   }
 
-  line_no = 16;
+  if (is_15_vat_extra)
+  {
+    line_no = 17;
+  } else
+  {
+    line_no = 16;
+  }
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 
   try
