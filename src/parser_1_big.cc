@@ -191,9 +191,10 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 12;";
   }
 
-  try
+
+  if (is_15_vat_extra)
   {
-    if (is_15_vat_extra)
+    try
     {
       line_no++;
 #if PRINT_FIELD_VALUE
@@ -201,18 +202,27 @@ void Parser1Big::Parse(Block data_in, AccountDetails* acc_details)
 #endif
       line_data = data_in.at(line_no);
       Parser1Lines::Line11Big15(line_data, acc_details);
-    } else
+    } catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Line 12;";
+    }
+  } else
+  {
+    try
     {
       line_data = data_in.at(line_no);
       Parser1Lines::Line11Big(line_data, acc_details);
+    } catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Line 12;";
     }
   }
-  catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 12;";
-  }
 
+  
+
+  
   line_no++;
   //Line No. 13
 #if PRINT_FIELD_VALUE
