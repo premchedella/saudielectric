@@ -848,29 +848,56 @@ void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line12Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
+
+  //Position 0 - Non Taxable Amount
+
   try
   {
     QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);
-    std::cout << "New Field, Amount Not Taxable: " <<
-      value.toStdString() << ", ";    
+    QString value = Utilities::ConvertEnglish(token);    
+
+    if (value.size() > 0)
+    {
+      acc_details->non_taxable_amount_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Non Taxable Amount;";
+    }
   }
   catch (...)
   {
-    
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Non Taxable Amount;";
   }
+
+  //Position 5 - Other Fees
 
   try
   {
     QString token = line_data.at(5);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Other Fees: " <<
-      value.toStdString() << std::endl;
-  }
-  catch (...)
-  {
 
+    if (value.size() > 0)
+    {
+      acc_details->other_fees_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Other Fees;";
+    }    
+  } catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Other Fees;";
   }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Non Taxable Amount: " <<
+    acc_details->non_taxable_amount_.toStdString() << std::endl;
+  std::cout << "Other Fees: " <<
+    acc_details->other_fees_.toStdString() << std::endl;
+#endif
 }
 
 
