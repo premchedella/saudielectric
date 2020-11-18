@@ -1178,46 +1178,77 @@ void Parser1Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Total Reactive Power Consumption, Position 0
+  // Position 0 - Total Reactive Power Consumption
 
   try
   {
     QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Total Reactive Power Consumption = " << 
-        value.toStdString() << ", ";
-  }
-  catch (...)
+    QString value = Utilities::ConvertEnglish(token);    
+
+    if (value.size() > 0)
+    {
+      acc_details->total_react_pow_con_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Reactive Consumption;";
+    }
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Total Reactive Consumption;";
   }
 
-  //Allowed Reactive Power Consumption, Position 5
+  //Position 5 - Allowed Reactive Power Consumption
 
   try
   {
     QString token = line_data.at(5);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Allowed Reactive Power Consumption = " <<
-      value.toStdString() << ", ";
-  }
-  catch (...)
+    
+    if (value.size() > 0)
+    {
+      acc_details->allowed_react_pow_con_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Allowed Reactive Power Consumption;";
+    }
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Allowed Reactive Power Consumption;";
   }
 
-  //Power Factor, Position 12
+  //Position 12 - Power Factor
 
   try
   {
     QString token = line_data.at(12);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Power Factor = " << value.toStdString() << std::endl;
-  }
-  catch (...)
+    
+    if (value.size() > 0)
+    {
+      acc_details->react_power_factor_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Factor;";
+    }
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Factor;";
   }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Total Reactive Power Consumption = " <<
+      acc_details->total_react_pow_con_.toStdString() << ", ";
+  std::cout << "Allowed Reactive Power Consumption = " <<
+    acc_details->allowed_react_pow_con_.toStdString() << ", ";
+  std::cout << "Reactive Power Factor = " << 
+    acc_details->react_power_factor_.toStdString() << std::endl;
+#endif
 }
 
 void Parser1Lines::Line20(QStringList data, AccountDetails* acc_details)
