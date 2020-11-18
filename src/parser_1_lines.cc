@@ -957,12 +957,19 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(0);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Passive Consumption = " << value.toStdString() << ", ";
     
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->other_pow_cons_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Other Power Consumption;";
+    }    
+  } catch (...)
   {
-    
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Other Power Consumption;";
   }
 
   //Current Reading, Position 1 
@@ -970,12 +977,18 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(1);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Current = " << value.toStdString() << ", ";
-    
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->other_curr_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Other Current Reading;";
+    }    
+  } catch (...)
   {
-    
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Other Current Reading;";
   }
 
   //Previous Reading, Position 2 
@@ -983,13 +996,29 @@ void Parser1Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Previous = " << value.toStdString() << std::endl;
     
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->other_prev_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Other Previous Reading;";
+    }    
+  } catch (...)
   {
-    
-  } 
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Other Previous Reading;";
+  }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Other Power Consumption = " << 
+      acc_details->other_pow_cons_.toStdString() << ",";
+  std::cout << "Current Reading = " << 
+      acc_details->other_curr_reading_.toStdString() << ",";
+  std::cout << "Previous Reading = " << 
+      acc_details->other_prev_reading_.toStdString() << std::endl;
+#endif  
 }
 
 void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
