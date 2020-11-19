@@ -1275,7 +1275,7 @@ void Parser1Lines::Line20(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Previous Reading;";
   }
 
-  //Position 6 - Current Reading,
+  //Position 6 - Current Reading
 
   try
   {
@@ -1306,61 +1306,102 @@ void Parser1Lines::Line20(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::LineLast(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Reactive Power Total Consumption 0
-
-  std::cout << "Reactive Power: ";
+  //Position 0 - Reactive Power Total Consumption
 
   try
   {
     QString token = line_data.at(0);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Total Consumption = " << value.toStdString() << ", ";
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->other_total_react_pow_con_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Reactive Power Consumption;";
+    }   
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Total Reactive Power Consumption;";
   }
 
-  //Multiplication Factor, Position 2
+  //Position 2 - Reactive Power  Multiplication Factor
 
   try
   {
     QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Multiplication Factor = " << value.toStdString() << ", ";
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->mul_react_power_factor_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Factor for Reactive Power;";
+    }    
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Factor for Reactive Power;";
   }
 
-  // Previous Reading, Position 4
+  // Position 4 - Reactive Power Previous Reading 
 
   try
   {
     QString token = line_data.at(4);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Previous Reading = " << value.toStdString() << ", ";
+
+    if (value.size() > 0)
+    {
+      acc_details->reactive_prev_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Previous Meter Reading;";
+    }    
   }
   catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Previous Meter Reading;";
   }
 
-  // Current Reading, Position 6
+  // Position 6 - Reactive Power Current Reading 
 
   try
   {
     QString token = line_data.at(6);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Current Reading = " << value.toStdString() << std::endl;
+
+    if (value.size() > 0)
+    {
+      acc_details->reactive_curr_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Previous Meter Reading;";
+    }    
   }
   catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Previous Meter Reading;";
   }
-}
 
+#if PRINT_FIELD_VALUE
+  std::cout << "Reactive Power: ";
+  std::cout << "Total Consumption = " << 
+      acc_details->other_total_react_pow_con_.toStdString() << ", ";
+  std::cout << "Multiplication Factor = " << 
+      acc_details->mul_react_power_factor_.toStdString() << ", ";
+  std::cout << "Previous Reading = " << 
+      acc_details->reactive_prev_reading_.toStdString() << ", ";
+  std::cout << "Current Reading = " << 
+      acc_details->reactive_curr_reading_.toStdString() << std::endl;
+#endif
+}
 
 bool Parser1Lines::Is15VatExtra(QStringList data)
 {
