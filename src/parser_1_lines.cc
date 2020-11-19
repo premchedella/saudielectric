@@ -1254,31 +1254,53 @@ void Parser1Lines::Line16(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line20(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Previous Reading, Position 4
+  //Position 4 - Previous Reading
 
   try
   {
     QString token = line_data.at(4);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Previous Reading = " << value.toStdString() << ", ";
-  }
-  catch (...)
+
+    if (value.size() > 0)
+    {
+      acc_details->sub_prev_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Previous Reading;";
+    }    
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Previous Reading;";
   }
 
-  //Current Reading, Position 6
+  //Position 6 - Current Reading,
 
   try
   {
     QString token = line_data.at(6);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Current Reading = " << value.toStdString() << std::endl;
-  }
-  catch (...)
+    if (value.size() > 0)
+    {
+      acc_details->sub_curr_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Previous Reading;";
+    }    
+  } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Current Reading;";
   }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Previous Reading = " << 
+      acc_details->sub_prev_reading_.toStdString() << ", ";
+  std::cout << "Current Reading = " << 
+      acc_details->sub_curr_reading_.toStdString() << std::endl;
+#endif
 }
 
 void Parser1Lines::LineLast(QStringList data, AccountDetails* acc_details)
