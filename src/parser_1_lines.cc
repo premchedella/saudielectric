@@ -599,7 +599,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser1Lines::Line10_1(QStringList data, AccountDetails* acc_details)
+void Parser1Lines::Line10Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -702,7 +702,7 @@ void Parser1Lines::Line11(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser1Lines::Line11_1(QStringList data, AccountDetails* acc_details)
+void Parser1Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Settlement

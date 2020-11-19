@@ -162,7 +162,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
 
     if (is_15_vat_extra)
     {
-      Parser1Lines::Line10_1(line_data, acc_details);
+      Parser1Lines::Line10Small(line_data, acc_details);
     }
   }
   catch (...)
@@ -194,7 +194,7 @@ void Parser1Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser1Lines::Line11_1(line_data, acc_details); 
+      Parser1Lines::Line11Small(line_data, acc_details); 
     }
     catch (...)
     {
