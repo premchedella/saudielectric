@@ -47,8 +47,8 @@ void Parser1Lines::Line1(QStringList data, AccountDetails* acc_details)
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Account Number: " << acc_details->account_num_.toStdString()
-      << std::endl;
+  std::cout << "Account Number: " << 
+      acc_details->account_num_.toStdString() << std::endl;
 #endif
 }
 
@@ -108,9 +108,7 @@ void Parser1Lines::Line3(QStringList data, AccountDetails* acc_details)
     {
       token = line_data.at(7);
       value = Utilities::ConvertEnglish(token);
-    }
-
-    
+    }   
 
 #if PRINT_FIELD_VALUE
     std::cout << "New Field, Site Number: " <<
@@ -118,7 +116,7 @@ void Parser1Lines::Line3(QStringList data, AccountDetails* acc_details)
 #endif
   } catch (...)
   {
-    
+    std::wcout << "Not a Site Number." << std::endl;
   }
 }
 
@@ -141,8 +139,7 @@ void Parser1Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Invoice Date;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Invoice Date;";
@@ -163,8 +160,7 @@ void Parser1Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Type;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Type;";
@@ -185,8 +181,7 @@ void Parser1Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Sub-Type;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Sub-Type;";
@@ -206,8 +201,7 @@ void Parser1Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Invoice Number;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Invoice Number;";
@@ -284,8 +278,7 @@ void Parser1Lines::Line7(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Power Factor;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Power Factor;";
@@ -475,8 +468,7 @@ void Parser1Lines::Line9(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Power Cost;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Power Cost;";
@@ -509,8 +501,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
         acc_details->parsing_ = "Partial";
         acc_details->reason_ += "No Power Cost (5%);";
       }    
-    }
-    catch (...)
+    } catch (...)
     {
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "Not Power Cost (5%);";
@@ -530,8 +521,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
         acc_details->parsing_ = "Partial";
         acc_details->reason_ += "No VAT (5%);";
       }
-    }
-    catch (...)
+    } catch (...)
     {
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "Not Power Cost (5%);";
@@ -551,8 +541,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
         acc_details->parsing_ = "Partial";
         acc_details->reason_ += "No Meter Service;";
       }
-    }
-    catch (...)
+    } catch (...)
     {
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "Not Meter Service;";
@@ -594,8 +583,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
         acc_details->parsing_ = "Partial";
         acc_details->reason_ += "No Meter Service;";
       }
-    }
-    catch (...)
+    } catch (...)
     {
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "Not Meter Service;";
@@ -629,8 +617,7 @@ void Parser1Lines::Line10_1(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Powr Cost(15%);";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Powr Cost(15%);";
@@ -650,8 +637,7 @@ void Parser1Lines::Line10_1(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No VAT(15%);";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not VAT(15%);";
@@ -671,8 +657,7 @@ void Parser1Lines::Line10_1(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Other Fees;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Other Fees;";
@@ -705,8 +690,7 @@ void Parser1Lines::Line11(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Settlement;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Settlement;";
@@ -736,8 +720,7 @@ void Parser1Lines::Line11_1(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Settlement;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Settlement;";
@@ -757,8 +740,7 @@ void Parser1Lines::Line11_1(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Other Fees;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Other Fees;";
@@ -808,8 +790,7 @@ void Parser1Lines::Line11Big(QStringList data, AccountDetails* acc_details)
     std::cout << "New Field, Passive Energy Value: " <<
       value.toStdString() << std::endl;
 #endif
-  }
-  catch (...)
+  } catch (...)
   {
 
   }  
@@ -832,8 +813,7 @@ void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Taxable Amount;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Taxable Amount;";
@@ -864,8 +844,7 @@ void Parser1Lines::Line12Big(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Non Taxable Amount;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Non Taxable Amount;";
@@ -917,8 +896,7 @@ void Parser1Lines::Line13(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Non Taxable Amount;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Non Taxable Amount;";
@@ -933,8 +911,7 @@ void Parser1Lines::Line13(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line13Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-
-
+  
   try
   {
     QString token = line_data.at(0);
@@ -942,8 +919,7 @@ void Parser1Lines::Line13Big(QStringList data, AccountDetails* acc_details)
     std::cout << "Adjustments: " <<
       value.toStdString() << std::endl;
     
-  }
-  catch (...)
+  } catch (...)
   {
     
   }
@@ -966,8 +942,7 @@ void Parser1Lines::Line14(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Total Cost;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Total Cost;";
@@ -1070,8 +1045,7 @@ void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Powr Cost(15%);";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Powr Cost(15%);";
@@ -1091,8 +1065,7 @@ void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No VAT(15%);";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not VAT(15%);";
@@ -1111,8 +1084,7 @@ void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
     QString value = Utilities::ConvertEnglish(token);
     std::cout << "New Field, Passive Energy Value: " <<  
         value.toStdString() << std::endl;
-  } 
-  catch (...)
+  } catch (...)
   {
 
   }
@@ -1137,8 +1109,7 @@ void Parser1Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Taxable Amount;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Taxable Amount;";
@@ -1160,8 +1131,7 @@ void Parser1Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Other Fees;";
     }
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Other Fees;";
@@ -1361,8 +1331,7 @@ void Parser1Lines::LineLast(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Reactive Previous Meter Reading;";
     }    
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Reactive Previous Meter Reading;";
@@ -1383,8 +1352,7 @@ void Parser1Lines::LineLast(QStringList data, AccountDetails* acc_details)
       acc_details->parsing_ = "Partial";
       acc_details->reason_ += "No Reactive Previous Meter Reading;";
     }    
-  }
-  catch (...)
+  } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Reactive Previous Meter Reading;";
