@@ -908,23 +908,6 @@ void Parser1Lines::Line13(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser1Lines::Line13Big(QStringList data, AccountDetails* acc_details)
-{
-  Line line_data = Utilities::Convert(data);
-  
-  try
-  {
-    QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);
-    std::cout << "Adjustments: " <<
-      value.toStdString() << std::endl;
-    
-  } catch (...)
-  {
-    
-  }
-}
-
 void Parser1Lines::Line14(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
