@@ -757,7 +757,7 @@ void Parser1Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 void Parser1Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Adjustments, Position 0 
+  // Position 0 - Taxable Amount
 
   try
   {
@@ -777,23 +777,32 @@ void Parser1Lines::Line11Big(QStringList data, AccountDetails* acc_details)
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Taxable Amount;";
   }
-
-#if PRINT_FIELD_VALUE
-  std::cout << "Taxable Amount: " <<
-      acc_details->taxable_amount_.toStdString() << ", ";
-#endif
+  
   try
   {
     QString token = line_data.at(4);
-    QString value = Utilities::ConvertEnglish(token);
-#if PRINT_FIELD_VALUE
-    std::cout << "New Field, Passive Energy Value: " <<
-      value.toStdString() << std::endl;
-#endif
+    QString value = Utilities::ConvertEnglish(token);    
+    
+    if (value.size() > 0)
+    {
+      acc_details->other_pow_cons_cost_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Cost;";
+    }
   } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Cost;";
   }  
+
+#if PRINT_FIELD_VALUE
+    std::cout << "Taxable Amount: " <<
+        acc_details->taxable_amount_.toStdString() << ", ";
+    std::cout << "Reactive Power Cost: " <<
+        acc_details->other_pow_cons_cost_.toStdString() << std::endl;
+#endif
 }
 
 void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
@@ -820,7 +829,7 @@ void Parser1Lines::Line12(QStringList data, AccountDetails* acc_details)
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "New Field, Amount Includes Tax: " <<
+  std::cout << "Amount Includes Tax: " <<
       acc_details->taxable_amount_.toStdString() << std::endl;
 #endif
 }
@@ -1053,24 +1062,34 @@ void Parser1Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not VAT(15%);";
   }
-  
-#if PRINT_FIELD_VALUE
-  std::cout << "Power Cost(15%): " <<
-    acc_details->power_cost_15_.toStdString() << ", ";
-  std::cout << "VAT(15%): " <<
-    acc_details->vat_15_.toStdString() << ", ";  
-#endif
 
   try
   {
     QString token = line_data.at(12);
     QString value = Utilities::ConvertEnglish(token);
-    std::cout << "New Field, Passive Energy Value: " <<  
-        value.toStdString() << std::endl;
+    
+    if (value.size() > 0)
+    {
+      acc_details->other_pow_cons_cost_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Cost;";
+    }
   } catch (...)
   {
-
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Cost;";
   }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Power Cost(15%): " <<
+      acc_details->power_cost_15_.toStdString() << ", ";
+  std::cout << "VAT(15%): " <<
+      acc_details->vat_15_.toStdString() << ", ";
+  std::cout << "Reactive Power Cost: " <<
+      acc_details->other_pow_cons_cost_.toStdString() << std::endl;
+#endif  
 }
 
 void Parser1Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
