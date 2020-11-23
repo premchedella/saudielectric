@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
       quint64 time_spent = exec_timer.elapsed();
       std::cout << "Time Spent for PDF convertion and Parsing: " <<
           time_spent <<  " milli seconds, " << (time_spent * 0.001) <<
-          "seconds. \n" << std::endl;
+          " seconds. \n" << std::endl;
 
       std::vector<unsigned int> types = ParseData::GetTypes();
 #if DEBUG     
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
       }
       time_spent = exec_timer.elapsed();
       std::cout << "Time Spent for Writing data in CSV file: " << time_spent <<
-          " milli seconds, " << (time_spent * 0.001) << "seconds. \n" <<
+          " milli seconds, " << (time_spent * 0.001) << " seconds. \n" <<
           std::endl;
     } else
     {
