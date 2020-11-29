@@ -478,7 +478,7 @@ void Parser1Lines::Line9(QStringList data, AccountDetails* acc_details)
   std::cout << "Duration Cost: " <<
       acc_details->total_power_cons_cost_.toStdString() << ", ";
   std::cout << "Power Cost: " <<
-      acc_details->total_power_cons_cost_.toStdString() << std::endl;
+      acc_details->power_consumption_cost_.toStdString() << std::endl;
 #endif
 }
 
@@ -882,7 +882,7 @@ void Parser1Lines::Line12Big(QStringList data, AccountDetails* acc_details)
 
 #if PRINT_FIELD_VALUE
   std::cout << "Non Taxable Amount: " <<
-    acc_details->non_taxable_amount_.toStdString() << std::endl;
+    acc_details->non_taxable_amount_.toStdString() << ", ";
   std::cout << "Other Fees: " <<
     acc_details->other_fees_.toStdString() << std::endl;
 #endif
