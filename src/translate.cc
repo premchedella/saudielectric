@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
       ParseData parse_data;
       parse_data.FormData(data);
       quint64 time_spent = exec_timer.elapsed();
-      std::cout << "Time Spent for PDF convertion and Parsing: " <<
+      std::cout << "Time Spent for PDF conversion and Parsing: " <<
           time_spent <<  " milli seconds, " << (time_spent * 0.001) <<
           " seconds. \n" << std::endl;
 
