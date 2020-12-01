@@ -9,7 +9,7 @@ typedef std::vector<QStringList> Block;
 typedef std::vector<Block> Blocks;
 typedef std::vector<QString> Line;
 
-#define VERSION "1.3"
+#define VERSION "2.0"
 
 #define START_BLOCK_INDEX 0
 
