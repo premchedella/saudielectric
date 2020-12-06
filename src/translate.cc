@@ -139,12 +139,29 @@ int main(int argc, char *argv[])
         Utilities::SetFileType(Utilities::InputFileTypes::KAU2_MAIN);
       }
 
-      // If the year is >= 2020 and month is >= 07 then set the Parser type 1
+      // If the year is 2020 and month is July and August then set the Parser type 1
       // since the invoices format changes.  
 
-      if (((year == 2020) && (month >= 07)) || (year >= 2021)) 
+      if ((year == 2020) && (month >= 7) && (month <= 8)) 
       {
         Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_1);
+      }
+
+      /*If year is 2020 or greater and month greater than 8 then set the 
+      Parser Type to 1.5 (Mix of Parser 1 and Parser 2)
+      */
+
+      if ((year == 2020) && (month >= 9) && ( month <= 10))
+      {
+        Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_1_5);
+      }
+
+      /*If year is 2020 or greater and month greater than 8 then set the
+      Parser Type to 1.5 (Mix of Parser 1 and Parser 2)
+      */
+      if (((year == 2020) && (month >= 11)) || (year >= 2021))
+      {
+        Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_2);
       }
           
       std::cout << "Application Version = " << VERSION << std::endl;

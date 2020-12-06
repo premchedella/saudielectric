@@ -27,7 +27,9 @@ class Utilities
   enum ParserTypes
   {
     PARSER_TYPE_0 = 0, 
-    PARSER_TYPE_1
+    PARSER_TYPE_1,
+    PARSER_TYPE_1_5,  //Mix of Parser 1 and Parser 2
+    PARSER_TYPE_2
   };
 
   static QString ConvertEnglish(QString arabic);  
