@@ -532,7 +532,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
     } catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Cost (5%);";
+      acc_details->reason_ += "Not VAT Cost (5%);";
     }
     
     // Position 12 - Meter Service
@@ -574,7 +574,7 @@ void Parser1Lines::Line10(QStringList data, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Cost (5%);";
+      acc_details->reason_ += "Not VAT Cost (5%);";
     }
 
     // Position 6 - Meter Service
