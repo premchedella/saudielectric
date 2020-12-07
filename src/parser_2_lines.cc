@@ -473,115 +473,50 @@ void Parser2Lines::Line9(QStringList data, AccountDetails* acc_details)
 void Parser2Lines::Line10(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-
-  if (line_data.size() == 15)
+  
+  // Position 0 - VAT 15%
+  try
   {
-    // Position 0 - Power Cost 5%
-    try
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
     {
-      QString token = line_data.at(0);
-      QString value = Utilities::ConvertEnglish(token);
-      if (value.size() > 0)
-      {
-        acc_details->power_cost_5_ = value;
-      } else
-      {
-        acc_details->parsing_ = "Partial";
-        acc_details->reason_ += "No Power Cost (5%);";
-      }    
-    } catch (...)
+      acc_details->vat_15_ = value;
+    } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Cost (5%);";
-    }
-
-    // Position 6 - VAT 5%
-    try
-    {
-      QString token = line_data.at(6);
-      QString value = Utilities::ConvertEnglish(token);
-
-      if (value.size() > 0)
-      {
-        acc_details->vat_ = value;
-      } else
-      {
-        acc_details->parsing_ = "Partial";
-        acc_details->reason_ += "No VAT (5%);";
-      }
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Cost (5%);";
-    }
-    
-    // Position 12 - Meter Service
-    try
-    {
-      QString token = line_data.at(12);
-      QString value = Utilities::ConvertEnglish(token);
-
-      if (value.size() > 0)
-      {
-        acc_details->electrometer_fee_ = value;
-      } else
-      {
-        acc_details->parsing_ = "Partial";
-        acc_details->reason_ += "No Meter Service;";
-      }
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Meter Service;";
-    }    
-  } else
-  {
-    // Position 0 - VAT 5%
-    try
-    {
-      QString token = line_data.at(0);
-      QString value = Utilities::ConvertEnglish(token);
-
-      if (value.size() > 0)
-      {
-        acc_details->vat_ = value;
-      } else
-      {
-        acc_details->parsing_ = "Partial";
-        acc_details->reason_ += "No VAT (5%);";
-      }
-    }
-    catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Power Cost (5%);";
-    }
-
-    // Position 6 - Meter Service
-    try
-    {
-      QString token = line_data.at(6);
-      QString value = Utilities::ConvertEnglish(token);
-
-      if (value.size() > 0)
-      {
-        acc_details->electrometer_fee_ = value;
-      } else
-      {
-        acc_details->parsing_ = "Partial";
-        acc_details->reason_ += "No Meter Service;";
-      }
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Meter Service;";
+      acc_details->reason_ += "No VAT (15%);";
     }
   }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not VAT (15%);";
+  }
 
-#if PRINT_FIELD_VALUE
-  std::cout << "Power Cost(5%): "
-      << acc_details->power_cost_5_.toStdString() << ", ";
-  std::cout << "VAT(5%): " << acc_details->vat_.toStdString() << ", ";
+  // Position 6 - Meter Service
+  try
+  {
+    QString token = line_data.at(6);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->electrometer_fee_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Meter Service;";
+    }
+  } catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Meter Service;";
+  }
+ 
+#if PRINT_FIELD_VALUE 
+  std::cout << "VAT(15%): " << acc_details->vat_15_.toStdString() << ", ";
   std::cout << "Meter Service: " <<
       acc_details->electrometer_fee_.toStdString() << std::endl;
 #endif
