@@ -147,7 +147,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   }
 
   line_no++;
-  // Line No.11 Extra VAT 15%
+  // Line No.11 
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
@@ -159,7 +159,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Settlement Line;";
+    acc_details->reason_ += "No Taxable Amount Line;";
   }  
   
   line_no++;

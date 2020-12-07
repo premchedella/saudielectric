@@ -637,16 +637,16 @@ void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
     
     if (value.size() > 0)
     {
-      acc_details->settlement_ = value;
+      acc_details->taxable_amount_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement;";
+      acc_details->reason_ += "No Taxable Amount;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Settlement;";
+    acc_details->reason_ += "Not Taxable Amount;";
   }
 
   // Position 4 - Other Fees
@@ -670,8 +670,8 @@ void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Settlement: " <<
-      acc_details->settlement_.toStdString() << ", ";
+  std::cout << "Taxable Amount: " <<
+      acc_details->taxable_amount_.toStdString() << ", ";
   std::cout << "Other Fees: " <<
      acc_details->other_fees_.toStdString() << std::endl;
 #endif
@@ -1294,22 +1294,4 @@ void Parser2Lines::LineLast(QStringList data, AccountDetails* acc_details)
   std::cout << "Current Reading = " << 
       acc_details->reactive_curr_reading_.toStdString() << std::endl;
 #endif
-}
-
-bool Parser2Lines::Is15VatExtra(QStringList data)
-{
-  bool is_flag = false;
-  Line line_data = Utilities::Convert(data);
-
-  QString extra_1 = QStringLiteral(u")(%");
-  QString extra_2 = QStringLiteral(u"١٥");
-  if (line_data.size() >=10 )
-  {
-    if ((line_data[10] == extra_1) && (line_data[11] == extra_2))
-    {
-      is_flag = true;
-    }
-  }  
-
-  return is_flag;
 }
