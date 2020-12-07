@@ -86,37 +86,17 @@ void Parser2Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // TODO: Need to get the name of the field -- Site Number
-  // Data, position 4 or 6 or 7 or 9 or 10
+  // Data, position 4 
   try
   {
     QString token = line_data.at(4);
     QString value = Utilities::ConvertEnglish(token);
 
-    if (value.size() == 0)
+    if (value.size() > 0)
     {
       token = line_data.at(6);
       value = Utilities::ConvertEnglish(token);
-    }
-
-    if (value.size() == 0)
-    {
-      token = line_data.at(7);
-      value = Utilities::ConvertEnglish(token);
-    }
-    
-    if (value.size() == 0)
-    {
-      token = line_data.at(9);
-      value = Utilities::ConvertEnglish(token);
-    }
-
-    if (value.size() == 0)
-    {
-      token = line_data.at(10);
-      value = Utilities::ConvertEnglish(token);
-    }
-
-      
+    }          
 
 #if PRINT_FIELD_VALUE
     std::cout << "New Field, Site Number: " <<
