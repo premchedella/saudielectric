@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
       exec_timer.start();
       CsvWrite csv_write(out_file);
       Utilities::ParserTypes parser_type = Utilities::GetParserType();
-      if (parser_type == Utilities::ParserTypes::PARSER_TYPE_1)
+      if (parser_type >= Utilities::ParserTypes::PARSER_TYPE_1)
       {
         csv_write.Write();
       } else
