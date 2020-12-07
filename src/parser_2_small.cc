@@ -19,8 +19,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   std::cout << "Block Size = " << data_in.size() << std::endl;
 #endif
 
-  QStringList line_data;
-  bool is_15_vat_extra = false;
+  QStringList line_data; 
 
   // Line Number is 1
   int line_no = 0;
@@ -155,53 +154,13 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    if (Parser2Lines::Is15VatExtra(line_data))
-    {
-      is_15_vat_extra = true;
-    }
-
-    if (is_15_vat_extra)
-    {
-      Parser2Lines::Line10Small(line_data, acc_details);
-    }
+    Parser2Lines::Line11Small(line_data, acc_details);
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No 15% VAT Line;";
-  }
-  
-
-  if (is_15_vat_extra)
-  {
-    line_no++;
-#if PRINT_FIELD_VALUE
-    std::cout << "Parse Line " << line_no + 1 << ":: ";
-#endif
-    try
-    {
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11(line_data, acc_details);
-    }
-    catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement Line;";
-    }    
-  }
-  else
-  {
-    try
-    {
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11Small(line_data, acc_details); 
-    }
-    catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement Line;";
-    }
-  }
+    acc_details->reason_ += "No Settlement Line;";
+  }  
   
   line_no++;
   //Line No. 12
