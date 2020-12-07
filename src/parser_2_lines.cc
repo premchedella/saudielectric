@@ -628,7 +628,7 @@ void Parser2Lines::Line11(QStringList data, AccountDetails* acc_details)
 void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Settlement
+  // Position 0 - Taxable Amount
 
   try
   {
@@ -670,7 +670,7 @@ void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Taxable Amount: " <<
+  std::cout << "Amount Includes Tax: " <<
       acc_details->taxable_amount_.toStdString() << ", ";
   std::cout << "Other Fees: " <<
      acc_details->other_fees_.toStdString() << std::endl;
@@ -731,7 +731,7 @@ void Parser2Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 void Parser2Lines::Line12(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Taxable Amount
+  // Position 0 - Settlement
   try
   {
     QString token = line_data.at(0);
@@ -739,21 +739,21 @@ void Parser2Lines::Line12(QStringList data, AccountDetails* acc_details)
     
     if (value.size() > 0)
     {
-      acc_details->taxable_amount_ = value;
+      acc_details->settlement_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Taxable Amount;";
+      acc_details->reason_ += "No Settlement;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Taxable Amount;";
+    acc_details->reason_ += "Not Settlement;";
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Amount Includes Tax: " <<
-      acc_details->taxable_amount_.toStdString() << std::endl;
+  std::cout << "Settlement: " <<
+      acc_details->settlement_.toStdString() << std::endl;
 #endif
 }
 
