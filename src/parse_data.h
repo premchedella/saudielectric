@@ -20,8 +20,14 @@ class ParseData
  private:
   void ParserType0(Blocks data);
   void ParserType1(Blocks data);
+  void ParserType1_5(Blocks data);
+  void ParserType2(Blocks data);
   void ParserType1Small(Blocks data);
   void ParserType1Big(Blocks data);
+  void ParserType1_5Small(Blocks data);
+  void ParserType1_5Big(Blocks data);
+  void ParserType2Small(Blocks data);
+  void ParserType2Big(Blocks data);
 
   void ParseType1(Block data_in, AccountDetails* acc_details);
   void ParseType12(Block data_in, AccountDetails* acc_details);

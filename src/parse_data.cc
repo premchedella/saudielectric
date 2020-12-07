@@ -8,6 +8,8 @@
 #include "type_12_parser.h"
 #include "parser_1_small.h"
 #include "parser_1_big.h"
+#include "parser_2_small.h"
+#include "parser_2_big.h"
 
 std::vector<AccountDetails> ParseData::account_details_;
 std::vector<unsigned int> ParseData::types_;
@@ -32,12 +34,23 @@ void ParseData::FormData(Blocks data)
   types_.clear();
 
   Utilities::ParserTypes parser_type = Utilities::GetParserType();
-  if (parser_type == Utilities::ParserTypes::PARSER_TYPE_0)
+
+  switch (parser_type)
   {
-    ParserType0(data);
-  } else
-  {
-    ParserType1(data);
+    case Utilities::ParserTypes::PARSER_TYPE_0:
+      ParserType0(data);
+      break;
+    case Utilities::ParserTypes::PARSER_TYPE_1:
+      ParserType1(data);
+      break;
+    case Utilities::ParserTypes::PARSER_TYPE_1_5:
+      ParserType1_5(data);
+      break;
+    case Utilities::ParserTypes::PARSER_TYPE_2:
+      ParserType2(data);
+      break;
+    default:
+      break;
   }  
 }
 
@@ -137,14 +150,39 @@ void ParseData::ParserType1(Blocks data)
   }
 }
 
-void ParseData::ParserType1Small(Blocks data)
+void ParseData::ParserType1_5(Blocks data)
 {
+  Utilities::InputFileTypes file_type = Utilities::GetFileType();
+  if (file_type == Utilities::InputFileTypes::KAU2_MAIN)
+  {
+    ParserType1_5Small(data);
+  } else
+  {
+    ParserType1_5Big(data);
+  }
+}
+
+void ParseData::ParserType2(Blocks data)
+{
+  Utilities::InputFileTypes file_type = Utilities::GetFileType();
+  if (file_type == Utilities::InputFileTypes::KAU2_MAIN)
+  {
+    ParserType2Small(data);
+  } else
+  {
+    ParserType2Big(data);
+  }
+}
+
+void ParseData::ParserType1Small(Blocks data)
+{  
   for (unsigned int index = 0; index < data.size(); index++)
   {
     Block data_block = data.at(index);
+
     AccountDetails acc_details;
     acc_details.parsing_ = "Completed";
-
+    
     Parser1Small parser_1_small;
     parser_1_small.Parse(data_block, &acc_details);
 
@@ -157,6 +195,7 @@ void ParseData::ParserType1Big(Blocks data)
   for (unsigned int index = 0; index < data.size(); index++)
   {
     Block data_block = data.at(index);
+
     AccountDetails acc_details;
     acc_details.parsing_ = "Completed";
 
@@ -167,7 +206,47 @@ void ParseData::ParserType1Big(Blocks data)
   }
 }
 
+void ParseData::ParserType1_5Small(Blocks data)
+{
 
+}
+
+void ParseData::ParserType1_5Big(Blocks data)
+{
+
+}
+
+void ParseData::ParserType2Small(Blocks data)
+{
+  std::vector<unsigned int> block_lengths;
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    Block data_block = data.at(index);
+    AccountDetails acc_details;
+    acc_details.parsing_ = "Completed";
+
+    std::vector<unsigned int>::iterator it;
+
+    it = std::find(block_lengths.begin(), block_lengths.end(), data_block.size());
+    if (it == block_lengths.end())
+    {
+      block_lengths.push_back(data_block.size());
+    } else
+    {
+      continue;
+    }
+
+    Parser2Small parser_2_small;
+    parser_2_small.Parse(data_block, &acc_details);
+
+    account_details_.push_back(acc_details);
+  }
+}
+
+void ParseData::ParserType2Big(Blocks data)
+{
+
+}
 
 void ParseData::ParseType1(Block data_in, AccountDetails* acc_details)
 {  
@@ -186,7 +265,6 @@ void ParseData::ParseType12(Block data_in, AccountDetails* acc_details)
   Type12Parser type_12_parser;
   type_12_parser.Parse(data_in, acc_details);  
 }
-
 
 #if 0
 
