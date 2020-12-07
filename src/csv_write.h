@@ -16,8 +16,13 @@ class CsvWrite
  private:
   void WriteResidential(int type);
   void WriteIndustrial(int type);
+  void WriteParser1();
+  void WriteParser1_5();
+  void WriteParser2();
   void Parser1Small();
-  void Parser1Big();
+  void Parser1Big();  
+  void Parser2Big();
+  void Parser2Small();  
 
   QString file_name_;
 };
