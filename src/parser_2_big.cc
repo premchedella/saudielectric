@@ -19,8 +19,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   std::cout << "Block Size = " << data_in.size() << std::endl;
 #endif
 
-  QStringList line_data; 
-  bool is_15_vat_extra = false;
+  QStringList line_data;  
   
   // Line Number is 1
   int line_no = 0;
@@ -159,114 +158,53 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   }
 
   line_no++;
-  // Line No.12 Extra VAT 15%
+  // Line No.12 
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
+
   try
   {
     line_data = data_in.at(line_no);
-    /*if (Parser2Lines::Is15VatExtra(line_data))
-    {
-      is_15_vat_extra = true;
-    }*/
-
-    if (is_15_vat_extra)
-    {
-      Parser2Lines::Line10Big15(line_data, acc_details);
-    }
-  } catch (...)
+    Parser2Lines::Line11Big(line_data, acc_details);
+  }
+  catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Line 12;";
   }
 
-
-  if (is_15_vat_extra)
-  {
-    try
-    {
-      line_no++;
-#if PRINT_FIELD_VALUE
-      std::cout << "Parse Line " << line_no + 1 << ":: ";
-#endif
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11Big15(line_data, acc_details);
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Line 12;";
-    }
-  } else
-  {
-    try
-    {
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11Big(line_data, acc_details);
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Line 12;";
-    }
-  }
-    
+      
   line_no++;
   //Line No. 13
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
-  if (is_15_vat_extra)
+  
+  try
   {
-    try
-    {              
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11(line_data, acc_details);
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement Line;";
-    }
-  } else
+    line_data = data_in.at(line_no);
+    Parser2Lines::Line12Big(line_data, acc_details);
+  } catch (...)
   {
-    try
-    {
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line12Big(line_data, acc_details);
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Settlement Line;";
-    }
-  }
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Settlement Line;";
+  }  
   
   line_no++;
   //Line No. 14
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
-  if (is_15_vat_extra)
+  try
   {
-    try
-    {    
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line13(line_data, acc_details);      
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Line 13;";
-    }
-  } else
+    line_data = data_in.at(line_no);
+    Parser2Lines::Line11(line_data, acc_details);
+  } catch (...)
   {
-    try
-    {
-      line_data = data_in.at(line_no);
-      Parser2Lines::Line11(line_data, acc_details);
-    } catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Line 13;";
-    }
-  }
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Line 13;";
+  }  
   
   line_no++;
   //Line No. 14
@@ -283,13 +221,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 12;";
   }
 
-  if (is_15_vat_extra)
-  {
-    line_no = 17;
-  } else
-  {
-    line_no = 16;
-  }
+  line_no = 16;  
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
@@ -304,14 +236,8 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Line 16;";
   }
 
-  if (is_15_vat_extra)
-  {
-    line_no = 27;
-  } else
-  {
-    line_no = 20;
-  }
-  
+ line_no = 20;
+   
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
