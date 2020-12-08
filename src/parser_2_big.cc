@@ -33,7 +33,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 1;";
+    acc_details->reason_ += "No Account Number Line;";
   }
 
   // Line Number is 2
@@ -48,7 +48,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 1;";
+    acc_details->reason_ += "No Subscription Number Line;";
   }
 
   //Line No. 3
@@ -63,7 +63,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 3;";
+    acc_details->reason_ += "No Site Number Line;";
   }
   
   //Line No. 4
@@ -78,7 +78,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 4;";
+    acc_details->reason_ += "No Invoice Date Line;";
   }
 
   // Line 5 and 6 contains some table header
@@ -94,7 +94,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 7;";
+    acc_details->reason_ += "No Reading To Line;";
   }
 
   //Line No. 8
@@ -109,7 +109,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 8;";
+    acc_details->reason_ += "No Current Reading Line;";
   }
 
   //Line No. 9
@@ -124,7 +124,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 9;";
+    acc_details->reason_ += "No Power Consumtion Line;";
   }
 
   //Line No. 10
@@ -139,7 +139,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 10;";
+    acc_details->reason_ += "No Duration Cost Line;";
   }
 
   //Line No. 11
@@ -154,7 +154,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 11;";
+    acc_details->reason_ += "No VAT 15% Line;";
   }
 
   line_no++;
@@ -171,7 +171,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 12;";
+    acc_details->reason_ += "No Taxable Amount Line;";
   }
 
       
@@ -188,7 +188,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Settlement Line;";
+    acc_details->reason_ += "No Non Taxable Amount Line;";
   }  
   
   line_no++;
@@ -203,7 +203,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 13;";
+    acc_details->reason_ += "No Settlement Line;";
   }  
   
   line_no++;
@@ -218,7 +218,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 12;";
+    acc_details->reason_ += "No Total Cost Line;";
   }
 
   line_no = 16;  
@@ -233,7 +233,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 16;";
+    acc_details->reason_ += "No Total Reactive Power Consumption Line;";
   }
 
  line_no = 20;
@@ -248,7 +248,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Line 20;";
+    acc_details->reason_ += "No Previous Reading Line;";
   }
 
   line_no = data_in.size() - 2;
