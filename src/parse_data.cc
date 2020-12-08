@@ -233,8 +233,20 @@ void ParseData::ParserType2Small(Blocks data)
 }
 
 void ParseData::ParserType2Big(Blocks data)
-{
+{  
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    Block data_block = data.at(index);
+    std::vector<unsigned int>::iterator it;    
 
+    AccountDetails acc_details;
+    acc_details.parsing_ = "Completed";
+
+    Parser2Big parser_2_big;
+    parser_2_big.Parse(data_block, &acc_details);
+
+    account_details_.push_back(acc_details);
+  }
 }
 
 void ParseData::ParseType1(Block data_in, AccountDetails* acc_details)
