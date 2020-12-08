@@ -86,15 +86,15 @@ void Parser2Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // TODO: Need to get the name of the field -- Site Number
-  // Data, position 4 
+  // Data, position 4 (for smaller invoices) or 9 (for bigger invoices)
   try
   {
-    QString token = line_data.at(4);
+    QString token = line_data.at(6);    
     QString value = Utilities::ConvertEnglish(token);
 
-    if (value.size() > 0)
+    if (value.size() == 0)
     {
-      token = line_data.at(6);
+      token = line_data.at(9);
       value = Utilities::ConvertEnglish(token);
     }          
 
