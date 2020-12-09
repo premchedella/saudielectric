@@ -49,6 +49,7 @@ class Utilities
   static void SetParserType(ParserTypes parser_type);
   static ParserTypes GetParserType();  
   static QString ToDateMonth(QString mmddyyyy);
+  static bool Is5and15Vat(Block data);
   
  private:
   static VatTypes vat_type_;

@@ -331,3 +331,49 @@ QString Utilities::ToDateMonth(QString mmddyyyy)
 
   return date_new;  
 }
+
+
+
+bool Utilities::Is5and15Vat(Block data)
+{
+  bool is_flag = false;
+
+  QString extra_1 = QStringLiteral(u")(%");
+  QString extra_2 = QStringLiteral(u"١٥");
+  QString extra_3 = QStringLiteral(u"٥");
+
+  QStringList line_data_5_vat;
+  QStringList line_data_15_vat;
+
+  Utilities::InputFileTypes file_type = Utilities::GetFileType();
+
+  if (file_type == Utilities::InputFileTypes::KAU2_MAIN)
+  {
+    //Line 9 contains 5%
+    //Line 10 contains 15%
+    unsigned int line_no = 9;
+    line_data_5_vat = data.at(line_no);
+    line_no = 10;
+    line_data_15_vat = data.at(line_no);
+  } else
+  {
+    //Line 10 contains 5%
+    //Line 11 contains 15%
+    unsigned int line_no = 10;
+    line_data_5_vat = data.at(line_no);
+    line_no = 11;
+    line_data_15_vat = data.at(line_no);
+  }  
+
+  if ((line_data_5_vat.size() >= 11) && (line_data_15_vat.size() >= 11))
+  {
+    if (((line_data_15_vat[10] == extra_1) && (line_data_15_vat[11] == extra_2))
+        &&
+        ((line_data_5_vat[10] == extra_1) && (line_data_5_vat[11] == extra_3)))
+    {
+      is_flag = true;
+    }
+  }
+
+  return is_flag;
+}
