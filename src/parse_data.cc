@@ -207,8 +207,26 @@ void ParseData::ParserType1Big(Blocks data)
 }
 
 void ParseData::ParserType1_5Small(Blocks data)
-{
+{  
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    Block data_block = data.at(index);
 
+    AccountDetails acc_details;
+    acc_details.parsing_ = "Completed";    
+
+    if (Utilities::Is5and15Vat(data_block))
+    {
+      Parser1Small parser_1_small;
+      parser_1_small.Parse(data_block, &acc_details);
+    } else
+    {
+      Parser2Small parser_2_small;
+      parser_2_small.Parse(data_block, &acc_details);      
+    }    
+
+    account_details_.push_back(acc_details);
+  }
 }
 
 void ParseData::ParserType1_5Big(Blocks data)
