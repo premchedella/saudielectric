@@ -30,7 +30,7 @@ AccountDetails::AccountDetails()
   other_fees_ = "";
   settlement_ = "";                
 
-  vat_ = "";                       
+  vat_ = "0.0";                       
   total_cost_ = "";                
     
   other_prev_reading_ = "";
