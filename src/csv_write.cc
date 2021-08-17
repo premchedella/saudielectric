@@ -69,7 +69,7 @@ void CsvWrite::WriteParser1_5()
     Parser1Small();
   } else
   {
-    Parser2Big();
+    Parser1Big();
   }
 }
 
