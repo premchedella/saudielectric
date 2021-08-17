@@ -320,10 +320,19 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
   try
   {
     QString token = line_data.at(5);
+
+    if (token.size() == 1)
+      token = token + line_data.at(6);
+
+    QString prefix = token.left(3);
+
+    
+  
+
     QString value = Utilities::ConvertEnglish(token);
     if (value.size() > 0)
     {
-      acc_details->electrometer_num_ = value;
+      acc_details->electrometer_num_ = prefix + value;
     } else
     {
       acc_details->parsing_ = "Partial";
