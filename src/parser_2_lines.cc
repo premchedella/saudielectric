@@ -321,12 +321,17 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(5);
 
+    // In some cases the the meter token has two parts.  
+    // So consider both parts
     if (token.size() == 1)
       token = token + line_data.at(6);
 
+    // Get the English characters of meter number
     QString prefix = token.left(3);
 
-    
+    // If the meter number has no English characters, consider only Arabic.   
+    if (Utilities::ConvertEnglish(prefix).size() > 0)
+      prefix = "";
   
 
     QString value = Utilities::ConvertEnglish(token);
