@@ -17,6 +17,8 @@ Utilities::ParserTypes Utilities::parser_type_ =
 QStringList Utilities::months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun",
                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+bool Utilities::is_extra_word_ = false;
+
 QString Utilities::ConvertEnglish(QString arabic)
 {
   QChar *data = arabic.data();
@@ -376,4 +378,14 @@ bool Utilities::Is5and15Vat(Block data)
   }
 
   return is_flag;
+}
+
+bool Utilities::IsExtraWord()
+{
+  return is_extra_word_;
+}
+
+void Utilities::SetExtraWord(bool flag)
+{
+  is_extra_word_ = flag;
 }

@@ -329,10 +329,13 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
     // Get the English characters of meter number
     QString prefix = token.left(3);
 
+    Utilities::SetExtraWord(true);
     // If the meter number has no English characters, consider only Arabic.   
     if (Utilities::ConvertEnglish(prefix).size() > 0)
+    {
       prefix = "";
-  
+      Utilities::SetExtraWord(false);
+    }  
 
     QString value = Utilities::ConvertEnglish(token);
     if (value.size() > 0)

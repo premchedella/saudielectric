@@ -50,6 +50,8 @@ class Utilities
   static ParserTypes GetParserType();  
   static QString ToDateMonth(QString mmddyyyy);
   static bool Is5and15Vat(Block data);
+  static bool IsExtraWord();
+  static void SetExtraWord(bool flag);
   
  private:
   static VatTypes vat_type_;
@@ -57,6 +59,7 @@ class Utilities
   static bool is_other_fees_;
   static ParserTypes parser_type_;
   static QStringList months;
+  static bool is_extra_word_;
 };
 
 #endif //UTILITIES_H_
