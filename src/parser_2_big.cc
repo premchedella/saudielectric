@@ -236,7 +236,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->reason_ += "No Total Reactive Power Consumption Line;";
   }
 
- line_no = 20;
+  line_no = 20;    
    
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
@@ -252,6 +252,8 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   }
 
   line_no = data_in.size() - 2;
+  if (Utilities::IsExtraWord())
+    line_no = data_in.size() - 3;
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
