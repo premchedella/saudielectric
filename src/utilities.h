@@ -29,7 +29,8 @@ class Utilities
     PARSER_TYPE_0 = 0, 
     PARSER_TYPE_1,
     PARSER_TYPE_1_5,  //Mix of Parser 1 and Parser 2
-    PARSER_TYPE_2
+    PARSER_TYPE_2,
+    PARSER_TYPE_3 // Generate out files based on the data
   };
 
   static QString ConvertEnglish(QString arabic);  

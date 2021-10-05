@@ -328,13 +328,13 @@ QString Utilities::ToDateMonth(QString mmddyyyy)
 {
   QString date = ToDate(mmddyyyy);
   QStringList date_parts = date.split("/");
-  QString date_new = date_parts[0] + "/" + months.at(date_parts[1].toInt() - 1) +
+  QString date_new = "";
+  if (date_parts.size() == 3)
+    date_new = date_parts[0] + "/" + months.at(date_parts[1].toInt() - 1) +
       "/" + date_parts[2];
 
   return date_new;  
 }
-
-
 
 bool Utilities::Is5and15Vat(Block data)
 {
