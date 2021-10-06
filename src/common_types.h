@@ -59,6 +59,19 @@ typedef std::vector<QString> Line;
 #define TOTAL_INNOVICES_1 u"عدد الفواتير"
 #define TOTAL_INNOVICES u"\uFE8D\uFEDF\uFED4\uFEEE\uFE8D\uFE97\uFEF4\uFEAE"
 
+
+// Differentiate between bigger and smaller invoices
+
+//#define BIG_INVOICE_CONTAINS u"(نوع الاستهلاك: طاقة غير فاعلة)"
+
+//#define BIG_INVOICE_CONTAINS u"ﻴﺎﻧﺎﺕ ﺍﺳﺘﻬﻼﻛﺎﺕ"
+
+//#define BIG_INVOICE_CONTAINS u"ﻴﺎﻧﺎﺕ ﺍﺳﺘﻬﻼﻛﺎﺕ"
+
+#define BIG_INVOICE_CONTAINS u":ﻃﺎﻗﺔ ﻏﻴﺮ ﻓﺎﻋﻠﺔ("
+
+
+
 //Debug Purpose
 #define DEBUG 0
 
