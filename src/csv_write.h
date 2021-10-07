@@ -2,16 +2,23 @@
 #define CSV_WRITE_H_
 
 #include <iostream>
+#include <vector>
 
 #include <QtCore\QString>
+
+#include "account_details.h"
+
+using namespace std;
 
 class CsvWrite
 {
  public:
-   CsvWrite(QString file_name);
-   ~CsvWrite();
+  CsvWrite();
+  CsvWrite(QString file_name);
+  ~CsvWrite();
   void Write(int type);
   void Write();
+  void SetBaseFileName(QString file_name);  
 
  private:
   void WriteResidential(int type);
@@ -21,10 +28,12 @@ class CsvWrite
   void WriteParser2();
   void Parser1Small();
   void Parser1Big();  
-  void Parser2Big();
-  void Parser2Small();  
+  void Parser2Big(std::vector<AccountDetails> data, QString file_name);
+  void Parser2Small(std::vector<AccountDetails> data, QString file_name);
+  void WriteParser3();
 
   QString file_name_;
+  QString base_file_name_;
 };
 
 #endif //CSV_WRITE_H_

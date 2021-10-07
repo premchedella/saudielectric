@@ -6,6 +6,12 @@
 #include "parse_data.h"
 #include "common_types.h"
 #include "utilities.h"
+#include "parser_data_3_write.h"
+
+CsvWrite::CsvWrite()
+{
+  
+}
 
 CsvWrite::CsvWrite(QString file_name)
 {
@@ -44,9 +50,17 @@ void CsvWrite::Write()
     case Utilities::ParserTypes::PARSER_TYPE_2:
       WriteParser2();
       break;
+    case Utilities::ParserTypes::PARSER_TYPE_3:
+      WriteParser3();
+      break;
     default:
       break;
   }  
+}
+
+void CsvWrite::SetBaseFileName(QString file_name)
+{
+  base_file_name_ = file_name;
 }
 
 void CsvWrite::WriteParser1()
@@ -76,12 +90,14 @@ void CsvWrite::WriteParser1_5()
 void CsvWrite::WriteParser2()
 {
   Utilities::InputFileTypes file_type = Utilities::GetFileType();
+  std::vector<AccountDetails> data;
+  data = ParseData::GetDataInfo();
   if (file_type == Utilities::InputFileTypes::KAU2_MAIN)
-  {
-    Parser2Small();
+  {    
+    Parser2Small(data, file_name_);
   } else
   {
-    Parser2Big();
+    Parser2Big(data, file_name_);
   }
 }
 
@@ -696,14 +712,10 @@ void CsvWrite::Parser1Big()
     << std::endl << std::endl;
 }
 
-void CsvWrite::Parser2Big()
+void CsvWrite::Parser2Big(std::vector<AccountDetails> data, QString file_name)
 {
-  std::vector<AccountDetails> data;
-  std::vector<unsigned int> types = ParseData::GetTypes();
+  QFile csv_file(file_name);
 
-  data = ParseData::GetDataInfo();
-
-  QFile csv_file(file_name_);
   if (csv_file.open(QFile::WriteOnly | QFile::Truncate))
   {
     QTextStream stream(&csv_file);
@@ -844,18 +856,13 @@ void CsvWrite::Parser2Big()
       (data.size() - no_parsing_full) << std::endl;
   }
 
-  std::cout << "Saved the data in the " << file_name_.toStdString() << "."
+  std::cout << "Saved the data in the " << file_name.toStdString() << "."
     << std::endl << std::endl;
 }
 
-void CsvWrite::Parser2Small()
+void CsvWrite::Parser2Small(std::vector<AccountDetails> data, QString file_name)
 {
-  std::vector<AccountDetails> data;
-  std::vector<unsigned int> types = ParseData::GetTypes();
-
-  data = ParseData::GetDataInfo();
-
-  QFile csv_file(file_name_);
+  QFile csv_file(file_name);
   if (csv_file.open(QFile::WriteOnly | QFile::Truncate))
   {
     QTextStream stream(&csv_file);
@@ -972,6 +979,45 @@ void CsvWrite::Parser2Small()
       (data.size() - no_parsing_full) << std::endl;
   }
 
-  std::cout << "Saved the data in the " << file_name_.toStdString() << "."
+  std::cout << "Saved the data in the " << file_name.toStdString() << "."
     << std::endl << std::endl;
+}
+
+void CsvWrite::WriteParser3()
+{
+  std::vector<AccountDetails> bigger_invoices_data;
+  std::vector<AccountDetails> smaller_invoices_data;
+  bigger_invoices_data = ParseData::GetDataInfo(ParseData::AccountTypes::BIGGER);
+  smaller_invoices_data = ParseData::GetDataInfo(ParseData::AccountTypes::SMALLER);
+
+  /*if (bigger_invoices_data.size() > 0)
+  { 
+    QString file_name = base_file_name_ + "_bigger.csv";
+    file_name =  QDir::toNativeSeparators(file_name);
+
+    Parser2Big(bigger_invoices_data, file_name);
+  } 
+  
+  if (smaller_invoices_data.size() > 0)
+  {
+    QString file_name = base_file_name_ + "_smaller.csv";
+    file_name = QDir::toNativeSeparators(file_name);
+
+    Parser2Small(smaller_invoices_data, file_name);
+  }*/
+   
+  ParserData3Write data_3_write;
+  data_3_write.SetBaseFileName(base_file_name_);
+
+  if (bigger_invoices_data.size() > 0)
+  {
+    data_3_write.Write(ParserData3Write::PARSER_DATA_WRITE_BIGGER);
+  }
+
+  if (smaller_invoices_data.size() > 0)
+  {
+    data_3_write.Write(ParserData3Write::PARSER_DATA_WRITE_SMALLER);
+  }
+
+  data_3_write.Write(ParserData3Write::PARSER_DATA_WRITE_SUMMARY);
 }
