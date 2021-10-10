@@ -15,14 +15,17 @@ class XPdfParse : public QObject
   XPdfParse(const QString file_name);
   ~XPdfParse();
 
-  void Parse();    
+  void Parse();
+  void ParseSummary();
   Blocks GetBlocks();
   unsigned int GetTotalInvoices();
+  Block GetSummary();
 
  private:    
   void PrintCommands(QString exe_name, QStringList arguments);
   void PreDirCheck();
   void PdftoText(QString out_file);
+  void SummarytoText(QString out_file);
   QStringList ReadTextFile(QString file_name);
   QStringList RemoveWhiteSpaces(QStringList data_in);
   QStringList RemoveHeaderFooter(QStringList data_in);  
@@ -34,6 +37,7 @@ class XPdfParse : public QObject
   QString in_file_name_;  
   Blocks data_blocks_;
   unsigned int total_invoices_;
+  Block summary_data_;
 };
 
 #endif //XPDF_PARSE_H_

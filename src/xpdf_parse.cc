@@ -72,6 +72,23 @@ void XPdfParse::Parse()
   }
 }
 
+void XPdfParse::ParseSummary()
+{
+  PreDirCheck();
+  total_invoices_ = 0;
+  QString cur_dir = QDir::currentPath();
+  QString base_dir = cur_dir + QDir::separator() + "..";
+  QString temp_dir = base_dir + QDir::separator() + "temp";
+  QString pdf_to_file = temp_dir + QDir::separator() + "summary.txt";
+  pdf_to_file = QDir::toNativeSeparators(pdf_to_file);
+  SummarytoText(pdf_to_file);
+
+  QStringList txt_data = ReadTextFile(pdf_to_file);
+  txt_data = RemoveWhiteSpaces(txt_data);  
+
+  summary_data_ = ConvertData(txt_data);
+}
+
 Blocks XPdfParse::GetBlocks()
 {
   return data_blocks_;
@@ -80,6 +97,12 @@ Blocks XPdfParse::GetBlocks()
 unsigned int XPdfParse::GetTotalInvoices()
 {
   return total_invoices_;
+}
+
+
+Block XPdfParse::GetSummary()
+{
+  return summary_data_;
 }
 
 void XPdfParse::PrintCommands(QString exe_name, QStringList arguments)
@@ -161,17 +184,71 @@ void XPdfParse::PdftoText(QString out_file)
   }  
 }
 
+void XPdfParse::SummarytoText(QString out_file)
+{
+  QString cur_dir = QDir::currentPath();
+  QString base_dir = cur_dir + QDir::separator() + "..";
+
+  QString tools_dir = base_dir + QDir::separator() + "tools";
+  QString exe_name = tools_dir + QDir::separator() + "pdftotext.exe";
+  exe_name = QDir::toNativeSeparators(exe_name);
+
+  QStringList arguments;
+  QString argument = "-layout";
+  arguments.push_back(argument);
+
+  argument = "-table";
+  arguments.push_back(argument);
+
+  /* The first page conains meta data, generate only that page.*/
+  argument = "-l";
+  arguments.push_back(argument);
+  argument = QString::number(1);
+  arguments.push_back(argument);
+
+  /*argument = "-nopgbrk";
+  arguments.push_back(argument);*/
+
+  argument = "-enc";
+  arguments.push_back(argument);
+
+  //the following is done because enc exepcts a string parameter
+  //which can be achieved by defining the QStringLiteral
+  argument = QStringLiteral("UTF-8");
+  arguments.push_back(argument);
+
+  arguments.push_back(in_file_name_);
+  arguments.push_back(out_file);
+
+#if DEBUG
+  PrintCommands(exe_name, arguments);
+#endif
+
+  QProcess  process;
+  int retval = process.execute(exe_name, arguments);
+  if (retval != 0)
+  {
+    std::cout << "Not able to generated summary text file is an error =" <<
+      retval << std::endl;
+  } else
+  {
+#if DEBUG
+    std::cout << "Generated the PDF to Summary Text file." << std::endl;
+#endif
+  }
+}
+
 QStringList XPdfParse::ReadTextFile(QString file_name)
 {
   QStringList data_out;
 
-  QFile inpu_file(file_name);
-  if (inpu_file.open(QIODevice::ReadOnly | QIODevice::Text))
+  QFile input_file(file_name);
+  if (input_file.open(QIODevice::ReadOnly | QIODevice::Text))
   {
 #if DEBUG
     std::cout << "Able to open the text file for reading." << std::endl;
 #endif
-    QTextStream in(&inpu_file);
+    QTextStream in(&input_file);
     in.setCodec("UTF-8"); // change the file codec to UTF-8.
    
     while (!in.atEnd())
@@ -179,7 +256,7 @@ QStringList XPdfParse::ReadTextFile(QString file_name)
       QString line = in.readLine();     
       data_out.push_back(line);      
     }
-    inpu_file.close();
+    input_file.close();
   } else
   {
     std::cout << "Not able to open the parsing text for reading." << std::endl;
