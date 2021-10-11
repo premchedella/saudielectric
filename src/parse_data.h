@@ -9,12 +9,19 @@
 class ParseData
 {
  public:
-   ParseData();
-   ~ParseData();
+  enum AccountTypes
+  {
+    DEFAULT = 0,
+    SMALLER = 1,
+    BIGGER = 2
+  };
+
+  ParseData();
+  ~ParseData();
 
   void FormData(Blocks data);
   static std::vector<unsigned int> GetTypes();
-  static std::vector<AccountDetails> GetDataInfo();  
+  static std::vector<AccountDetails> GetDataInfo(ParseData::AccountTypes type = ParseData::AccountTypes::DEFAULT);
   static std::vector<AccountDetails> GetDataInfo(unsigned int type);
 
  private:
@@ -22,6 +29,7 @@ class ParseData
   void ParserType1(Blocks data);
   void ParserType1_5(Blocks data);
   void ParserType2(Blocks data);
+  void ParserType3(Blocks data);
   void ParserType1Small(Blocks data);
   void ParserType1Big(Blocks data);
   void ParserType1_5Small(Blocks data);
@@ -34,8 +42,11 @@ class ParseData
   void ParseType5(Block data_in, AccountDetails* acc_details);
   
   static std::vector<AccountDetails> account_details_;
+  static std::vector<AccountDetails> bigger_account_details_;
+  static std::vector<AccountDetails> smaller_account_details_;
   static std::vector<AccountDetails> type_account_details_;
-  static std::vector<unsigned int> types_;  
+  static std::vector<unsigned int> types_;
+
 };
 
 #endif //PARSE_DATA_H_

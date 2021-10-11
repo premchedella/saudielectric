@@ -12,6 +12,8 @@
 #include "parser_2_big.h"
 
 std::vector<AccountDetails> ParseData::account_details_;
+std::vector<AccountDetails> ParseData::bigger_account_details_;
+std::vector<AccountDetails> ParseData::smaller_account_details_;
 std::vector<unsigned int> ParseData::types_;
 
 ParseData::ParseData()
@@ -48,6 +50,9 @@ void ParseData::FormData(Blocks data)
       break;
     case Utilities::ParserTypes::PARSER_TYPE_2:
       ParserType2(data);
+      break;    
+    case Utilities::ParserTypes::PARSER_TYPE_3:
+      ParserType3(data);
       break;
     default:
       break;
@@ -59,9 +64,15 @@ std::vector<unsigned int> ParseData::GetTypes()
   return types_;
 }
 
-std::vector<AccountDetails> ParseData::GetDataInfo()
+std::vector<AccountDetails> ParseData::GetDataInfo(
+  ParseData::AccountTypes type)
 {
-  return account_details_;
+  if (type == ParseData::AccountTypes::SMALLER)
+    return smaller_account_details_;
+  else if (type == ParseData::AccountTypes::BIGGER)
+    return bigger_account_details_;
+  else
+      return account_details_;
 }
 
 std::vector<AccountDetails> ParseData::GetDataInfo(unsigned int type)
@@ -174,6 +185,58 @@ void ParseData::ParserType2(Blocks data)
   }
 }
 
+void ParseData::ParserType3(Blocks data)
+{  
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    bool is_big_invoice = false;
+    
+    // Get the each block data (invoice data)
+    Block data_block = data.at(index);
+
+    int line_no = data_block.size() - 5;      
+
+    QString big_invoice_data = QStringLiteral(BIG_INVOICE_CONTAINS);
+    QString  line_data = data_block.at(line_no).join(" ");
+    bool is_big = line_data.contains(big_invoice_data);
+
+    if (is_big)
+    {        
+      is_big_invoice = true;
+    } else
+    {
+      /* In some cases, there is an extra line.*/
+      line_no = data_block.size() - 6;
+      line_data = data_block.at(line_no).join(" ");
+      is_big = line_data.contains(big_invoice_data);
+      if (is_big)
+      {        
+        is_big_invoice = true;
+      }         
+    }    
+
+    if (is_big_invoice)
+    {
+      AccountDetails acc_details;
+      acc_details.parsing_ = "Completed";
+
+      Parser2Big parser_2_big;
+      parser_2_big.Parse(data_block, &acc_details);
+
+      bigger_account_details_.push_back(acc_details);
+    } else
+    {
+      AccountDetails acc_details;
+      acc_details.parsing_ = "Completed";
+
+      Parser2Small parser_2_small;
+      parser_2_small.Parse(data_block, &acc_details);
+
+      smaller_account_details_.push_back(acc_details);    
+    }    
+  }  
+}
+
 void ParseData::ParserType1Small(Blocks data)
 {  
   for (unsigned int index = 0; index < data.size(); index++)
@@ -272,8 +335,7 @@ void ParseData::ParserType2Big(Blocks data)
 {  
   for (unsigned int index = 0; index < data.size(); index++)
   {
-    Block data_block = data.at(index);
-    std::vector<unsigned int>::iterator it;    
+    Block data_block = data.at(index);    
 
     AccountDetails acc_details;
     acc_details.parsing_ = "Completed";
