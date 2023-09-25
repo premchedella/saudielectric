@@ -80,6 +80,10 @@ class AccountDetails
   QString total_meteters_conumption_; // Total Meters Conumption
   QString rp_conumption_; // Reactive Power consumpiton
 
+  QString rp_consumption_factor_;  // Reactive Power Conumption factor
+  QString rp_cb_capacity_; // Reactive Power Circuit Breaker Capacity
+  QString rp_meter_number_;  // Reactive Meter Nummber
+
 
 
 

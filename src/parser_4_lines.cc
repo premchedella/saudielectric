@@ -1018,8 +1018,7 @@ void Parser4Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Taxable Amount;";
   }
 
-
-  
+ 
   //Position 4 - Other Fees
   try
   {
@@ -1124,58 +1123,6 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser4Lines::Line20(QStringList data, AccountDetails* acc_details)
-{
-  Line line_data = Utilities::Convert(data);
-  //Position 4 - Previous Reading
-
-  try
-  {
-    QString token = line_data.at(4);
-    QString value = Utilities::ConvertEnglish(token);
-
-    if (value.size() > 0)
-    {
-      acc_details->sub_prev_reading_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Previous Reading;";
-    }    
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Previous Reading;";
-  }
-
-  //Position 6 - Current Reading
-
-  try
-  {
-    QString token = line_data.at(6);
-    QString value = Utilities::ConvertEnglish(token);
-    if (value.size() > 0)
-    {
-      acc_details->sub_curr_reading_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Previous Reading;";
-    }    
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Current Reading;";
-  }
-
-#if PRINT_FIELD_VALUE
-  std::cout << "Previous Reading = " << 
-      acc_details->sub_prev_reading_.toStdString() << ", ";
-  std::cout << "Current Reading = " << 
-      acc_details->sub_curr_reading_.toStdString() << std::endl;
-#endif
-}
-
 void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
@@ -1199,6 +1146,27 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Total Reactive Power Consumption;";
   }
 
+  // Position 1 - Reactive Power Consumption Factor
+  try
+  {
+    QString token = line_data.at(1);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->rp_consumption_factor_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Consumption Factor;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Consumption Factor;";
+  }
+
   //Position 2 - Reactive Power  Multiplication Factor
 
   try
@@ -1211,12 +1179,12 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Factor for Reactive Power;";
+      acc_details->reason_ += "No Reactive Power Multiplication Factor;";
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Factor for Reactive Power;";
+    acc_details->reason_ += "Not Reactive Power Multiplication Factor;";
   }
 
   // Position 4 - Reactive Power Previous Reading 
@@ -1259,6 +1227,51 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Reactive Previous Meter Reading;";
+  }
+
+  // Position 7 - Reactive Power Circuit Breaker Capacity
+  try
+  {
+    QString token = line_data.at(7);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->rp_cb_capacity_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Circuit Breaker Capacity;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Circuit Breaker Capacity;";
+  }
+
+  // Position 8 - Reactive Power Meter Number
+  try
+  {
+    QString token = line_data.at(8);
+
+    // Get the English characters of meter number
+    QString prefix = token.left(3);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->rp_meter_number_ = prefix + value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Meter Number;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Meter Number;";
   }
 
 #if PRINT_FIELD_VALUE
@@ -1509,7 +1522,7 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
     
     if (value.size() > 0)
     {
-      acc_details->electrometer_num_ = prefix + value;
+      acc_details->ap_meter_number_ = prefix + value;
     } else
     {
       acc_details->parsing_ = "Partial";

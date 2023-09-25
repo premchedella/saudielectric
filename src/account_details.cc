@@ -73,6 +73,10 @@ AccountDetails::AccountDetails()
   total_meteters_conumption_ = "";
   rp_conumption_ = "";
 
+  rp_consumption_factor_ = "";
+  rp_cb_capacity_ = "";
+  rp_meter_number_ = "";
+
   parsing_ = "";
   reason_ = "";  
 }

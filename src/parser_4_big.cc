@@ -244,11 +244,11 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser4Lines::Line20(line_data, acc_details);
+    Parser4Lines::ParseActivePower(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Previous Reading Line;";
+    acc_details->reason_ += "No Active Power Line;";
   }
 
   line_no = data_in.size() - 2;
