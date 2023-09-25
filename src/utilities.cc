@@ -22,8 +22,7 @@ bool Utilities::is_extra_word_ = false;
 QString Utilities::ConvertEnglish(QString arabic)
 {
   QChar *data = arabic.data();
-  QString val = "";
-  bool is_negative = false;
+  QString val = "";  
 
   while (!data->isNull())
   {
@@ -52,15 +51,19 @@ QString Utilities::ConvertEnglish(QString arabic)
     else if (*data == 46)
       val = val + ".";
     else if (*data == 45)
-      is_negative = true;
+      //is_negative = true;
+      val = val + "-";
 
     ++data;
   }
 
-  if (is_negative)
+  // Handle negative value, 
+  // Negative value symbol at the end.
+  // Move the negative value symbol from end to begin.
+  if (val.right(1) == "-")
   {
-    val = "-" + val;
-  }
+    val = "-" + val.left(val.size() - 1);
+  } 
 
   return val;
 }
@@ -76,9 +79,14 @@ QString Utilities::ToDate(QString mmddyyy)
 {
   QString ddmmyyyy = "";
   QChar sep = '/';
-  int index = mmddyyy.indexOf(sep);
+  QStringList words = mmddyyy.split(sep);
+  
+  if (words.size() != 3)
+  {
+    sep = '-';
+    words = mmddyyy.split(sep);    
+  }
 
-  QStringList words = mmddyyy.split('/');
   if (words.size() == 3)
   {
     int day = 0;
@@ -111,8 +119,8 @@ QString Utilities::ToDate(QString mmddyyy)
       month = temp;
     }
 
-    ddmmyyyy = QString::number(day).trimmed() + "/" + 
-        QString::number(month).trimmed() + "/" +
+    ddmmyyyy = QString::number(day).trimmed() + sep +
+        QString::number(month).trimmed() + sep +
         QString::number(year).trimmed();
   }
 
@@ -281,7 +289,6 @@ Utilities::InputFileTypes Utilities::GetFileType()
   return file_type_;
 }
 
-
 Line Utilities::Convert(QStringList data)
 {
   Line line_data;
@@ -327,13 +334,22 @@ Utilities::ParserTypes Utilities::GetParserType()
 QString Utilities::ToDateMonth(QString mmddyyyy)
 {
   QString date = ToDate(mmddyyyy);
-  QStringList date_parts = date.split("/");
+  QChar sep = '/';
+  QStringList date_parts = date.split(sep);
   QString date_new = "";
-  if (date_parts.size() == 3)
-    date_new = date_parts[0] + "/" + months.at(date_parts[1].toInt() - 1) +
-      "/" + date_parts[2];
 
-  return date_new;  
+  if (date_parts.size() != 3)
+  {
+    sep = '-';
+    date_parts = date.split(sep);
+  }
+
+  if (date_parts.size() == 3) 
+    date_new = date_parts[0] + sep + 
+            months.at(date_parts[1].toInt() - 1) + sep +
+            date_parts[2];
+ 
+   return date_new;  
 }
 
 bool Utilities::Is5and15Vat(Block data)
@@ -389,3 +405,59 @@ void Utilities::SetExtraWord(bool flag)
 {
   is_extra_word_ = flag;
 }
+
+unsigned int Utilities::GetMonthNumber(QString str)
+{
+  unsigned int month = 0;
+  //QString month_5 = QStringLiteral(u"ﻣﺎﻳﻮ");
+  // QStringLiteral(u"ﻣﺎﺭﺱ")
+
+  if (str == QStringLiteral(u"ﻳﻨﺎﻳﺮ"))
+  {
+    month = 1;
+  } else if (str == QStringLiteral(u"ﻓﺒﺮﺍﻳﺮ"))
+  {
+    month = 2;
+  } else if (str == QStringLiteral(u"ﻣﺎﺭﺱ"))
+  {
+    month = 3;
+  } else if ((str == QStringLiteral(u"ﺃﺑﺮﻳﻞ")) ||
+      (str == QStringLiteral(u"ابريل")) ||
+      (str == QStringLiteral(u"أبريل")) ||
+      (str == QStringLiteral(u"إبريل")))
+  {
+    month = 4;
+  } else if (str == QStringLiteral(u"ﻣﺎﻳﻮ"))
+  {
+    month = 5;
+  } else if (str == QStringLiteral(u"ﻳﻮﻧﻴﻮ"))
+  {
+    month = 6;
+  } else if (str == QStringLiteral(u"ﻳﻮﻟﻴﻮ"))
+  {
+    month = 7;
+  } else if ((str == QStringLiteral(u"اغسطس")) ||
+    (str == QStringLiteral(u"ﺃﻏﺴﻄﺲ")))
+  {
+    month = 8;
+  } else if (str == QStringLiteral(u"ﺳﺒﺘﻤﺒﺮ"))
+  {
+    month = 9;
+  } else if ((str == QStringLiteral(u"اكتوبر")) ||
+      (str == QStringLiteral(u"ﺃﻛﺘﻮﺑﺮ")))
+  {
+    month = 10;
+  } else if (str == QStringLiteral(u"ﻧﻮﻓﻤﺒﺮ"))
+  {
+    month = 11;
+  } else if (str == QStringLiteral(u"ﺩﻳﺴﻤﺒﺮ"))
+  {
+    month = 12;
+  } else
+  {
+    month = 0;
+  }
+
+  return month;
+}
+

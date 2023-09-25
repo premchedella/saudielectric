@@ -1,19 +1,19 @@
-#include "parser_2_small.h"
+#include "parser_4_small.h"
 
-#include "parser_2_lines.h"
+#include "parser_4_lines.h"
 #include "utilities.h"
 
-Parser2Small::Parser2Small()
+Parser4Small::Parser4Small()
 {
 
 }
 
-Parser2Small::~Parser2Small()
+Parser4Small::~Parser4Small()
 {
 
 }
 
-void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
+void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
 {
 #if PRINT_FIELD_VALUE
   std::cout << "Block Size = " << data_in.size() << std::endl;
@@ -29,7 +29,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line1(line_data, acc_details);
+    Parser4Lines::Line1(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -45,7 +45,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line2(line_data, acc_details);
+    Parser4Lines::Line2(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -59,14 +59,14 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
 
   //Line No. 3
   line_no++;
-  // Site Number is not required to generate data
+  // Site Number 
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line3(line_data, acc_details);
+    Parser4Lines::Line3(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -81,7 +81,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line4(line_data, acc_details);
+    Parser4Lines::Line4(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -97,7 +97,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line7(line_data, acc_details);
+    Parser4Lines::Line7(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -112,7 +112,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line8(line_data, acc_details);
+    Parser4Lines::Line8(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -127,7 +127,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line9(line_data, acc_details);
+    Parser4Lines::Line9(line_data, acc_details);
   }
   catch (...)
   {
@@ -145,7 +145,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line12(line_data, acc_details);
+    Parser4Lines::Line12(line_data, acc_details);
   }
   catch (...)
   {
@@ -164,7 +164,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line10(line_data, acc_details);
+      Parser4Lines::Line10(line_data, acc_details);
     }
     catch (...)
     {
@@ -180,7 +180,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line11Small(line_data, acc_details);
+      Parser4Lines::Line11Small(line_data, acc_details);
     }
     catch (...)
     {
@@ -196,7 +196,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line12(line_data, acc_details);
+      Parser4Lines::Line12(line_data, acc_details);
     }
     catch (...)
     {
@@ -212,7 +212,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line13(line_data, acc_details);
+      Parser4Lines::Line13(line_data, acc_details);
     }
     catch (...)
     {
@@ -228,7 +228,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line14(line_data, acc_details);
+      Parser4Lines::Line14(line_data, acc_details);
     }
     catch (...)
     {
@@ -246,7 +246,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line9Small(line_data, acc_details);
+      Parser4Lines::Line9Small(line_data, acc_details);
     }
     catch (...)
     {
@@ -258,7 +258,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line10Small(line_data, acc_details);
+      Parser4Lines::Line10Small(line_data, acc_details);
     }
     catch (...)
     {
@@ -274,7 +274,7 @@ void Parser2Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser2Lines::Line14(line_data, acc_details);
+      Parser4Lines::Line14(line_data, acc_details);
     }
     catch (...)
     {

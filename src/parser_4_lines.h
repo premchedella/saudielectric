@@ -5,7 +5,7 @@
 #include "common_types.h"
 #include "account_details.h"
 
-class Parser2Lines
+class Parser4Lines
 {
  public:
   static void Line1(QStringList data, AccountDetails* acc_details);

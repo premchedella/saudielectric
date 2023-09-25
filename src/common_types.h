@@ -9,7 +9,7 @@ typedef std::vector<QStringList> Block;
 typedef std::vector<Block> Blocks;
 typedef std::vector<QString> Line;
 
-#define VERSION "3.0"
+#define VERSION "3.2"
 
 #define START_BLOCK_INDEX 0
 
@@ -69,7 +69,7 @@ typedef std::vector<QString> Line;
 //#define BIG_INVOICE_CONTAINS u"ﻴﺎﻧﺎﺕ ﺍﺳﺘﻬﻼﻛﺎﺕ"
 
 #define BIG_INVOICE_CONTAINS u":ﻃﺎﻗﺔ ﻏﻴﺮ ﻓﺎﻋﻠﺔ("
-
+#define BIG_INVOICE_CONTAINS_1 u"ﺍﻻﺳﺘﻬﻼﻙ("
 
 
 //Debug Purpose

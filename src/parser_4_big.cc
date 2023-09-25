@@ -1,19 +1,19 @@
-#include "parser_2_big.h"
+#include "parser_4_big.h"
 
-#include "parser_2_lines.h"
+#include "parser_4_lines.h"
 #include "utilities.h"
 
-Parser2Big::Parser2Big()
+Parser4Big::Parser4Big()
 {
 
 }
 
-Parser2Big::~Parser2Big()
+Parser4Big::~Parser4Big()
 {
 
 }
 
-void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
+void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
 {
 #if PRINT_FIELD_VALUE
   std::cout << "Block Size = " << data_in.size() << std::endl;
@@ -29,7 +29,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line1(line_data, acc_details);
+    Parser4Lines::Line1(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -44,7 +44,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line2(line_data, acc_details);
+    Parser4Lines::Line2(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -59,7 +59,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line3(line_data, acc_details);
+    Parser4Lines::Line3(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -74,7 +74,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line4(line_data, acc_details);
+    Parser4Lines::Line4(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -90,7 +90,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line7(line_data, acc_details);
+    Parser4Lines::Line7(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -105,7 +105,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line8(line_data, acc_details);
+    Parser4Lines::Line8(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -120,7 +120,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line9Big(line_data, acc_details);
+    Parser4Lines::Line9Big(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -135,7 +135,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line9(line_data, acc_details);
+    Parser4Lines::Line9(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -150,7 +150,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line10(line_data, acc_details);
+    Parser4Lines::Line10(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -166,7 +166,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line11Big(line_data, acc_details);
+    Parser4Lines::Line11Big(line_data, acc_details);
   }
   catch (...)
   {
@@ -184,7 +184,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line12Big(line_data, acc_details);
+    Parser4Lines::Line12Big(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -199,7 +199,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line11(line_data, acc_details);
+    Parser4Lines::Line11(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -214,7 +214,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {    
     line_data = data_in.at(line_no);
-    Parser2Lines::Line14(line_data, acc_details);    
+    Parser4Lines::Line14(line_data, acc_details);    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -229,7 +229,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line16(line_data, acc_details);
+    Parser4Lines::Line16(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -244,7 +244,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::Line20(line_data, acc_details);
+    Parser4Lines::Line20(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
@@ -261,7 +261,7 @@ void Parser2Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser2Lines::LineLast(line_data, acc_details);
+    Parser4Lines::LineLast(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";

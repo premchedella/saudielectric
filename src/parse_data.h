@@ -30,6 +30,7 @@ class ParseData
   void ParserType1_5(Blocks data);
   void ParserType2(Blocks data);
   void ParserType3(Blocks data);
+  void ParserType4(Blocks data);
   void ParserType1Small(Blocks data);
   void ParserType1Big(Blocks data);
   void ParserType1_5Small(Blocks data);
@@ -40,6 +41,8 @@ class ParseData
   void ParseType1(Block data_in, AccountDetails* acc_details);
   void ParseType12(Block data_in, AccountDetails* acc_details);
   void ParseType5(Block data_in, AccountDetails* acc_details);
+
+  bool IsBigInvoice(Block data_block);
   
   static std::vector<AccountDetails> account_details_;
   static std::vector<AccountDetails> bigger_account_details_;

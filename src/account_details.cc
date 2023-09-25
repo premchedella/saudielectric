@@ -57,6 +57,8 @@ AccountDetails::AccountDetails()
   taxable_amount_ = "0.0";
   non_taxable_amount_ = "0.0";
 
+  site_num_ = "";  
+
   parsing_ = "";
   reason_ = "";  
 }

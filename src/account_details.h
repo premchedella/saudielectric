@@ -67,6 +67,8 @@ class AccountDetails
   QString taxable_amount_;       // Taxable Amount 
   QString non_taxable_amount_;       // Non-Taxable Amount 
 
+  QString site_num_; // Site Number  
+
   QString parsing_;   //Parsing is "Complete" or "Partial"
   QString reason_;    // Reason for not Complete.  
 };

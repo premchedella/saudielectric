@@ -30,7 +30,8 @@ class Utilities
     PARSER_TYPE_1,
     PARSER_TYPE_1_5,  //Mix of Parser 1 and Parser 2
     PARSER_TYPE_2,
-    PARSER_TYPE_3 // Generate out files based on the data
+    PARSER_TYPE_3,  // Generate out files based on the data
+    PARSER_TYPE_4 // Parser changes including summary and single output file
   };
 
   static QString ConvertEnglish(QString arabic);  
@@ -53,6 +54,7 @@ class Utilities
   static bool Is5and15Vat(Block data);
   static bool IsExtraWord();
   static void SetExtraWord(bool flag);
+  static unsigned int GetMonthNumber(QString str);
   
  private:
   static VatTypes vat_type_;

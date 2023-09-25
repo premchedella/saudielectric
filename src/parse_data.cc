@@ -10,6 +10,8 @@
 #include "parser_1_big.h"
 #include "parser_2_small.h"
 #include "parser_2_big.h"
+#include "parser_4_big.h"
+#include "parser_4_small.h"
 
 std::vector<AccountDetails> ParseData::account_details_;
 std::vector<AccountDetails> ParseData::bigger_account_details_;
@@ -53,6 +55,9 @@ void ParseData::FormData(Blocks data)
       break;    
     case Utilities::ParserTypes::PARSER_TYPE_3:
       ParserType3(data);
+      break;
+    case Utilities::ParserTypes::PARSER_TYPE_4:
+      ParserType4(data);
       break;
     default:
       break;
@@ -188,33 +193,11 @@ void ParseData::ParserType2(Blocks data)
 void ParseData::ParserType3(Blocks data)
 {  
   for (unsigned int index = 0; index < data.size(); index++)
-  {
-    bool is_big_invoice = false;
-    
+  {    
     // Get the each block data (invoice data)
     Block data_block = data.at(index);
-
-    int line_no = data_block.size() - 5;      
-
-    QString big_invoice_data = QStringLiteral(BIG_INVOICE_CONTAINS);
-    QString  line_data = data_block.at(line_no).join(" ");
-    bool is_big = line_data.contains(big_invoice_data);
-
-    if (is_big)
-    {        
-      is_big_invoice = true;
-    } else
-    {
-      /* In some cases, there is an extra line.*/
-      line_no = data_block.size() - 6;
-      line_data = data_block.at(line_no).join(" ");
-      is_big = line_data.contains(big_invoice_data);
-      if (is_big)
-      {        
-        is_big_invoice = true;
-      }         
-    }    
-
+    bool is_big_invoice = IsBigInvoice(data_block);
+   
     if (is_big_invoice)
     {
       AccountDetails acc_details;
@@ -235,6 +218,37 @@ void ParseData::ParserType3(Blocks data)
       smaller_account_details_.push_back(acc_details);    
     }    
   }  
+}
+
+void ParseData::ParserType4(Blocks data)
+{
+  for (unsigned int index = 0; index < data.size(); index++)
+  {
+    // Get the each block data (invoice data)
+    Block data_block = data.at(index);
+
+    bool is_big_invoice = IsBigInvoice(data_block);
+
+    if (is_big_invoice)
+    {
+      AccountDetails acc_details;
+      acc_details.parsing_ = "Completed";
+
+      Parser4Big parser_4_big;
+      parser_4_big.Parse(data_block, &acc_details);
+
+      bigger_account_details_.push_back(acc_details);
+    } else
+    {
+      AccountDetails acc_details;
+      acc_details.parsing_ = "Completed";
+
+      Parser4Small parser_4_small;
+      parser_4_small.Parse(data_block, &acc_details);
+
+      smaller_account_details_.push_back(acc_details);
+    }
+  }
 }
 
 void ParseData::ParserType1Small(Blocks data)
@@ -363,6 +377,63 @@ void ParseData::ParseType12(Block data_in, AccountDetails* acc_details)
 {  
   Type12Parser type_12_parser;
   type_12_parser.Parse(data_in, acc_details);  
+}
+
+bool ParseData::IsBigInvoice(Block data_block)
+{
+  bool is_big_invoice = false;
+  int line_no = data_block.size() - 5;
+
+  QString big_invoice_data = QStringLiteral(BIG_INVOICE_CONTAINS);
+  QString big_invoice_data_1 = QStringLiteral(BIG_INVOICE_CONTAINS_1);
+  QString  line_data = data_block.at(line_no).join(" ");
+  bool is_big = line_data.contains(big_invoice_data);
+
+  if (is_big)
+  {
+    is_big_invoice = true;
+  } else
+  {
+    /* In some cases, there is an extra line.*/
+    line_no = data_block.size() - 6;
+    line_data = data_block.at(line_no).join(" ");
+    is_big = line_data.contains(big_invoice_data);
+    if (is_big)
+    {
+      is_big_invoice = true;
+    } else
+    {
+      /* In some cases, there are two meter readings.*/
+      line_no = data_block.size() - 7;
+      line_data = data_block.at(line_no).join(" ");
+      is_big = line_data.contains(big_invoice_data);
+      if (is_big)
+      {
+        is_big_invoice = true;
+      } else
+      {
+        /* In some cases, there are two meter readings.*/
+        line_no = data_block.size() - 8;
+        line_data = data_block.at(line_no).join(" ");
+        is_big = line_data.contains(big_invoice_data);
+        if (is_big)
+        {
+          is_big_invoice = true;
+        } else
+        {
+          line_no = data_block.size() - 6;
+          line_data = data_block.at(line_no).join(" ");
+          is_big = line_data.contains(big_invoice_data_1);
+          if (is_big)
+          {
+            is_big_invoice = true;
+          }
+        }
+      }
+    }
+  }
+
+  return is_big_invoice;
 }
 
 #if 0

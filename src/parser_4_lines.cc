@@ -1,10 +1,10 @@
-﻿#include "parser_2_lines.h"
+﻿#include "parser_4_lines.h"
 
 #include "utilities.h"
 #include "common_types.h"
 
 
-void Parser2Lines::Line1(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line1(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Account Number, Position 1 or 4 or 5 or 6 
@@ -52,7 +52,7 @@ void Parser2Lines::Line1(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line2(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line2(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -82,44 +82,61 @@ void Parser2Lines::Line2(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line3(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // TODO: Need to get the name of the field -- Site Number
-  // Data, position 4 or 6 (for smaller invoices) or 9 (for bigger invoices)
+
+  // position 2 is Site number
   try
   {
-    QString token = line_data.at(9);    
+    QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
 
-    if (value.size() == 0)
-    {
-      token = line_data.at(4);
-      value = Utilities::ConvertEnglish(token);
-    }   
-    
-    if (value.size() == 0)
-    {
-      token = line_data.at(6);
-      value = Utilities::ConvertEnglish(token);
-    }
-    
     if (value.size() > 0)
     {
-      QString site = value;
+      acc_details->address_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Address;";
     }
 
 #if PRINT_FIELD_VALUE
-    std::cout << "New Field, Site Number: " <<
-      value.toStdString() << std::endl;
+    std::cout << "Address: " << value.toStdString() << std::endl;
+#endif
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Address;";
+  }
+  
+  // position 6 is Site number
+  try
+  {
+    QString token = line_data.at(6);    
+    QString value = Utilities::ConvertEnglish(token);
+        
+    if (value.size() > 0)
+    {
+      acc_details->site_num_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Site Number;";
+    }
+
+#if PRINT_FIELD_VALUE
+    std::cout << "Site Number: " << value.toStdString() << std::endl;
 #endif
   } catch (...)
   {
-    //std::cout << "Not a Site Number." << std::endl;
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Site Number;";
   }
 }
 
-void Parser2Lines::Line4(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -135,12 +152,12 @@ void Parser2Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->invoice_date_ = date;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Invoice Date;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Invoice Date;";
   }
 
@@ -197,12 +214,12 @@ void Parser2Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->invoice_num_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Invoice Number;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Invoice Number;";
   }
 
@@ -218,7 +235,7 @@ void Parser2Lines::Line4(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
  
@@ -275,12 +292,12 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Power Factor;";
+      acc_details->reason_ += "No Multiplication Factor;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Power Factor;";
+    acc_details->reason_ += "Not Multiplication Factor;";
   }
 
   // Capacity, Position 3
@@ -294,12 +311,12 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "Not Capacity;";
+      acc_details->reason_ += "Not Circuit Breaker Capacity;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Capacity;";
+    acc_details->reason_ += "No Circuit Breaker Capacity;";
   }
 
   // Number of Days, Position 4
@@ -313,12 +330,12 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Number of days;";
+      acc_details->reason_ += "No Reading days;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Number of Days;";
+    acc_details->reason_ += "Not Reading Days;";
   }
 
   // Meter Number, Position 5
@@ -349,12 +366,12 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Electro Meter Number;";
+      acc_details->reason_ += "No Meter Number;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Electro Meter Number;";
+    acc_details->reason_ += "Not Meter Number;";
   }
 
 #if PRINT_FIELD_VALUE
@@ -373,7 +390,7 @@ void Parser2Lines::Line7(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line8(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line8(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -444,7 +461,7 @@ void Parser2Lines::Line8(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line9(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line9(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -461,12 +478,12 @@ void Parser2Lines::Line9(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Durartion Cost;";
+      acc_details->reason_ += "No Taxable Amount;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Duration Cost;";
+    acc_details->reason_ += "Not Taxable Amount;";
   }
 
   // Position 4 - Power Cost
@@ -482,23 +499,23 @@ void Parser2Lines::Line9(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Power Cost;";
+      acc_details->reason_ += "No Active Power Consumption Cost;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Power Cost;";
+    acc_details->reason_ += "Not Active Power Consumption Cost;";
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Duration Cost: " <<
+  std::cout << "Taxable Amount: " <<
       acc_details->total_power_cons_cost_.toStdString() << ", ";
-  std::cout << "Power Cost: " <<
+  std::cout << "Active Power Consumption Cost: " <<
       acc_details->power_consumption_cost_.toStdString() << std::endl;
 #endif
 }
 
-void Parser2Lines::Line10(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line10(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   
@@ -550,14 +567,14 @@ void Parser2Lines::Line10(QStringList data, AccountDetails* acc_details)
   }
  
 #if PRINT_FIELD_VALUE 
-  std::cout << "VAT(15%): " << acc_details->vat_15_.toStdString() << ", ";
+  std::cout << "VAT: " << acc_details->vat_15_.toStdString() << ", ";
   std::cout << "Meter Service: " <<
       acc_details->electrometer_fee_.toStdString() << std::endl;
 #endif
 }
 
 
-void Parser2Lines::Line11(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line11(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Settlement
@@ -586,10 +603,10 @@ void Parser2Lines::Line11(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Taxable Amount
+  // Position 0 - Total Cost
 
   try
   {
@@ -602,12 +619,12 @@ void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Taxable Amount;";
+      acc_details->reason_ += "No Total Cost;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Taxable Amount;";
+    acc_details->reason_ += "Not Total Cost;";
   }
 
   // Position 4 - Other Fees
@@ -631,14 +648,14 @@ void Parser2Lines::Line11Small(QStringList data, AccountDetails* acc_details)
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Amount Includes Tax: " <<
+  std::cout << "Total Cost: " <<
       acc_details->taxable_amount_.toStdString() << ", ";
   std::cout << "Other Fees: " <<
      acc_details->other_fees_.toStdString() << std::endl;
 #endif
 }
 
-void Parser2Lines::Line11Big(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Taxable Amount
@@ -689,7 +706,7 @@ void Parser2Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line12(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line12(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Settlement
@@ -718,7 +735,7 @@ void Parser2Lines::Line12(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line12Big(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line12Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -773,7 +790,7 @@ void Parser2Lines::Line12Big(QStringList data, AccountDetails* acc_details)
 }
 
 
-void Parser2Lines::Line13(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line13(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Non Taxable Amount
@@ -801,10 +818,10 @@ void Parser2Lines::Line13(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line14(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line14(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Total Clost
+  // Position 0 - Required Amount
   try
   {
     QString token = line_data.at(0);
@@ -816,21 +833,21 @@ void Parser2Lines::Line14(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Cost;";
+      acc_details->reason_ += "No Required Amount;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Cost;";
+    acc_details->reason_ += "Not Required Amount;";
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Total Cost: " <<
+  std::cout << "Required Amount: " <<
     acc_details->total_cost_.toStdString() << std::endl;
 #endif
 }
 
-void Parser2Lines::Line9Big(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   //Passive Power Consumption, Position 0
@@ -903,7 +920,7 @@ void Parser2Lines::Line9Big(QStringList data, AccountDetails* acc_details)
 #endif  
 }
 
-void Parser2Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -939,12 +956,12 @@ void Parser2Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No VAT(15%);";
+      acc_details->reason_ += "No VAT;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not VAT(15%);";
+    acc_details->reason_ += "Not VAT;";
   }
 
   try
@@ -976,7 +993,7 @@ void Parser2Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
 #endif  
 }
 
-void Parser2Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   //Position 0 - Amount Includes Tax
@@ -1031,7 +1048,7 @@ void Parser2Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line16(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   // Position 0 - Total Reactive Power Consumption
@@ -1107,7 +1124,7 @@ void Parser2Lines::Line16(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line20(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line20(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   //Position 4 - Previous Reading
@@ -1159,7 +1176,7 @@ void Parser2Lines::Line20(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::LineLast(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   //Position 0 - Reactive Power Total Consumption
@@ -1257,7 +1274,7 @@ void Parser2Lines::LineLast(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser2Lines::Line9Small(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line9Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -1303,7 +1320,7 @@ void Parser2Lines::Line9Small(QStringList data, AccountDetails* acc_details)
 
 }
 
-void Parser2Lines::Line10Small(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Line10Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 

@@ -292,16 +292,22 @@ void perform4parameters(int argc, char *argv[])
       Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_3);
     }
 
+    if ((year == 2023) && (month >= 7) || (year >= 2024))
+    {
+      Utilities::SetParserType(Utilities::ParserTypes::PARSER_TYPE_4);
+    }
+
     QElapsedTimer exec_timer;
     exec_timer.start();
 
     XPdfParse xpdf_parse(in_file);    
+
     xpdf_parse.Parse();
     Blocks data = xpdf_parse.GetBlocks();
 
     ParseData parse_data;
     parse_data.FormData(data);
-    
+
     quint64 time_spent = exec_timer.elapsed();
     std::cout << "Time Spent for PDF conversion and Parsing: " <<
       time_spent << " milli seconds, " << (time_spent * 0.001) <<

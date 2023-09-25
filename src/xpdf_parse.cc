@@ -327,16 +327,36 @@ Block XPdfParse::ConvertData(QStringList data_in)
 Block XPdfParse::RemoveSingleValueZero(Block data_in)
 {
   //Skip the line with zero value as there is no value for it.
+
   Block data_out;
-  for (unsigned int counter = 0; counter < data_in.size(); counter++)
+  Utilities::ParserTypes parser_type = Utilities::GetParserType();
+  if (parser_type >= Utilities::ParserTypes::PARSER_TYPE_4)
   {
-    QStringList words = data_in.at(counter);
-  
-    if (words.size() == 1)
-    {     
-      continue;
+    for (unsigned int counter = 0; counter < data_in.size(); counter++)
+    {
+      QStringList words = data_in.at(counter);
+
+      if (words.size() == 1)
+      {
+        int value = Utilities::ConvertEnglish(words[0]).toInt();
+        if (value == 0)
+          continue;
+      }
+      data_out.push_back(words);
     }
-    data_out.push_back(words);
+  } 
+  else
+  {
+    for (unsigned int counter = 0; counter < data_in.size(); counter++)
+    {
+      QStringList words = data_in.at(counter);
+  
+      if (words.size() == 1)
+      {             
+          continue;
+      }
+      data_out.push_back(words);
+    }
   }
   return data_out;
 }
@@ -432,16 +452,19 @@ Blocks XPdfParse::GetBlocksParser1(Block data_in)
   for (int counter = 0; counter < data_in.size(); counter++)
   {
     QStringList words = data_in.at(counter);
-    QString last_word = words.at(words.size() - 1);
-    QString prev_last_word = words.at(words.size() - 2);
-
-    if ((last_word == start_1) && (prev_last_word == start_2)) // Block starts
+    if (words.size() > 1)
     {
-      if (pblock->size() > 0)
+      QString last_word = words.at(words.size() - 1);
+      QString prev_last_word = words.at(words.size() - 2);
+
+      if ((last_word == start_1) && (prev_last_word == start_2)) // Block starts
       {
-        pblocks.push_back(pblock);
+        if (pblock->size() > 0)
+        {
+          pblocks.push_back(pblock);
+        }
+        pblock = new Block();
       }
-      pblock = new Block();
     }
     pblock->push_back(words);
   }
