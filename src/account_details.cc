@@ -62,12 +62,13 @@ AccountDetails::AccountDetails()
   // Parser 4
   site_num_ = "";
 
-  total_active_power_consumption_ = "";
+  total_ap_consumption_ = "";
   consumption_factor_ = "";
-  active_power_multi_factor_ = "";
-  active_power_prev_reading_ = "";
-  active_power_curr_reading_ = "";
-  active_power_cb_capacity_ = "";
+  ap_multi_factor_ = "";
+  ap_prev_reading_ = "";
+  ap_curr_reading_ = "";
+  ap_cb_capacity_ = "";
+  ap_meter_number_ = "";
   
   total_meteters_conumption_ = "";
   react_power_conumption_ = "";

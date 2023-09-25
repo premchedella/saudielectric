@@ -69,12 +69,13 @@ class AccountDetails
 
   // Parser 4
   QString site_num_; // Site Number  
-  QString total_active_power_consumption_; // Total Active Power Conmption
+  QString total_ap_consumption_; // Total Active Power Conmption
   QString consumption_factor_;  // Conumption factor
-  QString active_power_multi_factor_; // Active Power Multiplication Factor
-  QString active_power_prev_reading_; // Active Power Previous Reading
-  QString active_power_curr_reading_; // Active Power Current Reading
-  QString active_power_cb_capacity_; // Active Power Circuit Breaker Capacity
+  QString ap_multi_factor_; // Active Power Multiplication Factor
+  QString ap_prev_reading_; // Active Power Previous Reading
+  QString ap_curr_reading_; // Active Power Current Reading
+  QString ap_cb_capacity_; // Active Power Circuit Breaker Capacity
+  QString ap_meter_number_; // Active Power Meter Number
 
   QString total_meteters_conumption_; // Total Meters Conumption
   QString react_power_conumption_; // Reactive Power consumpiton
