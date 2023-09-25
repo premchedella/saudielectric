@@ -57,7 +57,21 @@ AccountDetails::AccountDetails()
   taxable_amount_ = "0.0";
   non_taxable_amount_ = "0.0";
 
-  site_num_ = "";  
+  
+
+  // Parser 4
+  site_num_ = "";
+
+  total_active_power_consumption_ = "";
+  consumption_factor_ = "";
+  active_power_multi_factor_ = "";
+  active_power_prev_reading_ = "";
+  active_power_curr_reading_ = "";
+  active_power_cb_capacity_ = "";
+  
+  total_meteters_conumption_ = "";
+  react_power_conumption_ = "";
+
 
   parsing_ = "";
   reason_ = "";  
