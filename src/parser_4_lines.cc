@@ -356,7 +356,7 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     if (Utilities::ConvertEnglish(prefix).size() > 0)
     {
       prefix = "";
-       Utilities::SetExtraWord(false);
+      Utilities::SetExtraWord(false);
     }  
 
     QString value = Utilities::ConvertEnglish(token);
@@ -1365,4 +1365,207 @@ void Parser4Lines::Line10Small(QStringList data, AccountDetails* acc_details)
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Other Fees;";
   }  
+}
+
+
+void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+
+  // Position 0 - Total Active Power Conumption
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->total_ap_consumption_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Active Power Consumption;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Total Active Power Consumption;";
+  }
+
+  // Position 1 - Consumption Factor
+  try
+  {
+    QString token = line_data.at(1);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->consumption_factor_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Consumption Factor;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Consumption Factor;";
+  }
+
+  // Position 2 - Active Power Multiplication Factor
+  try
+  {
+    QString token = line_data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->ap_multi_factor_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Multiplication Factor;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Active Power Multiplication Factor;";
+  }
+
+  // Position 4 - Active Power Previous Reading
+  try
+  {
+    QString token = line_data.at(4);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->ap_prev_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Previous Reading;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Active Power Previous Reading;";
+  }
+
+  // Position 6 - Active Power Current Reading
+  try
+  {
+    QString token = line_data.at(6);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->ap_curr_reading_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Current Reading;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Active Power Current Reading;";
+  }
+
+  // Position 7 - Active Power Circuit Breaker Capacity
+  try
+  {
+    QString token = line_data.at(7);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->ap_cb_capacity_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Circuit Breaker Capacity;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Active Power Circuit Breaker Capacity;";
+  }
+
+  // Position 8 - Active Power Meter Number
+  try
+  {
+    QString token = line_data.at(8);
+
+    // Get the English characters of meter number
+    QString prefix = token.left(3);
+    QString value = Utilities::ConvertEnglish(token);
+    
+    if (value.size() > 0)
+    {
+      acc_details->electrometer_num_ = prefix + value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Meter Number;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Active Power Meter Number;";
+  }
+}
+
+void Parser4Lines::ParseConmptions(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+
+  // Position 0 - Total Meters Conumption
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->total_meteters_conumption_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Meters Conumption;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Total Meters Conumption;";
+  }
+
+  // Position 1 - Reactive Power Conumtpion
+  try
+  {
+    QString token = line_data.at(1);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->rp_conumption_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Reactive Power Conumtpion;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Reactive Power Conumtpion;";
+  }
 }

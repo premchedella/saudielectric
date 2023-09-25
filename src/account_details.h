@@ -78,7 +78,7 @@ class AccountDetails
   QString ap_meter_number_; // Active Power Meter Number
 
   QString total_meteters_conumption_; // Total Meters Conumption
-  QString react_power_conumption_; // Reactive Power consumpiton
+  QString rp_conumption_; // Reactive Power consumpiton
 
 
 

@@ -282,4 +282,42 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
       acc_details->reason_ += "No Total Cost Line;";
     }
   }
+
+  line_no = 17;
+  if (line_no <= data_in.size())
+  {
+#if PRINT_FIELD_VALUE
+    std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
+
+    try
+    {
+      line_data = data_in.at(line_no);
+      Parser4Lines::ParseActivePower(line_data, acc_details);
+    }
+    catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Active Power Line;";
+    }
+  }
+
+  line_no = 19;
+  if (line_no <= data_in.size())
+  {
+#if PRINT_FIELD_VALUE
+    std::cout << "Parse Line " << line_no + 1 << ":: ";
+#endif
+
+    try
+    {
+      line_data = data_in.at(line_no);
+      Parser4Lines::ParseConmptions(line_data, acc_details);
+    }
+    catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Consumptions Line;";
+    }
+  }
 }

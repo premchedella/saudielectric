@@ -71,8 +71,7 @@ AccountDetails::AccountDetails()
   ap_meter_number_ = "";
   
   total_meteters_conumption_ = "";
-  react_power_conumption_ = "";
-
+  rp_conumption_ = "";
 
   parsing_ = "";
   reason_ = "";  
