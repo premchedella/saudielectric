@@ -22,7 +22,8 @@ class ParseData
   void FormData(Blocks data);
   static std::vector<unsigned int> GetTypes();
   static std::vector<AccountDetails> GetDataInfo(ParseData::AccountTypes type = ParseData::AccountTypes::DEFAULT);
-  static std::vector<AccountDetails> GetDataInfo(unsigned int type);
+  static std::vector<AccountDetails> GetDataInfo(unsigned int type);  
+  static std::vector<AccountDetails> GetCommonData();
 
  private:
   void ParserType0(Blocks data);
@@ -47,6 +48,7 @@ class ParseData
   static std::vector<AccountDetails> account_details_;
   static std::vector<AccountDetails> bigger_account_details_;
   static std::vector<AccountDetails> smaller_account_details_;
+  static std::vector<AccountDetails> common_account_details_;
   static std::vector<AccountDetails> type_account_details_;
   static std::vector<unsigned int> types_;
 

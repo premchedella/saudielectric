@@ -16,6 +16,7 @@
 std::vector<AccountDetails> ParseData::account_details_;
 std::vector<AccountDetails> ParseData::bigger_account_details_;
 std::vector<AccountDetails> ParseData::smaller_account_details_;
+std::vector<AccountDetails> ParseData::common_account_details_;
 std::vector<unsigned int> ParseData::types_;
 
 ParseData::ParseData()
@@ -78,6 +79,11 @@ std::vector<AccountDetails> ParseData::GetDataInfo(
     return bigger_account_details_;
   else
       return account_details_;
+}
+
+std::vector<AccountDetails> ParseData::GetCommonData()
+{
+  return common_account_details_;
 }
 
 std::vector<AccountDetails> ParseData::GetDataInfo(unsigned int type)
@@ -237,7 +243,7 @@ void ParseData::ParserType4(Blocks data)
       Parser4Big parser_4_big;
       parser_4_big.Parse(data_block, &acc_details);
 
-      bigger_account_details_.push_back(acc_details);
+      common_account_details_.push_back(acc_details);
     } else
     {
       AccountDetails acc_details;
@@ -246,7 +252,7 @@ void ParseData::ParserType4(Blocks data)
       Parser4Small parser_4_small;
       parser_4_small.Parse(data_block, &acc_details);
 
-      smaller_account_details_.push_back(acc_details);
+      common_account_details_.push_back(acc_details);
     }
   }
 }
