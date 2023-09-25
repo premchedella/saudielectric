@@ -63,7 +63,7 @@ AccountDetails::AccountDetails()
   site_num_ = "";
 
   total_ap_consumption_ = "";
-  consumption_factor_ = "";
+  ap_consumption_factor_ = "";
   ap_multi_factor_ = "";
   ap_prev_reading_ = "";
   ap_curr_reading_ = "";

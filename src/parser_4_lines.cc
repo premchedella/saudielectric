@@ -1393,7 +1393,7 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
     acc_details->reason_ += "Not Total Active Power Consumption;";
   }
 
-  // Position 1 - Consumption Factor
+  // Position 1 - Active Power Consumption Factor
   try
   {
     QString token = line_data.at(1);
@@ -1401,17 +1401,17 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
 
     if (value.size() > 0)
     {
-      acc_details->consumption_factor_ = value;
+      acc_details->ap_consumption_factor_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Consumption Factor;";
+      acc_details->reason_ += "No Active Power Consumption Factor;";
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Consumption Factor;";
+    acc_details->reason_ += "Not Active Power Consumption Factor;";
   }
 
   // Position 2 - Active Power Multiplication Factor
