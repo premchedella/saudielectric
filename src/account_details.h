@@ -88,7 +88,9 @@ class AccountDetails
 
 
   QString parsing_;   //Parsing is "Complete" or "Partial"
-  QString reason_;    // Reason for not Complete.  
+  QString reason_;    // Reason for not Complete. 
+  
+  void Initialize();
 };
 
 #endif //ACCOUNT_DETAILS_H_
