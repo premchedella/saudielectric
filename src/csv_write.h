@@ -31,6 +31,7 @@ class CsvWrite
   void Parser2Big(std::vector<AccountDetails> data, QString file_name);
   void Parser2Small(std::vector<AccountDetails> data, QString file_name);
   void WriteParser3();
+  void WriteParser4();
 
   QString file_name_;
   QString base_file_name_;

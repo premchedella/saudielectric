@@ -7,6 +7,7 @@
 #include "common_types.h"
 #include "utilities.h"
 #include "parser_data_3_write.h"
+#include "parser_4_write_data.h"
 
 CsvWrite::CsvWrite()
 {
@@ -52,6 +53,9 @@ void CsvWrite::Write()
       break;
     case Utilities::ParserTypes::PARSER_TYPE_3:
       WriteParser3();
+      break;
+    case Utilities::ParserTypes::PARSER_TYPE_4:
+      WriteParser4();
       break;
     default:
       break;
@@ -1020,4 +1024,14 @@ void CsvWrite::WriteParser3()
   }
 
   data_3_write.Write(ParserData3Write::PARSER_DATA_WRITE_SUMMARY);
+}
+
+
+void CsvWrite::WriteParser4()
+{  
+  Parser4WriteData writedata;
+  writedata.SetBaseFileName(base_file_name_);
+
+  writedata.WriteInvoiceData();
+  writedata.Write(Parser4WriteData::PARSER_DATA_WRITE_SUMMARY);;
 }
