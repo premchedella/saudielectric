@@ -232,23 +232,21 @@ void ParseData::ParserType4(Blocks data)
   {
     // Get the each block data (invoice data)
     Block data_block = data.at(index);
-
     bool is_big_invoice = IsBigInvoice(data_block);
 
-    if (is_big_invoice)
-    {
-      AccountDetails acc_details;
-      acc_details.parsing_ = "Completed";
+    AccountDetails acc_details;
+    acc_details.Initialize();
+    acc_details.parsing_ = "Completed";
 
+
+    if (is_big_invoice)
+    {      
       Parser4Big parser_4_big;
       parser_4_big.Parse(data_block, &acc_details);
 
       common_account_details_.push_back(acc_details);
     } else
-    {
-      AccountDetails acc_details;
-      acc_details.parsing_ = "Completed";
-
+    {      
       Parser4Small parser_4_small;
       parser_4_small.Parse(data_block, &acc_details);
 

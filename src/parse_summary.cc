@@ -20,7 +20,7 @@ ParseSummary::~ParseSummary()
 
 void ParseSummary::ParseData(Block data)
 {  
-  std::cout << "Parse Summary Data." << std::endl;
+  std::cout << "Base Parse Summary Data." << std::endl;
 
   Utilities::ParserTypes parser_type = Utilities::GetParserType();
 
