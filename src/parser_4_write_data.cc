@@ -28,16 +28,17 @@ Parser4WriteData::~Parser4WriteData()
     QString row_data;
     row_data = "";
 
+    
     row_data += "Account Number,";  // A
     row_data += "Subscription Number,";  // B
     row_data += "Site Number,";  // C
     row_data += "Address,";  // D
-    row_data += "Inovice \nDate,";  // E
+    row_data += "Inovice Date,";  // E
     row_data += "Type,";  // F
     row_data += "Sub Type,";  // G
     row_data += "Invoice Number,";  // H
-    row_data += "Reading To \n (Date),";  // I
-    row_data += "Reading From \n(Date),";  // J
+    row_data += "Reading To (Date),";  // I
+    row_data += "Reading From (Date),";  // J
     row_data += "Multiplication Factor,";  // K
     row_data += "Circuit Breaker Capacity,";   // L
     row_data += "Reading Days,"; // M
@@ -269,26 +270,23 @@ void Parser4WriteData::WriteSummaryData()
 
       /* Write header*/
       Summary4Data data = summray_data.at(0);
-      row_data = "";      
-      row_data += value + ","; // A
+      
       value = data.name_;
-      row_data += value + ","; // B
+      row_data += value + ","; // A
       value = data.value_;
-      row_data += value + ","; // C
+      row_data += value + ","; // B
       value = data.complete_;
-      row_data += value + ","; // D
+      row_data += value + ","; // C
       value = data.reason_;
-      row_data += value; // F
+      row_data += value; // D
 
       stream << row_data << "\n";
 
       for (unsigned int index = 1; index < summray_data.size(); index++)
       {
         data = summray_data.at(index);
-        row_data.clear();
-
-        row_data = "";
-        row_data += value + ","; // A
+        row_data.clear();     
+        
         value = data.name_;
         row_data += value + ","; // B
         value = data.value_;
