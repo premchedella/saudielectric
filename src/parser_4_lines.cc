@@ -86,14 +86,20 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
-  // position 2 is Site number
+  // position 7 is address
   try
   {
-    QString token = line_data.at(2);
+    QString token = line_data.at(7);
     QString value = Utilities::ConvertEnglish(token);
 
-    if (value.size() > 0)
+    if (value.size() == 0)
     {
+      token = line_data.at(2);
+      value = Utilities::ConvertEnglish(token);
+    }
+
+    if (value.size() > 0)
+    {    
       acc_details->address_ = value;
     } else
     {
@@ -111,12 +117,18 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Address;";
   }
   
-  // position 6 is Site number
+  // position 9 is Site number
   try
   {
-    QString token = line_data.at(6);    
+    QString token = line_data.at(9);    
     QString value = Utilities::ConvertEnglish(token);
         
+    if (value.size() == 0)
+    {
+      token = line_data.at(8);
+      value = Utilities::ConvertEnglish(token);
+    }
+
     if (value.size() > 0)
     {
       acc_details->site_num_ = value;
@@ -850,7 +862,7 @@ void Parser4Lines::Line14(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Passive Power Consumption, Position 0
+  //Reactive Power Consumption, Position 0
   
   try
   {
@@ -863,12 +875,12 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Power Consumption;";
+      acc_details->reason_ += "No Reactive Power Consumption;";
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Power Consumption;";
+    acc_details->reason_ += "Not Reactive Power Consumption;";
   }
 
   //Current Reading, Position 1 
@@ -882,12 +894,12 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Current Reading;";
+      acc_details->reason_ += "No Reactive Power Current Reading;";
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Current Reading;";
+    acc_details->reason_ += "Not Reactive Power Current Reading;";
   }
 
   //Previous Reading, Position 2 
@@ -902,20 +914,20 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Previous Reading;";
+      acc_details->reason_ += "No Reactive Power Previous Reading;";
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Previous Reading;";
+    acc_details->reason_ += "Not Reactive Power Previous Reading;";
   }
 
 #if PRINT_FIELD_VALUE
-  std::cout << "Other Power Consumption = " << 
+  std::cout << "Reactive Power Consumption = " << 
       acc_details->other_pow_cons_.toStdString() << ",";
-  std::cout << "Current Reading = " << 
+  std::cout << "Reactive Power Current Reading = " << 
       acc_details->other_curr_reading_.toStdString() << ",";
-  std::cout << "Previous Reading = " << 
+  std::cout << "Reactive Power Previous Reading = " << 
       acc_details->other_prev_reading_.toStdString() << std::endl;
 #endif  
 }
