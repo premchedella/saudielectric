@@ -224,7 +224,7 @@ Parser4WriteData::~Parser4WriteData()
     std::wcout << "Total Number of Partial Records = " <<
        no_partial << std::endl;
     std::wcout << "Total Number of Warning Records = " <<
-      no_partial << std::endl;
+      no_warning << std::endl;
   }
 
   std::cout << "Saved the data in the " << file_name.toStdString() << "."
@@ -251,7 +251,7 @@ void Parser4WriteData::WriteSummaryData()
 {
   std::vector<Summary4Data> summray_data = Parser4Summary::GetSummaryData();
   
-#if 0
+
   if (summray_data.size() > 0)
   {
 
@@ -262,12 +262,50 @@ void Parser4WriteData::WriteSummaryData()
 
     if (csv_file.open(QFile::WriteOnly | QFile::Truncate))
     {           
+      QTextStream stream(&csv_file);
+
+      QString row_data;
+      QString value;      
+
+      /* Write header*/
+      Summary4Data data = summray_data.at(0);
+      row_data = "";      
+      row_data += value + ","; // A
+      value = data.name_;
+      row_data += value + ","; // B
+      value = data.value_;
+      row_data += value + ","; // C
+      value = data.complete_;
+      row_data += value + ","; // D
+      value = data.reason_;
+      row_data += value; // F
+
+      stream << row_data << "\n";
+
+      for (unsigned int index = 1; index < summray_data.size(); index++)
+      {
+        data = summray_data.at(index);
+        row_data.clear();
+
+        row_data = "";
+        row_data += value + ","; // A
+        value = data.name_;
+        row_data += value + ","; // B
+        value = data.value_;
+        row_data += value + ","; // C
+        value = data.complete_;
+        row_data += value + ","; // D
+        value = data.reason_;
+        row_data += value; // F
+
+        stream << row_data << "\n";
+      }
       csv_file.close();
+
     }
     std::cout << "Saved the summary data in the " << file_name.toStdString() << "."
       << std::endl;
   }
-#endif
 }
 
 
