@@ -69,8 +69,8 @@ class AccountDetails
 
   // Parser 4
   QString site_num_; // Site Number  
-  QString total_ap_consumption_; // Total Active Power Conmption
-  QString ap_consumption_factor_;  // Active Power Conumption factor
+  QString total_ap_consumption_; // Total Active Power Consumption
+  QString ap_consumption_factor_;  // Active Power Consumption factor
   QString ap_multi_factor_; // Active Power Multiplication Factor
   QString ap_prev_reading_; // Active Power Previous Reading
   QString ap_curr_reading_; // Active Power Current Reading
