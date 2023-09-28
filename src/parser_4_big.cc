@@ -109,7 +109,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Current Reading Line;";
+    acc_details->reason_ += "No Power Consumption Line;";
   }
 
   //Line No. 9
@@ -124,7 +124,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Power Consumtion Line;";
+    acc_details->reason_ += "No Reactive Power Consumtion Line;";
   }
 
   //Line No. 10
@@ -139,7 +139,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Duration Cost Line;";
+    acc_details->reason_ += "No Taxable Amount Line;";
   }
 
   //Line No. 11
@@ -154,7 +154,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No VAT 15% Line;";
+    acc_details->reason_ += "No VAT Line;";
   }
 
   line_no++;
@@ -171,7 +171,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Taxable Amount Line;";
+    acc_details->reason_ += "No Total Cost Line;";
   }
 
       
@@ -218,7 +218,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Total Cost Line;";
+    acc_details->reason_ += "No Required Amount Line;";
   }
 
   line_no = 16;  
@@ -248,7 +248,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Active Power Line;";
+    acc_details->reason_ += "No Active Power Consumption Line;";
   }
 
   line_no = data_in.size() - 2;
@@ -265,6 +265,6 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Last to previous Line;";
+    acc_details->reason_ += "No Reactive Power Consumption Line;";
   }
 }
