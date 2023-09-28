@@ -89,12 +89,18 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
   // position 7 is address
   try
   {
-    QString token = line_data.at(7);
+    QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
 
     if (value.size() == 0)
     {
-      token = line_data.at(2);
+      token = line_data.at(5);
+      value = Utilities::ConvertEnglish(token);
+    }
+
+    if (value.size() == 0)
+    {
+      token = line_data.at(7);
       value = Utilities::ConvertEnglish(token);
     }
 
@@ -120,12 +126,30 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
   // position 9 is Site number
   try
   {
-    QString token = line_data.at(9);    
+    QString token = line_data.at(4);    
     QString value = Utilities::ConvertEnglish(token);
+
+    if ((value.size() == 0) || (value == QString('-')))
+    {
+      token = line_data.at(6);
+      value = Utilities::ConvertEnglish(token);
+    }
+
+    if (value.size() == 0)
+    {
+      token = line_data.at(7);
+      value = Utilities::ConvertEnglish(token);
+    }
         
     if (value.size() == 0)
     {
       token = line_data.at(8);
+      value = Utilities::ConvertEnglish(token);
+    }
+
+    if (value.size() == 0)
+    {
+      token = line_data.at(9);
       value = Utilities::ConvertEnglish(token);
     }
 
