@@ -72,7 +72,6 @@ void Parser3Summary::ParseData(Block data)
   line_data = data.at(line_no);
   ParseLine4(line_data);
   
-
   /* Line No. 13 */
   line_no = 12;
   line_data = data.at(line_no);
@@ -152,14 +151,22 @@ void Parser3Summary::ParseLine1(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  //Read Position 0
-  QString token = data.at(0);
-  QString value = Utilities::ConvertEnglish(token);
-
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 0
+    QString token = data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 2: VAT Number value not availble.";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 2: VAT Number value not availble.";
@@ -177,24 +184,29 @@ void Parser3Summary::ParseLine2(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  //Read Position 0
-  QString token = data.at(0);
-  QString value = Utilities::ConvertEnglish(token);
-  value = Utilities::ToDateMonth(value.trimmed());
-
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 0
+    QString token = data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+    value = Utilities::ToDateMonth(value.trimmed());
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 3: Invoice Issue Date value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 3: Invoice Issue Date value not availble";
   }
 
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  token = data.at(3);
-  value = Utilities::ConvertEnglish(token);
 
   no = "1";
   v_name = "claim_number";
@@ -203,15 +215,24 @@ void Parser3Summary::ParseLine2(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    QString token = data.at(3);
+    QString value = Utilities::ConvertEnglish(token);
+    
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 3: Claim Number value not availble";
+    }
+  } catch(...)
   {
     complete = "Partial";
     reason = "Line 3: Claim Number value not availble";
   }
-
   AddSummaryData(no, v_name, name, s_value, complete, reason);
 }
 
@@ -224,36 +245,40 @@ void Parser3Summary::ParseLine3(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  //Read Position 0
-  QString token = data.at(0);
-  QString month = token;
-  QString a_value = token.toUtf8();
-  int i_month = Utilities::GetMonthNumber(token);
-
-  if (i_month == 0)
+  try
   {
-    complete = "Partial";
-    reason = "Line 4: Invoice Period Month value, not availble";
-  }
-    
-  //Read Position 1
-  token = data.at(1);
-  QString value = Utilities::ConvertEnglish(token);  
+    //Read Position 0
+    QString token = data.at(0);
+    QString month = token;
+    QString a_value = token.toUtf8();
+    int i_month = Utilities::GetMonthNumber(token);
 
-  if (value.size() > 0)
-  {    
-    s_value = value;
-    s_value = QString::number(i_month) + " " + s_value;    
-  } else
+    if (i_month == 0)
+    {
+      complete = "Partial";
+      reason = "Line 4: Invoice Period Month value, not availble";
+    }
+    
+    //Read Position 1
+    token = data.at(1);
+    QString value = Utilities::ConvertEnglish(token);  
+
+    if (value.size() > 0)
+    {    
+      s_value = value;
+      s_value = QString::number(i_month) + " " + s_value;    
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 4: Invoice Period value not availble";
+    }
+  } catch(...)
   {
     complete = "Partial";
     reason = "Line 4: Invoice Period value not availble";
   }
 
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  token = data.at(5);
-  value = Utilities::ConvertEnglish(token);
 
   no = "2";
   v_name = "claim_account";
@@ -262,10 +287,21 @@ void Parser3Summary::ParseLine3(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    QString token = data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+  
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 4: Claim Account value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 4: Claim Account value not availble";
@@ -283,27 +319,31 @@ void Parser3Summary::ParseLine4(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  //Read Position 2
-  QString token = data.at(2);
-  QString value = Utilities::ConvertEnglish(token);
-    
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 2
+    QString token = data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+    
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 5: Circle Code value not availble";
+    }
+  } catch(...)
   {
     complete = "Partial";
     reason = "Line 5: Circle Code value not availble";
   }
+
   AddSummaryData(no, v_name, name, s_value, complete, reason);
 }
 
 void Parser3Summary::ParseLine12(QStringList data)
-{
-  //Read Position 0
-  QString token = data.at(0);
-  QString value = Utilities::ConvertEnglish(token);
-
+{  
   QString no = "14";
   QString v_name = "taxable_amount";
   QString name = "Taxable Amount";
@@ -311,19 +351,27 @@ void Parser3Summary::ParseLine12(QStringList data)
   QString complete = "complete";
   QString reason = " ";
   
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 0
+    QString token = data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 13: Taxable Amount value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 13: Taxable Amount value not availble";
-  }  
+  }
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  //Read Position 4
-  token = data.at(4);
-  value = Utilities::ConvertEnglish(token);
 
   no = "8";
   v_name = "active_power_consumption_cost";
@@ -332,19 +380,27 @@ void Parser3Summary::ParseLine12(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 4
+    QString token = data.at(4);
+    QString value = Utilities::ConvertEnglish(token);
+    
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 13: Active Power Consumption Cost value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 13: Active Power Consumption Cost value not availble";
   }
 
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  token = data.at(5);
-  value = Utilities::ConvertEnglish(token);
 
   no = "7";
   v_name = "power_consumption";
@@ -353,24 +409,31 @@ void Parser3Summary::ParseLine12(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    QString token = data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+
+  
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 13: Power Consumption value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 13: Power Consumption value not availble";
   }
-
   AddSummaryData(no, v_name, name, s_value, complete, reason);
 }
 
 void Parser3Summary::ParseLine13(QStringList data)
-{
-  //Read Position 2
-  QString token = data.at(2);
-  QString value = Utilities::ConvertEnglish(token);
-
+{  
   QString no = "15";
   QString v_name = "vat";
   QString name = "VAT";
@@ -378,10 +441,21 @@ void Parser3Summary::ParseLine13(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 2
+    QString token = data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 14: VAT value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 14: VAT value not availble";
@@ -411,10 +485,6 @@ void Parser3Summary::ParseLine13(QStringList data)
   AddSummaryData(no, v_name, name, s_value, complete, reason);
 #endif
 
-  //Read Position 5
-  token = data.at(5);
-  value = Utilities::ConvertEnglish(token);
-
   no = "10";
   v_name = "reactive_power_consumption_cost";
   name = "Reactive Power Consumption Cost";
@@ -422,20 +492,28 @@ void Parser3Summary::ParseLine13(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  //Read Position 5
+  try
   {
-    s_value = value;
-  } else
+    QString token = data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+
+  
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 14: Reactive Power Consumption Cost value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 14: Reactive Power Consumption Cost value not availble";
   }
-
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  //Read Position 6
-  token = data.at(6);
-  value = Utilities::ConvertEnglish(token);
 
   no = "9";
   v_name = "reactive_power_consumption";
@@ -444,10 +522,22 @@ void Parser3Summary::ParseLine13(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 6
+    QString token = data.at(6);
+    QString value = Utilities::ConvertEnglish(token);
+    
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 14: Reactive Power Consumption value not availble";
+    }
+  }
+  catch (...)
   {
     complete = "Partial";
     reason = "Line 14: Reactive Power Consumption value not availble";
@@ -456,11 +546,7 @@ void Parser3Summary::ParseLine13(QStringList data)
 }
 
 void Parser3Summary::ParseLine14(QStringList data)
-{
-  //Read Position 0
-  QString token = data.at(0);
-  QString value = Utilities::ConvertEnglish(token);
-
+{  
   QString no = "16";
   QString v_name = "cost";
   QString name = "Cost";
@@ -468,19 +554,26 @@ void Parser3Summary::ParseLine14(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 0
+    QString token = data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 15: Cost value not availble";
+    }
+  }  catch (...)
   {
     complete = "Partial";
     reason = "Line 15: Cost value not availble";
   }
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  //Read Position 4
-  token = data.at(4);
-  value = Utilities::ConvertEnglish(token);
 
   no = "11";
   v_name = "meter_service_cost";
@@ -489,10 +582,21 @@ void Parser3Summary::ParseLine14(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 4
+    QString token = data.at(4);
+    QString value = Utilities::ConvertEnglish(token);
+      
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 15: Meter Service Cost value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 15: Meter Service Cost value not availble";
@@ -501,11 +605,7 @@ void Parser3Summary::ParseLine14(QStringList data)
 }
 
 void Parser3Summary::ParseLine15(QStringList data)
-{
-  //Read Position 0
-  QString token = data.at(0);
-  QString value = Utilities::ConvertEnglish(token);
-
+{  
   QString no = "17";
   QString v_name = "non_taxable_amount";
   QString name = "Non Taxable Amount";
@@ -513,19 +613,26 @@ void Parser3Summary::ParseLine15(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 0
+    QString token = data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 16: Non Taxable Amount value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 16: Non Taxable Amount value not availble";
   }
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  //Read Position 5
-  token = data.at(5);
-  value = Utilities::ConvertEnglish(token);
 
   no = "12";
   v_name = "other_fees";
@@ -534,10 +641,21 @@ void Parser3Summary::ParseLine15(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 5
+    QString token = data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+      
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 16: Other Fees value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 16: Other Fees value not availble";
@@ -546,11 +664,7 @@ void Parser3Summary::ParseLine15(QStringList data)
 }
 
 void Parser3Summary::ParseLine16(QStringList data)
-{
-  //Read Position 2
-  QString token = data.at(2);
-  QString value = Utilities::ConvertEnglish(token);
-
+{  
   QString no = "18";
   QString v_name = "required_amount";
   QString name = "Required Amount";
@@ -558,19 +672,26 @@ void Parser3Summary::ParseLine16(QStringList data)
   QString complete = "complete";
   QString reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 2
+    QString token = data.at(2);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 17: Required Amount value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 17: Required Amount value not availble";
   }
   AddSummaryData(no, v_name, name, s_value, complete, reason);
-
-  //Read Position 5
-  token = data.at(5);
-  value = Utilities::ConvertEnglish(token);
 
   no = "13";
   v_name = "settlements";
@@ -579,14 +700,26 @@ void Parser3Summary::ParseLine16(QStringList data)
   complete = "complete";
   reason = " ";
 
-  if (value.size() > 0)
+  try
   {
-    s_value = value;
-  } else
+    //Read Position 5
+    QString token = data.at(5);
+    QString value = Utilities::ConvertEnglish(token);
+      
+    if (value.size() > 0)
+    {
+      s_value = value;
+    } else
+    {
+      complete = "Partial";
+      reason = "Line 17: Settlements value not availble";
+    }
+  } catch (...)
   {
     complete = "Partial";
     reason = "Line 17: Settlements value not availble";
   }
+
   AddSummaryData(no, v_name, name, s_value, complete, reason);
 }
 
