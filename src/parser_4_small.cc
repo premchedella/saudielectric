@@ -32,7 +32,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line1(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Account Number Line;";
   }
 
@@ -51,12 +51,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Subscription Number Line;";
   }
-
-
-  //if (acc_details->subscription_num_ == QString("22044000000524"))
-  //  std::cout << "Settlement is wrong.";
-  
-
+    
   //Line No. 3
   line_no++;
   // Site Number 
@@ -69,7 +64,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line3(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Site Number Line;";
   }
 
@@ -84,7 +79,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line4(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Invoice Number Line;";
   }
 
@@ -116,7 +111,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "No Readings Data Line;";
+    acc_details->reason_ += "No Power Consumption;";
   }
 
   //Line No. 9
@@ -169,7 +164,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No 5% VAT Line;";
+      acc_details->reason_ += "No VAT Line;";
     }
 
     line_no++;
@@ -233,7 +228,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Cost Line;";
+      acc_details->reason_ += "No Required Amount Line;";
     }
   }
   else
@@ -251,7 +246,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Meter Service and Taxable amount Line;";
+      acc_details->reason_ += "No Taxable amount Line;";
     }
 
     line_no++;
@@ -263,13 +258,13 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Non Taxable amount and Other Fees Line;";
+      acc_details->reason_ += "No Non Taxable amount Line;";
     }
 
     // Settlement Line and already parsed.
     line_no++;
 
-    //Total Cost Line
+    //Required Amount Line
     line_no++;
     try
     {
@@ -279,7 +274,7 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Cost Line;";
+      acc_details->reason_ += "No Required Amount Line;";
     }
   }
 
@@ -312,12 +307,12 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser4Lines::ParseConmptions(line_data, acc_details);
+      Parser4Lines::ParseConsumptions(line_data, acc_details);
     }
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Consumptions Line;";
+      acc_details->reason_ += "No Total Meters Consumptions Line;";
     }
   }
 }

@@ -190,9 +190,9 @@ Parser4WriteData::~Parser4WriteData()
       row_data += value + ","; // AT  
       value = acc_details.rp_meter_number_;
       row_data += value + ","; // AU
-      value = acc_details.total_meteters_conumption_;
+      value = acc_details.total_meteters_consumption_;
       row_data += value + ","; // AV
-      value = acc_details.rp_conumption_;
+      value = acc_details.meteters_consumption_factor_;
       row_data += value + ","; // AW
       value = acc_details.parsing_;
       row_data += value + ","; // AX

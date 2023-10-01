@@ -32,7 +32,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line1(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Account Number Line;";
   }
 
@@ -62,7 +62,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line3(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Site Number Line;";
   }
   
@@ -77,7 +77,7 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
     Parser4Lines::Line4(line_data, acc_details);
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "No Invoice Date Line;";
   }
 

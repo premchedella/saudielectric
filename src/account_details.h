@@ -77,8 +77,8 @@ class AccountDetails
   QString ap_cb_capacity_; // Active Power Circuit Breaker Capacity
   QString ap_meter_number_; // Active Power Meter Number
 
-  QString total_meteters_conumption_; // Total Meters Conumption
-  QString rp_conumption_; // Reactive Power consumpiton
+  QString total_meteters_consumption_; // Total Meters Conumption
+  QString meteters_consumption_factor_; // Total Meters Consumption Factor
 
   QString rp_consumption_factor_;  // Reactive Power Conumption factor
   QString rp_cb_capacity_; // Reactive Power Circuit Breaker Capacity

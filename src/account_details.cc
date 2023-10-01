@@ -68,8 +68,8 @@ AccountDetails::AccountDetails()
   ap_cb_capacity_ = "";
   ap_meter_number_ = "";
   
-  total_meteters_conumption_ = "";
-  rp_conumption_ = "";
+  total_meteters_consumption_ = "";
+  meteters_consumption_factor_ = "";
 
   rp_consumption_factor_ = "";
   rp_cb_capacity_ = "";
@@ -154,8 +154,8 @@ void AccountDetails::Initialize()
   ap_cb_capacity_ = "NULL";
   ap_meter_number_ = "NULL";
 
-  total_meteters_conumption_ = "NULL";
-  rp_conumption_ = "NULL";
+  total_meteters_consumption_ = "NULL";
+  meteters_consumption_factor_ = "NULL";
 
   rp_consumption_factor_ = "NULL";
   rp_cb_capacity_ = "NULL";

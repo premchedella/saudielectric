@@ -37,12 +37,12 @@ void Parser4Lines::Line1(QStringList data, AccountDetails* acc_details)
       acc_details->account_num_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Account Number;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Account Number;";
   }
 
@@ -109,17 +109,13 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
       acc_details->address_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Address;";
     }
-
-#if PRINT_FIELD_VALUE
-    std::cout << "Address: " << value.toStdString() << std::endl;
-#endif
   }
   catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Address;";
   }
   
@@ -158,18 +154,19 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
       acc_details->site_num_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Site Number;";
     }
-
-#if PRINT_FIELD_VALUE
-    std::cout << "Site Number: " << value.toStdString() << std::endl;
-#endif
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Site Number;";
   }
+
+#if PRINT_FIELD_VALUE
+  std::cout << "Address: " << acc_details->address_.toStdString() << std::endl;
+  std::cout << "Site Number: " << acc_details->site_num.toStdString() << std::endl;
+#endif
 }
 
 void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
@@ -209,12 +206,12 @@ void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->type_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Type;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Type;";
   }
 
@@ -230,12 +227,12 @@ void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
       acc_details->sub_type_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Sub-Type;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Sub-Type;";
   }
 
@@ -287,13 +284,13 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
       acc_details->reading_to_ = date;
     } else
     {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Meter Reading To;";
+      acc_details->parsing_ = "Warning";
+      acc_details->reason_ += "No Reading To (Date);";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Meter Reading To;";
+    acc_details->parsing_ = "Warning";
+    acc_details->reason_ += "Not Reading To (Date);";
   }
 
   // Previous Reading, Position 1 
@@ -309,12 +306,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Meter Reading From;";
+      acc_details->reason_ += "No Reading From (Date);";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Meter Reading From;";
+    acc_details->reason_ += "Not Reading From (Date);";
   }
 
   // Multiplication Factor, Position 2
@@ -365,12 +362,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
       acc_details->reading_days_ = value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Reading days;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Reading Days;";
   }
 
@@ -401,12 +398,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
       acc_details->electrometer_num_ = prefix + value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Meter Number;";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Meter Number;";
   }
 
@@ -501,7 +498,7 @@ void Parser4Lines::Line9(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
-  // Position 0 - Duration Cost
+  // Position 0 - Taxable Amount
 
   try
   {
@@ -555,7 +552,7 @@ void Parser4Lines::Line10(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
   
-  // Position 0 - VAT 15%
+  // Position 0 - VAT 
   try
   {
     QString token = line_data.at(0);
@@ -567,13 +564,13 @@ void Parser4Lines::Line10(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No VAT (15%);";
+      acc_details->reason_ += "No VAT;";
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not VAT (15%);";
+    acc_details->reason_ += "Not VAT;";
   }
 
   // Position 6 or 4 - Meter Service
@@ -694,7 +691,7 @@ void Parser4Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Taxable Amount
+  // Position 0 - Taxable Cost
 
   try
   {
@@ -707,12 +704,12 @@ void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Taxable Amount;";
+      acc_details->reason_ += "No Total Cost;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Taxable Amount;";
+    acc_details->reason_ += "Not Total Cost;";
   }
   
   try
@@ -1086,7 +1083,7 @@ void Parser4Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Total Reactive Power Consumption
+  // Position 0 - Total Reactive Power Consumption (UP)
 
   try
   {
@@ -1099,12 +1096,12 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Reactive Consumption;";
+      acc_details->reason_ += "No Total Reactive Consumption (UP);";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Reactive Consumption;";
+    acc_details->reason_ += "Not Total Reactive Consumption (UP);";
   }
 
   //Position 5 - Allowed Reactive Power Consumption
@@ -1141,12 +1138,12 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Power Factor;";
+      acc_details->reason_ += "No Power Factor;";
     }
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Power Factor;";
+    acc_details->reason_ += "Not Power Factor;";
   }
 
 #if PRINT_FIELD_VALUE
@@ -1154,7 +1151,7 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
       acc_details->total_react_pow_con_.toStdString() << ", ";
   std::cout << "Allowed Reactive Power Consumption = " <<
     acc_details->allowed_react_pow_con_.toStdString() << ", ";
-  std::cout << "Reactive Power Factor = " << 
+  std::cout << "Power Factor = " << 
     acc_details->react_power_factor_.toStdString() << std::endl;
 #endif
 }
@@ -1162,7 +1159,7 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Position 0 - Reactive Power Total Consumption
+  //Position 0 - Reactive Power Total Consumption (Down)
 
   try
   {
@@ -1174,12 +1171,12 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Reactive Power Consumption;";
+      acc_details->reason_ += "No Total Reactive Power Consumption (Down);";
     }   
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Total Reactive Power Consumption;";
+    acc_details->reason_ += "Not Total Reactive Power Consumption (Down);";
   }
 
   // Position 1 - Reactive Power Consumption Factor
@@ -1203,7 +1200,7 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reactive Power Consumption Factor;";
   }
 
-  //Position 2 - Reactive Power  Multiplication Factor
+  //Position 2 - Reactive Power Multiplication Factor
 
   try
   {
@@ -1257,12 +1254,12 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Previous Meter Reading;";
+      acc_details->reason_ += "No Reactive Current Meter Reading;";
     }    
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Previous Meter Reading;";
+    acc_details->reason_ += "Not Reactive Current Meter Reading;";
   }
 
   // Position 7 - Reactive Power Circuit Breaker Capacity
@@ -1300,13 +1297,13 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
       acc_details->rp_meter_number_ = prefix + value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Reactive Power Meter Number;";
     }
   }
   catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Reactive Power Meter Number;";
   }
 
@@ -1358,13 +1355,13 @@ void Parser4Lines::Line9Small(QStringList data, AccountDetails* acc_details)
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Electrometer Service;";
+      acc_details->reason_ += "No Meter Service;";
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Electrometer Service;";
+    acc_details->reason_ += "Not Meter Service;";
   }
 
 }
@@ -1373,7 +1370,7 @@ void Parser4Lines::Line10Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
-  // Position 0 - Taxable Amount
+  // Position 0 - Non Taxable Amount
   try
   {
     QString token = line_data.at(0);
@@ -1561,18 +1558,18 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
       acc_details->ap_meter_number_ = prefix + value;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Active Power Meter Number;";
     }
   }
   catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Active Power Meter Number;";
   }
 }
 
-void Parser4Lines::ParseConmptions(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::ParseConsumptions(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -1584,7 +1581,7 @@ void Parser4Lines::ParseConmptions(QStringList data, AccountDetails* acc_details
 
     if (value.size() > 0)
     {
-      acc_details->total_meteters_conumption_ = value;
+      acc_details->total_meteters_consumption_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
@@ -1605,16 +1602,16 @@ void Parser4Lines::ParseConmptions(QStringList data, AccountDetails* acc_details
 
     if (value.size() > 0)
     {
-      acc_details->rp_conumption_ = value;
+      acc_details->meteters_consumption_factor_ = value;
     } else
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Power Conumtpion;";
+      acc_details->reason_ += "No Total Meters Consumption Factor;";
     }
   }
   catch (...)
   {
     acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Power Conumtpion;";
+    acc_details->reason_ += "Not Total Meters Consumption Factor;";
   }
 }

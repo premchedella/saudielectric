@@ -32,5 +32,5 @@ class Parser4Lines
   static void Line10Small(QStringList data, AccountDetails* acc_details);
 
   static void ParseActivePower(QStringList data, AccountDetails* acc_details);
-  static void ParseConmptions(QStringList data, AccountDetails* acc_details);
+  static void ParseConsumptions(QStringList data, AccountDetails* acc_details);
 };
