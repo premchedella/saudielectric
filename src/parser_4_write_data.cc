@@ -33,7 +33,7 @@ Parser4WriteData::~Parser4WriteData()
     row_data += "Subscription Number,";  // B
     row_data += "Site Number,";  // C
     row_data += "Address,";  // D
-    row_data += "Inovice Date,";  // E
+    row_data += "Invoice Date,";  // E
     row_data += "Type,";  // F
     row_data += "Sub Type,";  // G
     row_data += "Invoice Number,";  // H
@@ -45,7 +45,7 @@ Parser4WriteData::~Parser4WriteData()
     row_data += "Meter Number,"; // N       
     row_data += "Power Consumption,"; // O
     row_data += "Current Reading,"; // P
-    row_data += "Previous Reding,";  // Q    
+    row_data += "Previous Reading,";  // Q    
     row_data += "Reactive Power Consumption,"; // R   
     row_data += "Reactive Power Current Reading,";  // S     
     row_data += "Reactive Power Previous Reading,";  // T    
@@ -69,8 +69,8 @@ Parser4WriteData::~Parser4WriteData()
     row_data += "Active Power Current Reading,"; // AL    
     row_data += "Active Power Circuit Breaker Capacity,"; // AM    
     row_data += "Active Power Meter Number,"; // AN    
-    row_data += "Total Rective Power Consumption (Down),"; // AO    
-    row_data += "Rective Power Consumption Factor,"; // AP 
+    row_data += "Total Reactive Power Consumption (Down),"; // AO    
+    row_data += "Reactive Power Consumption Factor,"; // AP 
     row_data += "Reactive Power Multiplication Factor,"; // AQ    
     row_data += "Reactive Power Previous Reading,"; // AR    
     row_data += "Reactive Power Current Reading,"; // AS    
@@ -288,13 +288,13 @@ void Parser4WriteData::WriteSummaryData()
         row_data.clear();     
         
         value = data.name_;
-        row_data += value + ","; // B
+        row_data += value + ","; // A
         value = data.value_;
-        row_data += value + ","; // C
+        row_data += value + ","; // B
         value = data.complete_;
-        row_data += value + ","; // D
+        row_data += value + ","; // C
         value = data.reason_;
-        row_data += value; // F
+        row_data += value; // D
 
         stream << row_data << "\n";
       }
