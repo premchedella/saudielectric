@@ -61,7 +61,6 @@ void Parser4Summary::ParseData(Block data)
   line_data = data.at(line_no);
   ParseLine4(line_data);
   
-
   /* Line No. 9 */
   line_no = 10;
   line_data = data.at(line_no);
@@ -111,7 +110,7 @@ void Parser4Summary::ParseLine1(QStringList data)
 {  
   QString name = "VAT Number";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
 
@@ -126,13 +125,13 @@ void Parser4Summary::ParseLine1(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 2: VAT Number value not availble.";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 2: VAT Number value not availble.";
   }
 
@@ -143,7 +142,7 @@ void Parser4Summary::ParseLine2(QStringList data)
 { 
   QString name = "Invoice Number";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -157,13 +156,13 @@ void Parser4Summary::ParseLine2(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "Warning";
       reason = "Line 3: Invoice Number not availble";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "Warning";
     reason = "Line 3: Invoice Number not availble";
   }
 
@@ -171,7 +170,7 @@ void Parser4Summary::ParseLine2(QStringList data)
 
   name = "Collective Account Number";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -184,13 +183,13 @@ void Parser4Summary::ParseLine2(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 3: Claim Account Number not availble";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 3: Claim Account Number not availble";
   }
 
@@ -201,7 +200,7 @@ void Parser4Summary::ParseLine3(QStringList data)
 {  
   QString name = "Invoice Issue Date";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
   try
   {
@@ -215,12 +214,12 @@ void Parser4Summary::ParseLine3(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "Warning";
       reason = "Line 4: Invoice Date, not availble";
     }
   } catch (...)
   {
-    complete = "Partial";
+    complete = "Warning";
     reason = "Line 4: Invoice Date, not availble";
   }
     
@@ -229,7 +228,7 @@ void Parser4Summary::ParseLine3(QStringList data)
 
   name = "VAT Account";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -242,13 +241,13 @@ void Parser4Summary::ParseLine3(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 4: VAT Account value not availble";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 4: VAT Account value not availble";
   }  
 
@@ -259,7 +258,7 @@ void Parser4Summary::ParseLine4(QStringList data)
 {  
   QString name = "Reading To (Date)";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -274,19 +273,19 @@ void Parser4Summary::ParseLine4(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 5: Reading To Date value not availble";
     }
   } catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 5: Reading To Date value not availble";
   }
   AddSummaryData(name, s_value, complete, reason);
 
   name = "Reading From (Date)";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -301,20 +300,20 @@ void Parser4Summary::ParseLine4(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 5: Reading From Date value not availble";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 5: Reading From Date value not availble";
   }
   AddSummaryData(name, s_value, complete, reason);
 
   name = "Account Number";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -328,13 +327,13 @@ void Parser4Summary::ParseLine4(QStringList data)
       s_value = value;
     } else
     {
-      complete = "Partial";
+      complete = "";
       reason = "Line 5: Account Number value not availble";
     }
   }
   catch (...)
   {
-    complete = "Partial";
+    complete = "";
     reason = "Line 5: Account Number value not availble";
   }
   AddSummaryData(name, s_value, complete, reason);
@@ -344,7 +343,7 @@ void Parser4Summary::ParseLine10(QStringList data)
 {
   QString name = "Taxable Amount";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -371,7 +370,7 @@ void Parser4Summary::ParseLine10(QStringList data)
   
   name = "Active Power Consumption Cost";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -398,7 +397,7 @@ void Parser4Summary::ParseLine10(QStringList data)
 
   name = "Active Power Consumption";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -428,7 +427,7 @@ void Parser4Summary::ParseLine11(QStringList data)
 {
   QString name = "VAT";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -455,7 +454,7 @@ void Parser4Summary::ParseLine11(QStringList data)
 
   name = "Reactive Power Consumption Cost";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -482,7 +481,7 @@ void Parser4Summary::ParseLine11(QStringList data)
 
   name = "Reactive Power Consumption";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -512,7 +511,7 @@ void Parser4Summary::ParseLine12(QStringList data)
 {
   QString name = "Total Cost";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -539,7 +538,7 @@ void Parser4Summary::ParseLine12(QStringList data)
 
   name = "Meters Service Cost";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -569,7 +568,7 @@ void Parser4Summary::ParseLine13(QStringList data)
 {
   QString name = "Non-Taxable Amount";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -596,7 +595,7 @@ void Parser4Summary::ParseLine13(QStringList data)
 
   name = "Other Fees";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
@@ -626,7 +625,7 @@ void Parser4Summary::ParseLine14(QStringList data)
 {
   QString name = "Required Amount";
   QString s_value = " ";
-  QString complete = "complete";
+  QString complete = "";
   QString reason = " ";
 
   try
@@ -653,7 +652,7 @@ void Parser4Summary::ParseLine14(QStringList data)
 
   name = "Settlements";
   s_value = " ";
-  complete = "complete";
+  complete = "";
   reason = " ";
 
   try
