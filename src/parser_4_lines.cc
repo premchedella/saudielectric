@@ -7,8 +7,8 @@
 void Parser4Lines::Line1(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Account Number, Position 1 or 4 or 5 or 6 
-  
+
+  // Account Number, Position 1 or 4 or 5 or 6   
   try
   {
     QString token = line_data.at(1);
@@ -838,7 +838,8 @@ void Parser4Lines::Line13(QStringList data, AccountDetails* acc_details)
   try
   {
     QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);    
+    QString value = Utilities::ConvertEnglish(token); 
+    
     if (value.size() > 0)
     {
       acc_details->non_taxable_amount_ = value;
@@ -1171,6 +1172,11 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
     QString prefix = token.left(3);
     QString value = Utilities::ConvertEnglish(token);
 
+    if (Utilities::ConvertEnglish(prefix).size() > 0)
+    {
+      prefix = "";
+    }
+
     if (value.size() > 0)
     {
       acc_details->rp_meter_number_ = prefix + value;
@@ -1433,6 +1439,11 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
     // Get the English characters of meter number
     QString prefix = token.left(3);
     QString value = Utilities::ConvertEnglish(token);
+
+    if (Utilities::ConvertEnglish(prefix).size() > 0)
+    {
+      prefix = "";     
+    }
     
     if (value.size() > 0)
     {
