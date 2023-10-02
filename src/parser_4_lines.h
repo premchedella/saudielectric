@@ -24,8 +24,6 @@ class Parser4Lines
   static void Line13(QStringList data, AccountDetails* acc_details);  
   static void Line14(QStringList data, AccountDetails* acc_details);
   static void Line9Big(QStringList data, AccountDetails* acc_details);
-  static void Line10Big15(QStringList data, AccountDetails* acc_details);
-  static void Line11Big15(QStringList data, AccountDetails* acc_details);  
   static void Line16(QStringList data, AccountDetails* acc_details);  
   static void LineLast(QStringList data, AccountDetails* acc_details);  
   static void Line9Small(QStringList data, AccountDetails* acc_details);

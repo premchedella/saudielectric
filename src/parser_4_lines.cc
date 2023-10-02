@@ -86,7 +86,7 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
-  // position 7 is address
+  // position 2 or 5 or 7 is Address
   try
   {
     QString token = line_data.at(2);
@@ -119,7 +119,7 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Address;";
   }
   
-  // position 9 is Site number
+  // position 4 or 6 or 7 or 8 or 9 is Site Number
   try
   {
     QString token = line_data.at(4);    
@@ -131,19 +131,19 @@ void Parser4Lines::Line3(QStringList data, AccountDetails* acc_details)
       value = Utilities::ConvertEnglish(token);
     }
 
-    if (value.size() == 0)
+    if ((value.size() == 0) || (value == QString('-')))
     {
       token = line_data.at(7);
       value = Utilities::ConvertEnglish(token);
     }
         
-    if (value.size() == 0)
+    if ((value.size() == 0) || (value == QString('-')))
     {
       token = line_data.at(8);
       value = Utilities::ConvertEnglish(token);
     }
 
-    if (value.size() == 0)
+    if ((value.size() == 0) || (value == QString('-')))
     {
       token = line_data.at(9);
       value = Utilities::ConvertEnglish(token);
@@ -201,6 +201,7 @@ void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
     int position = token.indexOf("_");
     token = token.mid(position + 1, token.size());
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->type_ = value;
@@ -222,6 +223,7 @@ void Parser4Lines::Line4(QStringList data, AccountDetails* acc_details)
     int position = token.indexOf("_");
     token = token.mid(0, position);
     QString value = Utilities::ToType(token);
+
     if (value.size() > 0)
     {
       acc_details->sub_type_ = value;
@@ -272,7 +274,7 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
  
-  // Current Reading, Position 0 
+  // Reading To (Date), Position 0 
   try
   {
     QString token = line_data.at(0);
@@ -293,7 +295,7 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reading To (Date);";
   }
 
-  // Previous Reading, Position 1 
+  // Reading From (Date), Position 1 
   try
   {
     QString token = line_data.at(1);
@@ -305,12 +307,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
       acc_details->reading_from_ = date;
     } else
     {
-      acc_details->parsing_ = "Partial";
+      acc_details->parsing_ = "Warning";
       acc_details->reason_ += "No Reading From (Date);";
     }
   } catch (...)
   {
-    acc_details->parsing_ = "Partial";
+    acc_details->parsing_ = "Warning";
     acc_details->reason_ += "Not Reading From (Date);";
   }
 
@@ -319,6 +321,7 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->power_factor_ = value;
@@ -333,11 +336,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Multiplication Factor;";
   }
 
-  // Capacity, Position 3
+  // Circuit Breaker Capacity, Position 3
   try
   {
     QString token = line_data.at(3);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->capacity_ = value;
@@ -352,11 +356,12 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "No Circuit Breaker Capacity;";
   }
 
-  // Number of Days, Position 4
+  // Reading Days, Position 4
   try
   {
     QString token = line_data.at(4);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->reading_days_ = value;
@@ -371,7 +376,7 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reading Days;";
   }
 
-  // Meter Number, Position 5
+  // Meter Number, Position 5 or 6
   try
   {
     QString token = line_data.at(5);
@@ -432,6 +437,7 @@ void Parser4Lines::Line8(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(0);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->power_consumption_ = value;
@@ -451,6 +457,7 @@ void Parser4Lines::Line8(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(1);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->curr_reading_ = value;
@@ -470,6 +477,7 @@ void Parser4Lines::Line8(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->prev_reading_ = value;
@@ -499,7 +507,6 @@ void Parser4Lines::Line9(QStringList data, AccountDetails* acc_details)
   Line line_data = Utilities::Convert(data);
 
   // Position 0 - Taxable Amount
-
   try
   {
     QString token = line_data.at(0);
@@ -519,8 +526,7 @@ void Parser4Lines::Line9(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Taxable Amount;";
   }
 
-  // Position 4 - Power Cost
-
+  // Position 4 - Active Power Consumption Cost
   try
   {
     QString token = line_data.at(4);
@@ -610,12 +616,13 @@ void Parser4Lines::Line10(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line11(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Settlement
 
+  // Position 0 - Settlement
   try
   {
     QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);    
+    QString value = Utilities::ConvertEnglish(token); 
+    
     if (value.size() > 0)
     {
       acc_details->settlement_ = value;
@@ -639,8 +646,8 @@ void Parser4Lines::Line11(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Total Cost
 
+  // Position 0 - Total Cost
   try
   {
     QString token = line_data.at(0);
@@ -691,8 +698,8 @@ void Parser4Lines::Line11Small(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  // Position 0 - Taxable Cost
 
+  // Position 0 - Total Cost
   try
   {
     QString token = line_data.at(0);
@@ -712,6 +719,7 @@ void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Total Cost;";
   }
   
+  // Position 4 - Reactive Power Cost
   try
   {
     QString token = line_data.at(4);
@@ -742,6 +750,7 @@ void Parser4Lines::Line11Big(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line12(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
+
   // Position 0 - Settlement
   try
   {
@@ -773,7 +782,6 @@ void Parser4Lines::Line12Big(QStringList data, AccountDetails* acc_details)
   Line line_data = Utilities::Convert(data);
 
   //Position 0 - Non Taxable Amount
-
   try
   {
     QString token = line_data.at(0);
@@ -794,7 +802,6 @@ void Parser4Lines::Line12Big(QStringList data, AccountDetails* acc_details)
   }
 
   //Position 5 - Other Fees
-
   try
   {
     QString token = line_data.at(5);
@@ -826,6 +833,7 @@ void Parser4Lines::Line12Big(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line13(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
+
   // Position 0 - Non Taxable Amount
   try
   {
@@ -854,6 +862,7 @@ void Parser4Lines::Line13(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line14(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
+
   // Position 0 - Required Amount
   try
   {
@@ -883,8 +892,8 @@ void Parser4Lines::Line14(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Reactive Power Consumption, Position 0
-  
+
+  //Reactive Power Consumption, Position 0  
   try
   {
     QString token = line_data.at(0);
@@ -904,7 +913,7 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reactive Power Consumption;";
   }
 
-  //Current Reading, Position 1 
+  //Reactive Power Current Reading, Position 1 
   try
   {
     QString token = line_data.at(1);
@@ -923,7 +932,7 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
     acc_details->reason_ += "Not Reactive Power Current Reading;";
   }
 
-  //Previous Reading, Position 2 
+  //Reactive Power Previous Reading, Position 2 
   try
   {
     QString token = line_data.at(2);
@@ -951,133 +960,6 @@ void Parser4Lines::Line9Big(QStringList data, AccountDetails* acc_details)
   std::cout << "Reactive Power Previous Reading = " << 
       acc_details->other_prev_reading_.toStdString() << std::endl;
 #endif  
-}
-
-void Parser4Lines::Line10Big15(QStringList data, AccountDetails* acc_details)
-{
-  Line line_data = Utilities::Convert(data);
-
-  // Position 0 - Power Cost (15%)
-  try
-  {
-    QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);
-
-    if (value.size() > 0)
-    {
-      acc_details->power_cost_15_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Powr Cost(15%);";
-    }
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Powr Cost(15%);";
-  }
-
-  // Position 6 - VAT (15%)
-  try
-  {
-    QString token = line_data.at(6);
-    QString value = Utilities::ConvertEnglish(token);
-
-    if (value.size() > 0)
-    {
-      acc_details->vat_15_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No VAT;";
-    }
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not VAT;";
-  }
-
-  try
-  {
-    QString token = line_data.at(12);
-    QString value = Utilities::ConvertEnglish(token);
-    
-    if (value.size() > 0)
-    {
-      acc_details->other_pow_cons_cost_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Reactive Power Cost;";
-    }
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Reactive Power Cost;";
-  }
-
-#if PRINT_FIELD_VALUE
-  std::cout << "Power Cost(15%): " <<
-      acc_details->power_cost_15_.toStdString() << ", ";
-  std::cout << "VAT(15%): " <<
-      acc_details->vat_15_.toStdString() << ", ";
-  std::cout << "Reactive Power Cost: " <<
-      acc_details->other_pow_cons_cost_.toStdString() << std::endl;
-#endif  
-}
-
-void Parser4Lines::Line11Big15(QStringList data, AccountDetails* acc_details)
-{
-  Line line_data = Utilities::Convert(data);
-  //Position 0 - Amount Includes Tax
-
-  // Position 0 - Taxable Amount
-  try
-  {
-    QString token = line_data.at(0);
-    QString value = Utilities::ConvertEnglish(token);
-
-    if (value.size() > 0)
-    {
-      acc_details->taxable_amount_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Taxable Amount;";
-    }
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Taxable Amount;";
-  }
-
- 
-  //Position 4 - Other Fees
-  try
-  {
-    QString token = line_data.at(4);
-    QString value = Utilities::ConvertEnglish(token);
-
-    if (value.size() > 0)
-    {
-      acc_details->other_fees_ = value;
-    } else
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Other Fees;";
-    }
-  } catch (...)
-  {
-    acc_details->parsing_ = "Partial";
-    acc_details->reason_ += "Not Other Fees;";
-  }
-
-#if PRINT_FIELD_VALUE
-  std::cout << "New Field, Amount Includes Tax: " <<
-      acc_details->taxable_amount_.toStdString() << ", ";
-  std::cout << "Other Fees: " <<
-      acc_details->other_fees_.toStdString() << std::endl;
-#endif
 }
 
 void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
@@ -1126,7 +1008,6 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
   }
 
   //Position 12 - Power Factor
-
   try
   {
     QString token = line_data.at(12);
@@ -1159,8 +1040,8 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
-  //Position 0 - Reactive Power Total Consumption (Down)
 
+  //Position 0 - Total Reactive Power Consumption (Down)
   try
   {
     QString token = line_data.at(0);
@@ -1201,11 +1082,11 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
   }
 
   //Position 2 - Reactive Power Multiplication Factor
-
   try
   {
     QString token = line_data.at(2);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->mul_react_power_factor_ = value;
@@ -1221,7 +1102,6 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
   }
 
   // Position 4 - Reactive Power Previous Reading 
-
   try
   {
     QString token = line_data.at(4);
@@ -1242,7 +1122,6 @@ void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
   }
 
   // Position 6 - Reactive Power Current Reading 
-
   try
   {
     QString token = line_data.at(6);
@@ -1329,6 +1208,7 @@ void Parser4Lines::Line9Small(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(0);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->taxable_amount_ = value;
@@ -1349,6 +1229,7 @@ void Parser4Lines::Line9Small(QStringList data, AccountDetails* acc_details)
   {
     QString token = line_data.at(4);
     QString value = Utilities::ConvertEnglish(token);
+
     if (value.size() > 0)
     {
       acc_details->electrometer_fee_ = value;
@@ -1594,7 +1475,7 @@ void Parser4Lines::ParseConsumptions(QStringList data, AccountDetails* acc_detai
     acc_details->reason_ += "Not Total Meters Conumption;";
   }
 
-  // Position 1 - Reactive Power Conumtpion
+  // Position 1 - Total Meters Conumtpion Factor
   try
   {
     QString token = line_data.at(1);
