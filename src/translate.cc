@@ -16,7 +16,8 @@
 #include "parse_summary.h"
 
 void perform6parameters(int argc, char *argv[]);
-void perform4parameters(int argc, char *argv[]);
+void perform4parameters(int argc, char *argv[], QString output_path);
+void Perform5Parameters(int argc, char* argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -29,10 +30,12 @@ int main(int argc, char *argv[])
     if (argc == 6)
     {
       perform6parameters(argc, argv);
-    }    
-    else if (argc == 4)
+    } else if (argc == 4)
     {
-      perform4parameters(argc, argv);
+      perform4parameters(argc, argv, "");
+    } else if (argc == 5)
+    {
+      Perform5Parameters(argc, argv);
     }
   } else
   {	  std::cout << "Not a valid parameters." << std::endl;
@@ -219,14 +222,13 @@ void perform6parameters(int argc, char *argv[])
   }
 }
 
-void perform4parameters(int argc, char *argv[])
+void perform4parameters(int argc, char *argv[], QString output_path)
 {
   bool is_process = true;
   int file_type = 0;
   int month = 0;
   int year = 0;
-  QString in_file = "";
-  QString out_file = "";
+  QString in_file = "";  
 
   if (QString(argv[1]).size() > 0)
   {
@@ -275,6 +277,11 @@ void perform4parameters(int argc, char *argv[])
   {
     std::cout << " Input file does not exist." << in_file.toStdString() << std::endl;
     is_process = false;
+  }
+  
+  if (output_path.size() > 0)
+  {
+    base_name = QDir(output_path).filePath(file_info.baseName());
   }
 
   if (ext != "pdf")
@@ -329,6 +336,23 @@ void perform4parameters(int argc, char *argv[])
       " milli seconds, " << (time_spent * 0.001) << " seconds. \n" <<
       std::endl;    
   }
+}
+
+void Perform5Parameters(int argc, char* argv[])
+{
+  QString output_path = QString(argv[4]);
+  QDir dir(output_path);
+
+  //Check whether the directory exists or not
+  //If available use that directory to write otherwise 
+  //Write the data in the input file directory.
+  if (dir.exists())
+  {
+    perform4parameters(argc, argv, output_path);
+  } else
+  {
+    perform4parameters(argc, argv, "");
+  }  
 }
 
 
