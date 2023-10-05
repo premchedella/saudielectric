@@ -78,8 +78,9 @@ Parser4WriteData::~Parser4WriteData()
     row_data += "Reactive Power Meter Number,"; // AU    
     row_data += "Total Meters Consumption,"; // AV    
     row_data += "Total Meters Consumption Factor,"; // AW    
-    row_data += "Conversion,"; // AX
-    row_data += "Reason"; // AY    
+    row_data += "Total Consumption,"; // AX    
+    row_data += "Conversion,"; // AY
+    row_data += "Reason"; // AZ    
     
 
     stream << row_data << "\n";
@@ -194,10 +195,12 @@ Parser4WriteData::~Parser4WriteData()
       row_data += value + ","; // AV
       value = acc_details.meteters_consumption_factor_;
       row_data += value + ","; // AW
-      value = acc_details.parsing_;
+      value = acc_details.total_consumption_;
       row_data += value + ","; // AX
+      value = acc_details.parsing_;
+      row_data += value + ","; // AY
       value = acc_details.reason_;
-      row_data += value; // AY 
+      row_data += value; // AZ 
                     
       if (acc_details.parsing_ == "Completed")
       {

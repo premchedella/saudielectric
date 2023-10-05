@@ -244,16 +244,14 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser4Lines::ParseActivePower(line_data, acc_details);
+    Parser4Lines::ActivePower(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Active Power Consumption Line;";
   }
 
-  line_no = data_in.size() - 2;
-  if (Utilities::IsExtraWord())
-    line_no = data_in.size() - 3;
+  line_no = data_in.size() - 3;    
 #if PRINT_FIELD_VALUE
   std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
@@ -261,10 +259,24 @@ void Parser4Big::Parse(Block data_in, AccountDetails* acc_details)
   try
   {
     line_data = data_in.at(line_no);
-    Parser4Lines::LineLast(line_data, acc_details);
+    Parser4Lines::ReactivePower(line_data, acc_details);
   } catch (...)
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "No Reactive Power Consumption Line;";
+  }
+
+  //Parse Last Line
+  line_no = data_in.size() - 1;
+
+  try
+  {
+    line_data = data_in.at(line_no);
+    Parser4Lines::LineLast(line_data, acc_details);
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "No Total Consumption Line;";
   }
 }

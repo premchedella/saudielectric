@@ -84,8 +84,7 @@ class AccountDetails
   QString rp_cb_capacity_; // Reactive Power Circuit Breaker Capacity
   QString rp_meter_number_;  // Reactive Meter Nummber
 
-
-
+  QString total_consumption_; // Total Consumption
 
   QString parsing_;   //Parsing is "Complete" or "Partial"
   QString reason_;    // Reason for not Complete. 

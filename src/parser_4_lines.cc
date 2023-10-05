@@ -389,12 +389,10 @@ void Parser4Lines::Line7(QStringList data, AccountDetails* acc_details)
     // Get the English characters of meter number
     QString prefix = token.left(3);
 
-    Utilities::SetExtraWord(true);
     // If the meter number has no English characters, consider only Arabic.   
     if (Utilities::ConvertEnglish(prefix).size() > 0)
     {
-      prefix = "";
-      Utilities::SetExtraWord(false);
+      prefix = "";    
     }  
 
     QString value = Utilities::ConvertEnglish(token);
@@ -1038,7 +1036,7 @@ void Parser4Lines::Line16(QStringList data, AccountDetails* acc_details)
 #endif
 }
 
-void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::ReactivePower(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -1301,7 +1299,7 @@ void Parser4Lines::Line10Small(QStringList data, AccountDetails* acc_details)
 }
 
 
-void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::ActivePower(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -1461,7 +1459,7 @@ void Parser4Lines::ParseActivePower(QStringList data, AccountDetails* acc_detail
   }
 }
 
-void Parser4Lines::ParseConsumptions(QStringList data, AccountDetails* acc_details)
+void Parser4Lines::Consumptions(QStringList data, AccountDetails* acc_details)
 {
   Line line_data = Utilities::Convert(data);
 
@@ -1505,5 +1503,31 @@ void Parser4Lines::ParseConsumptions(QStringList data, AccountDetails* acc_detai
   {
     acc_details->parsing_ = "Partial";
     acc_details->reason_ += "Not Total Meters Consumption Factor;";
+  }
+}
+
+void Parser4Lines::LineLast(QStringList data, AccountDetails* acc_details)
+{
+  Line line_data = Utilities::Convert(data);
+
+  // Position 0 - Total Conumption
+  try
+  {
+    QString token = line_data.at(0);
+    QString value = Utilities::ConvertEnglish(token);
+
+    if (value.size() > 0)
+    {
+      acc_details->total_consumption_ = value;
+    } else
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Conumption;";
+    }
+  }
+  catch (...)
+  {
+    acc_details->parsing_ = "Partial";
+    acc_details->reason_ += "Not Total Conumption;";
   }
 }

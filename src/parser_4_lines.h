@@ -25,10 +25,12 @@ class Parser4Lines
   static void Line14(QStringList data, AccountDetails* acc_details);
   static void Line9Big(QStringList data, AccountDetails* acc_details);
   static void Line16(QStringList data, AccountDetails* acc_details);  
-  static void LineLast(QStringList data, AccountDetails* acc_details);  
+  static void ReactivePower(QStringList data, AccountDetails* acc_details);  
   static void Line9Small(QStringList data, AccountDetails* acc_details);
   static void Line10Small(QStringList data, AccountDetails* acc_details);
 
-  static void ParseActivePower(QStringList data, AccountDetails* acc_details);
-  static void ParseConsumptions(QStringList data, AccountDetails* acc_details);
+  static void ActivePower(QStringList data, AccountDetails* acc_details);
+  static void Consumptions(QStringList data, AccountDetails* acc_details);
+  static void LineLast(QStringList data, AccountDetails* acc_details);
+   
 };

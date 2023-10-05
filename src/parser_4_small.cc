@@ -279,16 +279,25 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
   }
 
   line_no = 17;
-  if (line_no <= data_in.size())
+  bool is_multi_meters = false;
+  bool is_last_line = false;
+  if (line_no < data_in.size())
   {
 #if PRINT_FIELD_VALUE
     std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
-
+    is_last_line = true;
     try
     {
       line_data = data_in.at(line_no);
-      Parser4Lines::ParseActivePower(line_data, acc_details);
+      if (line_data.size() == 10)
+      {
+        Parser4Lines::ActivePower(line_data, acc_details);
+      } else
+      {
+        is_multi_meters = true;
+      }
+
     }
     catch (...)
     {
@@ -297,9 +306,34 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     }
   }
 
-  line_no = 19;
-  if (line_no <= data_in.size())
+  
+  if (!is_multi_meters)
   {
+    line_no = 19;
+        
+  #if PRINT_FIELD_VALUE
+      std::cout << "Parse Line " << line_no + 1 << ":: ";
+  #endif      
+
+    // Parse Total Meters Consumption Line
+    try
+    {
+      line_data = data_in.at(line_no);
+      Parser4Lines::Consumptions(line_data, acc_details);
+    }
+    catch (...)
+    {
+      acc_details->parsing_ = "Partial";
+      acc_details->reason_ += "No Total Meters Consumption Line;";
+    }            
+  }
+
+  if (is_last_line)
+  {
+    // Parse Total Consumption Line
+
+    line_no = data_in.size() - 1;
+
 #if PRINT_FIELD_VALUE
     std::cout << "Parse Line " << line_no + 1 << ":: ";
 #endif
@@ -307,12 +341,12 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
     try
     {
       line_data = data_in.at(line_no);
-      Parser4Lines::ParseConsumptions(line_data, acc_details);
+      Parser4Lines::LineLast(line_data, acc_details);
     }
     catch (...)
     {
       acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Meters Consumptions Line;";
+      acc_details->reason_ += "No Total Consumption Line;";
     }
   }
 }

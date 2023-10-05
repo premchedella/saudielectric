@@ -75,6 +75,7 @@ AccountDetails::AccountDetails()
   rp_cb_capacity_ = "";
   rp_meter_number_ = "";
 
+  total_consumption_ = "";
 
   // General
   parsing_ = "";
@@ -160,5 +161,7 @@ void AccountDetails::Initialize()
   rp_consumption_factor_ = "NULL";
   rp_cb_capacity_ = "NULL";
   rp_meter_number_ = "NULL";
+
+  total_consumption_ = "NULL";
 }
 
