@@ -33,7 +33,9 @@ class XPdfParse : public QObject
   Block RemoveSingleValueZero(Block data_in);  
   Blocks GetBlocks(Block data_in);
   Blocks GetBlocksParser1(Block data_in);
-
+  unsigned int GetStartPage();
+  Block GetPageData(int page_no);
+ 
   QString in_file_name_;  
   Blocks data_blocks_;
   unsigned int total_invoices_;

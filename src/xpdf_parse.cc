@@ -146,10 +146,16 @@ void XPdfParse::PdftoText(QString out_file)
   argument = "-table";
   arguments.push_back(argument);
 
-  /* The first page conains meta data, which is not required.*/
+  /* Get the start page of the data, some times it start from page No.2
+  some times it starts from page No.3. */
+
+  unsigned int start_page = GetStartPage();
+  std::cout << "Invoices data start page = " << start_page << std::endl; 
+
+  /* The first few pages conains meta data, which is not required.*/
   argument = "-f";
   arguments.push_back(argument);
-  argument = QString::number(2);
+  argument = QString::number(start_page);
   arguments.push_back(argument);
 
   /*argument = "-nopgbrk";
@@ -523,4 +529,107 @@ Blocks XPdfParse::GetBlocksParser1(Block data_in)
   }
 
   return data_blocks_;
+}
+
+unsigned int XPdfParse::GetStartPage()
+{
+  unsigned int start_page = 0;
+  QString page_str = QStringLiteral(START_PAGE_STRING);
+
+  for (unsigned int page_no = 2; page_no < 10; page_no++)
+  {
+    // First Get the Page data
+    Block page_data = GetPageData(page_no);
+    if (page_data.size() > 2)
+    {
+      QStringList line_data = page_data[3];
+  
+      if (line_data.size() > 8)
+      {
+        // Make a string of two words
+        QString words = line_data[7] + " " + line_data[8];
+
+        // Remove Last character and to the first character
+        words = ":" + words.left(words.size() - 1);
+
+        if (page_str == words)
+        {
+          start_page = page_no;
+          break;
+        }
+      }
+    }      
+  }
+  
+  return start_page;
+}
+
+Block XPdfParse::GetPageData(int page_no)
+{
+  PreDirCheck();
+  QString cur_dir = QDir::currentPath();
+  QString base_dir = cur_dir + QDir::separator() + "..";
+  QString temp_dir = base_dir + QDir::separator() + "temp";
+  QString pdf_to_file = temp_dir + QDir::separator() + "temp.txt";
+  pdf_to_file = QDir::toNativeSeparators(pdf_to_file);
+
+  QString tools_dir = base_dir + QDir::separator() + "tools";
+  QString exe_name = tools_dir + QDir::separator() + "pdftotext.exe";
+  exe_name = QDir::toNativeSeparators(exe_name);
+
+  QStringList arguments;
+  QString argument = "-layout";
+  arguments.push_back(argument);
+
+  argument = "-table";
+  arguments.push_back(argument);
+
+  /* The that page number data.*/
+  argument = "-l";
+  arguments.push_back(argument);
+  argument = QString::number(page_no);
+  arguments.push_back(argument);
+
+  argument = "-f";
+  arguments.push_back(argument);
+  argument = QString::number(page_no);
+  arguments.push_back(argument);
+
+  /*argument = "-nopgbrk";
+  arguments.push_back(argument);*/
+
+  argument = "-enc";
+  arguments.push_back(argument);
+
+  //the following is done because enc exepcts a string parameter
+  //which can be achieved by defining the QStringLiteral
+  argument = QStringLiteral("UTF-8");
+  arguments.push_back(argument);
+
+  arguments.push_back(in_file_name_);
+  arguments.push_back(pdf_to_file);
+
+#if DEBUG
+  PrintCommands(exe_name, arguments);
+#endif
+
+  QProcess  process;
+  int retval = process.execute(exe_name, arguments);
+  if (retval != 0)
+  {
+    std::cout << "Not able to generated temporary text file is an error =" <<
+      retval << std::endl;
+  } else
+  {
+#if DEBUG
+    std::cout << "Generated the PDF to temporary Text file." << std::endl;
+#endif
+  }
+
+  QStringList txt_data = ReadTextFile(pdf_to_file);
+  txt_data = RemoveWhiteSpaces(txt_data);
+
+  Block page_data = ConvertData(txt_data);
+
+  return page_data;
 }
