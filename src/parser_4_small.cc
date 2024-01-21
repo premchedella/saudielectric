@@ -310,22 +310,26 @@ void Parser4Small::Parse(Block data_in, AccountDetails* acc_details)
   if (!is_multi_meters)
   {
     line_no = 19;
-        
-  #if PRINT_FIELD_VALUE
-      std::cout << "Parse Line " << line_no + 1 << ":: ";
-  #endif      
 
-    // Parse Total Meters Consumption Line
-    try
+    if (line_no < data_in.size())
     {
-      line_data = data_in.at(line_no);
-      Parser4Lines::Consumptions(line_data, acc_details);
+        
+    #if PRINT_FIELD_VALUE
+        std::cout << "Parse Line " << line_no + 1 << ":: ";
+    #endif      
+
+      // Parse Total Meters Consumption Line
+      try
+      {
+        line_data = data_in.at(line_no);
+        Parser4Lines::Consumptions(line_data, acc_details);
+      }
+      catch (...)
+      {
+        acc_details->parsing_ = "Partial";
+        acc_details->reason_ += "No Total Meters Consumption Line;";
+      }
     }
-    catch (...)
-    {
-      acc_details->parsing_ = "Partial";
-      acc_details->reason_ += "No Total Meters Consumption Line;";
-    }            
   }
 
   if (is_last_line)
