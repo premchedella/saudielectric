@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
       Perform5Parameters(argc, argv);
     }
   } else
-  {	  std::cout << "Not a valid parameters." << std::endl;
-    
+  {	  
+    std::cout << "Not a valid parameters." << std::endl;    
   }
   core_app.exit();
 }
