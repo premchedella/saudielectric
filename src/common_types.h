@@ -9,7 +9,7 @@ typedef std::vector<QStringList> Block;
 typedef std::vector<Block> Blocks;
 typedef std::vector<QString> Line;
 
-#define VERSION "4.0"
+#define VERSION "4.01"
 
 #define START_BLOCK_INDEX 0
 
@@ -17,6 +17,8 @@ typedef std::vector<QString> Line;
 #define END_BLOCK_WORD u"ﺍﻟﻘﺪﺭﺓ‪:‬‬"
 #define LAST_BLOCK_WORD u"ﻣﺠﻤﻮﻉ"
 #define START_BLOCK_WORD_TWO u"ﺍﻟﻔﺌﺔ\\"
+
+#define START_PAGE_STRING u":ﻭﺻﻒ ﺍﻟﺤﺴﺎﺏ"
 
 //Parser 1
 #define PARSER_1_START_BLOCK_WORD u"ﺭﻗﻢ ﺍﻟﺤﺴﺎﺏ"
